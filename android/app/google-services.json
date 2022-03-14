@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "934690767978",
+    "project_id": "swiminit05",
+    "storage_bucket": "swiminit05.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:934690767978:android:0738fc69e8c9eb3176b613",
+        "android_client_info": {
+          "package_name": "com.example.swiminit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "934690767978-gpl44gc4vhlenl4k85mrle7lmffdg6ug.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_S7gpWnzR8RQmzzzndg1ocZGq5RYce9M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "934690767978-gpl44gc4vhlenl4k85mrle7lmffdg6ug.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
