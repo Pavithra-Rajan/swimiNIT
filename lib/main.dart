@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
-import 'package:flutter/widgets.dart';
 import 'package:swiminit/profile_screen.dart';
 void main() {
   runApp(const MyApp());
@@ -160,7 +159,7 @@ class WaveClipper extends CustomClipper<Path>{
   @override
   Path getClip (Size size){
     debugPrint(size.width.toString());
-    var path = new Path();
+    var path = Path();
     path.lineTo(0, size.height);
     var firstStart = Offset(size.width/5, size.height); //controlling point
     var firstEnd = Offset(size.width/2.25, size.height-50.0);  //little over half of width
