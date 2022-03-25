@@ -1,9 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:swiminit/Admin/adminaddspm.dart';
+import 'package:swiminit/Reports/quaterly_reports.dart';
 import 'dart:math' as math;
 import 'package:swiminit/profile_screen.dart';
 import 'firebase_options.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,9 +38,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Future<FirebaseApp> _initializeFirebase() async {
-  FirebaseApp firebaseApp = await Firebase.initializeApp();
+    FirebaseApp firebaseApp = await Firebase.initializeApp();
 
-  return firebaseApp;
+    return firebaseApp;
   }
   @override
   Widget build(BuildContext context) {
@@ -100,15 +103,13 @@ class _LoginScreenState extends State<LoginScreen> {
           //const SizedBox(height: 34.0,
           //),
           Text("Login",
-              style:TextStyle(
+              style: TextStyle(
                 color: Colors.blue[900],
                 fontSize: 28.0,
                 fontWeight: FontWeight.bold,
               )
           ),
-          const SizedBox(height: 44.0,
-
-          ),
+          const SizedBox(height: 44.0),
           TextField(
             controller: _emailController,
             keyboardType: TextInputType.emailAddress,
@@ -118,8 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
             ),
           ),
-          const SizedBox(height: 26.0,
-          ),
+          const SizedBox(height: 26.0,),
           TextField(
             controller: _passwordController,
             obscureText: true,
@@ -128,8 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
               prefixIcon: Icon(Icons.lock,color:Colors.indigo),
             ),
           ),
-          const SizedBox(height: 40.0,
-          ),
+          const SizedBox(height: 40.0,),
           SizedBox(
               width: 100.0,
               child: RawMaterialButton(
@@ -141,7 +140,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     if (user != null){
                       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ProfileScreen()));
                     }
-
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12.0),
@@ -176,7 +174,6 @@ class WaveClipper extends CustomClipper<Path>{
     path.lineTo(size.width, 0);
     path.close();
     return path;
-
   }
 
   @override
