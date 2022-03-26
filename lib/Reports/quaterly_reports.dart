@@ -32,7 +32,9 @@ class _QuarterlyReports extends State<QuarterlyReports>
               child: Container(
                 alignment: Alignment.center,
                 child: RawMaterialButton(onPressed: () async {},
-                      fillColor: Color(int.parse("0xFF93C6D3")),
+                      fillColor: Color(0xFF93C6D3),
+                      splashColor: Color(0xFF93C6D3),
+                      highlightColor: Color(0xFF93C6D3),
                       constraints: BoxConstraints.tight(Size(300, 225)),
                       padding: const EdgeInsets.symmetric(vertical: 15.0),
                       shape: RoundedRectangleBorder(
@@ -51,6 +53,8 @@ class _QuarterlyReports extends State<QuarterlyReports>
                 alignment: Alignment.center,
                 child: RawMaterialButton(onPressed: () async {},
                     fillColor: Color(0xFF93C6D3),
+                    splashColor: Color(0xFF93C6D3),
+                    highlightColor: Color(0xFF93C6D3),
                     constraints: BoxConstraints.tight(Size(300, 225)),
                     padding: const EdgeInsets.symmetric(vertical: 15.0),
                     shape: RoundedRectangleBorder(
