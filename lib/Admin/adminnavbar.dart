@@ -10,6 +10,7 @@ import 'package:swiminit/Admin/admin_drawer_file.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:swiminit/Admin/quaterly_reports.dart';
 import 'package:swiminit/main.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AdminNavBar extends StatelessWidget {
   @override
@@ -49,7 +50,8 @@ class _HomePageState extends State<HomePage> {
       container = EditSwimmerPage();
       text = "Edit swimmer details";
     } else if (currentPage == DrawerSections.send_mail) {
-      container = SendMailPage(); // Just open gmail
+      _contact();
+      container = ViewPoolManagers(); // Just open gmail
       text = "Pool Managers";
     } else if (currentPage == DrawerSections.reports) {
       container = QuarterlyReports();
@@ -169,4 +171,13 @@ enum DrawerSections {
   send_mail,
   reports,
   log_out
+}
+
+void _contact() async {
+  final url = 'mailto:pavithra.rajan01@gmail.com';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
 }
