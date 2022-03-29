@@ -12,7 +12,7 @@ class UserHistoryPage extends StatefulWidget {
 }
 
 class _UserHistoryPageState extends State<UserHistoryPage> {
-  Person P = Person('Varun Anilkumar', 'lib/Resources/pic-1.png', "B190621CS", "16:36", "4", "0", "R-043657839", "200", "24-01-2022", "Student");
+  Person P = Person('Varun Anilkumar', 'lib/Resources/pic-1.png', "B190621CS", "16:36", "4", "0", "R-043657839", "200", "24-01-2022", "Student","varun_b190621cs@nitc.ac.in","6285435321","9061219855");
 
 
   Widget userDetails(Person) {
