@@ -7,6 +7,7 @@ import 'package:swiminit/Admin/pool_managers.dart';
 import 'package:swiminit/Admin/quaterly_reports.dart';
 import 'package:swiminit/SPM/spmnavbar.dart';
 import 'package:swiminit/SPM/pool_status.dart';
+import 'package:swiminit/SPM/user_history.dart';
 import 'package:swiminit/Admin/adminnavbar.dart';
 
 import 'dart:math' as math;
