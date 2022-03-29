@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:swiminit/Admin/send_mail.dart';
 import 'package:swiminit/Admin/adminaddspm.dart';
-import 'package:swiminit/Reports/quaterly_reports.dart';
+import 'package:swiminit/Admin/pool_managers.dart';
+import 'package:swiminit/Admin/quaterly_reports.dart';
 import 'package:swiminit/SPM/spmnavbar.dart';
 import 'package:swiminit/SPM/pool_status.dart';
 import 'package:swiminit/Admin/adminnavbar.dart';
@@ -25,9 +27,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: HomePage(),
+      routes: <String, WidgetBuilder>{
+        '/login': (BuildContext context) => LoginScreen(),
+      },
     );
   }
 }
@@ -154,6 +159,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
                           builder: (context) => AdminNavBar()));
                     }
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => AdminNavBar())); //Put this back in that if later
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12.0),

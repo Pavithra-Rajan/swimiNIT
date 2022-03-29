@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../main.dart';
@@ -23,7 +21,6 @@ class _AdminAddSPMState extends State<AdminAddSPM>
     TextEditingController _contact2 = TextEditingController();
     TextEditingController _password = TextEditingController();
 
-
     Widget Adding()
     {
       if(!added)
@@ -43,7 +40,7 @@ class _AdminAddSPMState extends State<AdminAddSPM>
               const SizedBox(height: 26.0,),
               TextField(
                 controller: _contact1,
-                obscureText: true,
+                obscureText: false,
                 keyboardType: TextInputType.phone,
                 decoration: const InputDecoration(
                   hintText: "Contact 1",
@@ -54,7 +51,7 @@ class _AdminAddSPMState extends State<AdminAddSPM>
               ),
               TextField(
                 controller: _contact2,
-                obscureText: true,
+                obscureText: false,
                 keyboardType: TextInputType.phone,
                 decoration: const InputDecoration(
                   hintText: "Contact 2",
@@ -84,6 +81,26 @@ class _AdminAddSPMState extends State<AdminAddSPM>
       }
     }
 
+    SizedBox fab()
+    {
+      if(!added)
+      {
+          return SizedBox(
+            height: 70.0,
+            width: 70.0,
+            child: FittedBox(
+              child: FloatingActionButton(onPressed: () { setState(() {added = true;}); },
+                child: const Icon(Icons.add),
+              ),
+            ),
+          );
+      }
+      else
+      {
+          return SizedBox();
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -91,18 +108,7 @@ class _AdminAddSPMState extends State<AdminAddSPM>
         backgroundColor: Colors.blue[900],
       ),
       body: Adding(),
-      bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(icon: Icon(Icons.add), label: "Add"),
-            BottomNavigationBarItem(icon: Icon(Icons.arrow_left), label: "Back")
-          ],
-        onTap: (int a){
-            if(a == 0)
-              {
-                setState(() {added = true;});
-              }
-        },
-      ),
+      floatingActionButton: fab()
     );
   }
 }

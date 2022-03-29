@@ -1,15 +1,16 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:swiminit/Admin/log_out.dart';
 import 'package:swiminit/Admin/pool_managers.dart';
 import 'package:swiminit/Admin/pool_status.dart';
 import 'package:swiminit/Admin/pending_dues.dart';
 import 'package:swiminit/Admin/search.dart';
 import 'package:swiminit/Admin/edit_swimmer_details.dart';
 import 'package:swiminit/Admin/send_mail.dart';
-import 'package:swiminit/Admin/reports.dart';
 import 'package:swiminit/Admin/admin_drawer_file.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:swiminit/Admin/quaterly_reports.dart';
+import 'package:swiminit/main.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AdminNavBar extends StatelessWidget {
   @override
@@ -31,46 +32,54 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     var container;
+    String text = "Pool Managers";
     if (currentPage == DrawerSections.pool_managers) {
-      container = PoolManagersPage();
+      container = ViewPoolManagers();
+      text = "Pool Managers";
     } else if (currentPage == DrawerSections.pool_status) {
-      container = PoolStatusPage();
+      container = PoolStatusPage(); //Does admin need this
+      text = "Pool Status";
     } else if (currentPage == DrawerSections.pending_dues) {
       container = PendingDuesPage();
+      text = "Pending Dues";
     } else if (currentPage == DrawerSections.search) {
-      container = SearchPage();
+      container = SearchPage(); //Wtf is this
+      text = "Search";
     } else if (currentPage == DrawerSections.edit_swimmer_details) {
       container = EditSwimmerPage();
+      text = "Edit swimmer details";
     } else if (currentPage == DrawerSections.send_mail) {
-      container = SendMailPage();
+      _contact();
+      container = ViewPoolManagers(); // Just open gmail
+      text = "Pool Managers";
     } else if (currentPage == DrawerSections.reports) {
-      container = ReportsPage();
+      container = QuarterlyReports();
+      text = "Reports";
     } else if (currentPage == DrawerSections.log_out) {
-      container = LogOutPage();
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => MyApp()));
     }
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
         backgroundColor: Color(0xFF14839F),
         title: Text(
-          'Pool Managers',
+          text,
           style: GoogleFonts.poppins(color: Colors.white),
         ),
       ),
       body: container,
       drawer: Drawer(
         child: SingleChildScrollView(
-          child: Container(
-            child: Column(
-              children: [MyHeaderDrawer(), MyDrawerList()],
-            ),
+          child: Column(
+            children: [MyHeaderDrawer(), myDrawerList()],
           ),
         ),
       ),
     );
   }
 
-  Widget MyDrawerList() {
+  Widget myDrawerList() {
     return Container(
       padding: EdgeInsets.only(
         top: 15,
@@ -158,4 +167,13 @@ enum DrawerSections {
   send_mail,
   reports,
   log_out
+}
+
+void _contact() async {
+  final url = 'mailto:pavithra.rajan01@gmail.com';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
 }
