@@ -31,7 +31,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     var container;
-    bool isClosed = false;
     String text = "Pool Managers";
     if (currentPage == DrawerSections.pool_managers) {
       container = ViewPoolManagers();
@@ -55,7 +54,6 @@ class _HomePageState extends State<HomePage> {
       container = QuarterlyReports();
       text = "Reports";
     } else if (currentPage == DrawerSections.log_out) {
-      Navigator.of(context).pop();
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => MyApp()));
     }
@@ -71,17 +69,15 @@ class _HomePageState extends State<HomePage> {
       body: container,
       drawer: Drawer(
         child: SingleChildScrollView(
-          child: Container(
-            child: Column(
-              children: [MyHeaderDrawer(), MyDrawerList()],
-            ),
+          child: Column(
+            children: [MyHeaderDrawer(), myDrawerList()],
           ),
         ),
       ),
     );
   }
 
-  Widget MyDrawerList() {
+  Widget myDrawerList() {
     return Container(
       padding: EdgeInsets.only(
         top: 15,
