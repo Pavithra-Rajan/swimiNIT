@@ -5,10 +5,8 @@ class PendingDuesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Text('Pending Dues Page'),
-      ),
+    return Center(
+      child: Text('Pending Dues Page'),
     );
   }
 }

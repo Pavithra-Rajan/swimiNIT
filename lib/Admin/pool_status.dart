@@ -21,7 +21,7 @@ class _PoolStatusPageState extends State<PoolStatusPage>
     Person('Joseph Mani', 'lib/Resources/pic-1.png', "B190529CS", "17:05")
   ];
 
-  Widget buildCard(Person) {
+  Widget buildCard(Person p) {
     return Padding(
         padding: const EdgeInsets.all(1.0),
         child: Card(
@@ -46,11 +46,11 @@ class _PoolStatusPageState extends State<PoolStatusPage>
                             child: Container(
                                 width: 50.0,
                                 height: 50.0,
-                                decoration: new BoxDecoration(
+                                decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    image: new DecorationImage(
+                                    image: DecorationImage(
                                         fit: BoxFit.cover,
-                                        image: AssetImage(Person.profileImg)
+                                        image: AssetImage(p.profileImg)
                                     )
                                 )),
                           ),
@@ -62,10 +62,10 @@ class _PoolStatusPageState extends State<PoolStatusPage>
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  Text(Person.name,
+                                  Text(p.name,
                                     style: GoogleFonts.poppins(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
                                   ),
-                                  Text(Person.rollno,
+                                  Text(p.rollno,
                                     style: GoogleFonts.poppins(color: Colors.black, fontSize: 12),
                                   )
                                 ],
@@ -79,10 +79,10 @@ class _PoolStatusPageState extends State<PoolStatusPage>
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: <Widget>[
-                                  Text('Entered at '+Person.enteredAt,
+                                  Text('Entered at '+p.enteredAt,
                                     style: GoogleFonts.poppins(color: Colors.black, fontSize: 14),
                                   ),
-                                  Text(Person.rollno,
+                                  Text(p.rollno,
                                     style: GoogleFonts.poppins(color: Colors.black, fontSize: 12),
                                   )
                                 ],
@@ -123,15 +123,6 @@ class _PoolStatusPageState extends State<PoolStatusPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 70,
-        centerTitle: false,
-        backgroundColor: Color(0xFF14839F),
-        title: Text('Status', style: GoogleFonts.poppins(color: Colors.white)
-        ),
-      ),
-
-
       body: Padding(
         padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
         child: Column(

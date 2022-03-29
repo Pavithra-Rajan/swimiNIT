@@ -1,18 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:swiminit/Admin/send_mail.dart';
-import 'package:swiminit/Admin/adminaddspm.dart';
-import 'package:swiminit/Admin/pool_managers.dart';
-import 'package:swiminit/Admin/quaterly_reports.dart';
-import 'package:swiminit/SPM/spmnavbar.dart';
-import 'package:swiminit/SPM/pool_status.dart';
 import 'package:swiminit/Admin/adminnavbar.dart';
-
-import 'dart:math' as math;
-import 'package:swiminit/profile_screen.dart';
 import 'firebase_options.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
