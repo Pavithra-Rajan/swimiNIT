@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../main.dart';
-
 class AdminAddSPM extends StatefulWidget
 {
   const AdminAddSPM({Key? key}) : super(key: key);
@@ -21,7 +19,7 @@ class _AdminAddSPMState extends State<AdminAddSPM>
     TextEditingController _contact2 = TextEditingController();
     TextEditingController _password = TextEditingController();
 
-    Widget Adding()
+    Widget adding()
     {
       if(!added)
       {
@@ -107,7 +105,7 @@ class _AdminAddSPMState extends State<AdminAddSPM>
         title: const Text('Add Pool Manager'),
         backgroundColor: Colors.blue[900],
       ),
-      body: Adding(),
+      body: adding(),
       floatingActionButton: fab()
     );
   }

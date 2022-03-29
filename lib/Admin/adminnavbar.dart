@@ -1,11 +1,9 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:swiminit/Admin/pool_managers.dart';
 import 'package:swiminit/Admin/pool_status.dart';
 import 'package:swiminit/Admin/pending_dues.dart';
 import 'package:swiminit/Admin/search.dart';
 import 'package:swiminit/Admin/edit_swimmer_details.dart';
-import 'package:swiminit/Admin/send_mail.dart';
 import 'package:swiminit/Admin/admin_drawer_file.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:swiminit/Admin/quaterly_reports.dart';
@@ -13,6 +11,9 @@ import 'package:swiminit/main.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AdminNavBar extends StatelessWidget {
+
+  const AdminNavBar({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -23,39 +24,42 @@ class AdminNavBar extends StatelessWidget {
 }
 
 class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  var currentPage = DrawerSections.pool_managers;
+  var currentPage = DrawerSections.poolManagers;
+
   @override
   Widget build(BuildContext context) {
-    var container;
+    Widget container = Container();
     String text = "Pool Managers";
-    if (currentPage == DrawerSections.pool_managers) {
+    if (currentPage == DrawerSections.poolManagers) {
       container = ViewPoolManagers();
       text = "Pool Managers";
-    } else if (currentPage == DrawerSections.pool_status) {
+    } else if (currentPage == DrawerSections.poolStatus) {
       container = PoolStatusPage(); //Does admin need this
       text = "Pool Status";
-    } else if (currentPage == DrawerSections.pending_dues) {
+    } else if (currentPage == DrawerSections.pendingDues) {
       container = PendingDuesPage();
       text = "Pending Dues";
     } else if (currentPage == DrawerSections.search) {
       container = SearchPage(); //Wtf is this
       text = "Search";
-    } else if (currentPage == DrawerSections.edit_swimmer_details) {
+    } else if (currentPage == DrawerSections.editSwimmerDetails) {
       container = EditSwimmerPage();
       text = "Edit swimmer details";
-    } else if (currentPage == DrawerSections.send_mail) {
+    } else if (currentPage == DrawerSections.sendMail) {
       _contact();
-      container = ViewPoolManagers(); // Just open gmail
+      container = ViewPoolManagers();
       text = "Pool Managers";
     } else if (currentPage == DrawerSections.reports) {
       container = QuarterlyReports();
       text = "Reports";
-    } else if (currentPage == DrawerSections.log_out) {
+    } else if (currentPage == DrawerSections.logOut) {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => MyApp()));
     }
@@ -87,26 +91,26 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         children: [
           menuItem(1, "Pool Managers", Icons.dashboard_outlined,
-              currentPage == DrawerSections.pool_managers ? true : false),
+              currentPage == DrawerSections.poolManagers ? true : false),
           menuItem(2, "Pool Status", Icons.people_alt_outlined,
-              currentPage == DrawerSections.pool_status ? true : false),
+              currentPage == DrawerSections.poolStatus ? true : false),
           menuItem(3, "Pending Dues", Icons.event,
-              currentPage == DrawerSections.pending_dues ? true : false),
+              currentPage == DrawerSections.pendingDues ? true : false),
           menuItem(4, "Search", Icons.notes,
               currentPage == DrawerSections.search ? true : false),
           menuItem(
               5,
               "Edit Swimmer Details",
               Icons.settings_outlined,
-              currentPage == DrawerSections.edit_swimmer_details
+              currentPage == DrawerSections.editSwimmerDetails
                   ? true
                   : false),
           menuItem(6, "Send Mail", Icons.notifications_outlined,
-              currentPage == DrawerSections.send_mail ? true : false),
+              currentPage == DrawerSections.sendMail ? true : false),
           menuItem(7, "Reports", Icons.privacy_tip_outlined,
               currentPage == DrawerSections.reports ? true : false),
           menuItem(8, "Log out", Icons.privacy_tip_outlined,
-              currentPage == DrawerSections.log_out ? true : false),
+              currentPage == DrawerSections.logOut ? true : false),
         ],
       ),
     );
@@ -120,21 +124,21 @@ class _HomePageState extends State<HomePage> {
           Navigator.pop(context);
           setState(() {
             if (id == 1) {
-              currentPage = DrawerSections.pool_managers;
+              currentPage = DrawerSections.poolManagers;
             } else if (id == 2) {
-              currentPage = DrawerSections.pool_status;
+              currentPage = DrawerSections.poolStatus;
             } else if (id == 3) {
-              currentPage = DrawerSections.pending_dues;
+              currentPage = DrawerSections.pendingDues;
             } else if (id == 4) {
               currentPage = DrawerSections.search;
             } else if (id == 5) {
-              currentPage = DrawerSections.edit_swimmer_details;
+              currentPage = DrawerSections.editSwimmerDetails;
             } else if (id == 6) {
-              currentPage = DrawerSections.send_mail;
+              currentPage = DrawerSections.sendMail;
             } else if (id == 7) {
               currentPage = DrawerSections.reports;
             } else if (id == 8) {
-              currentPage = DrawerSections.log_out;
+              currentPage = DrawerSections.logOut;
             }
           });
         },
@@ -159,18 +163,18 @@ class _HomePageState extends State<HomePage> {
 }
 
 enum DrawerSections {
-  pool_managers,
-  pool_status,
-  pending_dues,
+  poolManagers,
+  poolStatus,
+  pendingDues,
   search,
-  edit_swimmer_details,
-  send_mail,
+  editSwimmerDetails,
+  sendMail,
   reports,
-  log_out
+  logOut
 }
 
 void _contact() async {
-  final url = 'mailto:pavithra.rajan01@gmail.com';
+  const url = 'mailto:pavithra.rajan01@gmail.com';
   if (await canLaunch(url)) {
     await launch(url);
   } else {

@@ -47,7 +47,7 @@ class _ViewPoolManagers extends State<ViewPoolManagers>
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         image: DecorationImage(
-                          image: AssetImage("lib/Resources/profilePic.jpeg"),
+                          image: AssetImage("lib/Resources/pic-1.png"),
                           fit: BoxFit.cover
                         )
                       ),
@@ -79,7 +79,7 @@ class _ViewPoolManagers extends State<ViewPoolManagers>
               child: SizedBox(
                 width: MediaQuery.of(context).size.width * 0.5,
                 child: RawMaterialButton(
-                      onPressed: () { setState(() { managers.removeAt(i); });},
+                      onPressed: () { }, //setState(() { managers.removeAt(i); });
                       child: Text("Delete"),
                       fillColor: Colors.red,
                       ),
