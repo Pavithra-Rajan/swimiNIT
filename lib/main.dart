@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage> {
         future: _initializeFirebase(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            return LoginScreen();
+            return UserHistoryPage();
           }
           return const Center(
             child: CircularProgressIndicator(),
