@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../main.dart';
-
 class AdminAddSPM extends StatefulWidget
 {
   const AdminAddSPM({Key? key}) : super(key: key);
@@ -20,8 +18,8 @@ class _AdminAddSPMState extends State<AdminAddSPM>
     TextEditingController _contact1 = TextEditingController();
     TextEditingController _contact2 = TextEditingController();
     TextEditingController _password = TextEditingController();
+    Widget adding()
 
-    Widget Adding()
     {
       if(!added)
       {
@@ -95,10 +93,9 @@ class _AdminAddSPMState extends State<AdminAddSPM>
             ),
           );
       }
-      else
-      {
-          return SizedBox();
-      }
+
+      else { return SizedBox(); }
+
     }
 
     return Scaffold(
@@ -107,7 +104,9 @@ class _AdminAddSPMState extends State<AdminAddSPM>
         title: const Text('Add Pool Manager'),
         backgroundColor: Colors.blue[900],
       ),
-      body: Adding(),
+
+      body: adding(),
+
       floatingActionButton: fab()
     );
   }

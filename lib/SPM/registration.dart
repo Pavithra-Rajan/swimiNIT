@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:toggle_switch/toggle_switch.dart';
 class RegistrationPage extends StatefulWidget {
   @override
@@ -242,6 +243,7 @@ class RegistrationPageState extends State<RegistrationPage> {
 
       ),
     );
+
 
   }
 }

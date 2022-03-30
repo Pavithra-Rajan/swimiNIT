@@ -5,10 +5,10 @@ class EditReceiptPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Text('Edit Receipt Page'),
-      ),
+
+    return Center(
+      child: Text('Edit Receipt Page'),
+
     );
   }
 }
