@@ -18,8 +18,8 @@ class _AdminAddSPMState extends State<AdminAddSPM>
     TextEditingController _contact1 = TextEditingController();
     TextEditingController _contact2 = TextEditingController();
     TextEditingController _password = TextEditingController();
-
     Widget adding()
+
     {
       if(!added)
       {
@@ -93,10 +93,9 @@ class _AdminAddSPMState extends State<AdminAddSPM>
             ),
           );
       }
-      else
-      {
-          return SizedBox();
-      }
+
+      else { return SizedBox(); }
+
     }
 
     return Scaffold(
@@ -105,7 +104,9 @@ class _AdminAddSPMState extends State<AdminAddSPM>
         title: const Text('Add Pool Manager'),
         backgroundColor: Colors.blue[900],
       ),
+
       body: adding(),
+
       floatingActionButton: fab()
     );
   }

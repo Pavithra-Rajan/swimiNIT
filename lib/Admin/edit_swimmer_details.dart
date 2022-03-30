@@ -5,8 +5,10 @@ class EditSwimmerPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Center(
       child: Text('Edit Swimmer Page'),
+
     );
   }
 }

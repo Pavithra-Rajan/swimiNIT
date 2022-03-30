@@ -17,6 +17,7 @@ class _ViewPoolManagers extends State<ViewPoolManagers>
   List<SPM> managers = [SPM("1234567890", "0987654321", "John Doe", "123456"),
                         SPM("1234567890", "0987654321", "John Wick", "123456"),
                         SPM("1234567890", "0987654321", "John Cena", "123456")];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +48,9 @@ class _ViewPoolManagers extends State<ViewPoolManagers>
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         image: DecorationImage(
+
                           image: AssetImage("lib/Resources/pic-1.png"),
+
                           fit: BoxFit.cover
                         )
                       ),
@@ -79,17 +82,19 @@ class _ViewPoolManagers extends State<ViewPoolManagers>
               child: SizedBox(
                 width: MediaQuery.of(context).size.width * 0.5,
                 child: RawMaterialButton(
-                      onPressed: () { }, //setState(() { managers.removeAt(i); });
+
+                      onPressed: () { setState(() { managers.removeAt(i); });},
+
                       child: Text("Delete"),
                       fillColor: Colors.red,
                       ),
               )
             ),
 
+
             collapsed: Container()
         ),
       ),
     );
-  }
 
-}
+}}

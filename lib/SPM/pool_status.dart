@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'Person.dart';
 import 'package:expandable/expandable.dart';
@@ -13,7 +14,6 @@ class PoolStatusPage extends StatefulWidget {
 
 class _PoolStatusPageState extends State<PoolStatusPage>
 {
-
   List<Person> persons = [
     Person('Varun Anilkumar', 'lib/Resources/pic-1.png', "B190621CS", "16:36", "4", "0", "R-043657839", "200", "24-01-2022", "Student","varun_b190621cs@nitc.ac.in","6285435321","9061219855"),
     Person('Lenoah Chacko', 'lib/Resources/pic-1.png', "B190657CS", "16:44", "8", "0", "R-043657239", "400", "22-01-2022","Student","lenoah_b190657cs@nitc.ac.in","6285435321","9061219855"),
@@ -37,7 +37,6 @@ class _PoolStatusPageState extends State<PoolStatusPage>
                     padding: const EdgeInsets.all(1.0),
                     child: Stack(
                       children: <Widget>[
-
                         Align(
                           alignment: Alignment(-0.98,1),
                           child: Padding(
@@ -87,14 +86,11 @@ class _PoolStatusPageState extends State<PoolStatusPage>
                                 ],
                               ),
                             )
-
                         )
-
                       ],
                     ),
                   ),
                 ),
-
               ),
               collapsed: Container(),
               expanded:
@@ -103,7 +99,6 @@ class _PoolStatusPageState extends State<PoolStatusPage>
                 alignment: Alignment(0,0),
                 child: FractionallySizedBox(
                     widthFactor: 0.6,
-
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         primary: Color(0xFFDF4759), // background
@@ -133,9 +128,9 @@ class _PoolStatusPageState extends State<PoolStatusPage>
             )
           ],
         ),
+
       ),
     );
   }
-
 }
 

@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'Person.dart';
-import 'package:expandable/expandable.dart';
 
 class UserHistoryPage extends StatefulWidget {
   const UserHistoryPage({Key? key}) : super(key: key);
@@ -12,13 +10,13 @@ class UserHistoryPage extends StatefulWidget {
 }
 
 class _UserHistoryPageState extends State<UserHistoryPage> {
+
   Person P = Person('Varun Anilkumar', 'lib/Resources/pic-1.png', "B190621CS", "16:36", "4", "0", "R-043657839", "200", "24-01-2022", "Student","varun_b190621cs@nitc.ac.in","6285435321","9061219855");
 
-
-  Widget userDetails(Person) {
+  Widget userDetails(Person p) {
     return Padding(
       padding: const EdgeInsets.all(1.0),
-      child: Container(
+      child: SizedBox(
         height: 108,
         child: Card(
           color: Color(0xFF93C6D3),
@@ -37,11 +35,11 @@ class _UserHistoryPageState extends State<UserHistoryPage> {
                   child: Container(
                       width: 55.0,
                       height: 55.0,
-                      decoration: new BoxDecoration(
+                      decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          image: new DecorationImage(
+                          image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: AssetImage(Person.profileImg)
+                              image: AssetImage(p.profileImg)
                           )
                       )),
                 ),
@@ -53,12 +51,12 @@ class _UserHistoryPageState extends State<UserHistoryPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(Person.name,
+                        Text(p.name,
                           style: GoogleFonts.poppins(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
                         ),
-                        Text(Person.role, style: GoogleFonts.poppins(color: Colors.black, fontSize: 13),
+                        Text(p.role, style: GoogleFonts.poppins(color: Colors.black, fontSize: 13),
                   ),
-                        Text(Person.rollno,
+                        Text(p.rollno,
                           style: GoogleFonts.poppins(color: Colors.black, fontSize: 13),
                         )
                       ],
@@ -72,30 +70,27 @@ class _UserHistoryPageState extends State<UserHistoryPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
-                        Text(Person.noOfVisits+' visits',
+                        Text(p.noOfVisits+' visits',
                           style: GoogleFonts.poppins(color: Colors.black, fontSize: 13),
                         ),
-                        Text('Dues: Rs. '+Person.dues,
+                        Text('Dues: Rs. '+p.dues,
                           style: GoogleFonts.poppins(color: Colors.black, fontSize: 13),
                         )
                       ],
                     ),
                   )
-
               )
-
             ],
           ),
         ),
       )
-
       );
   }
 
-  Widget userReceipt(Person) {
+  Widget userReceipt(Person p) {
     return Padding(
         padding: const EdgeInsets.all(0),
-        child: Container(
+        child: SizedBox(
           height: 80,
           child: Card(
             color: Color(0xFF93C6D3),
@@ -114,10 +109,10 @@ class _UserHistoryPageState extends State<UserHistoryPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text('Receipt ID: '+ Person.receiptID,
+                          Text('Receipt ID: '+ p.receiptID,
                             style: GoogleFonts.poppins(color: Colors.black, fontSize: 13, fontWeight: FontWeight.w500),
                           ),
-                          Text('Amount Paid: Rs. '+Person.amtPaid, style: GoogleFonts.poppins(color: Colors.black, fontSize: 13, fontWeight: FontWeight.w500),
+                          Text('Amount Paid: Rs. '+p.amtPaid, style: GoogleFonts.poppins(color: Colors.black, fontSize: 13, fontWeight: FontWeight.w500),
                           ),
                         ],
                       ),
@@ -130,20 +125,17 @@ class _UserHistoryPageState extends State<UserHistoryPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: <Widget>[
-                          Text('Date: ' + Person.datePaid,
+                          Text('Date: ' + p.datePaid,
                             style: GoogleFonts.poppins(color: Colors.black, fontSize: 13),
                           ),
                         ],
                       ),
                     )
-
                 )
-
               ],
             ),
           ),
         )
-
     );
   }
 
@@ -159,15 +151,12 @@ class _UserHistoryPageState extends State<UserHistoryPage> {
         ),
       ),
 
-      body:
-      Column(
-       children: [
-         userDetails(P),
-         userReceipt(P)
-       ],
+      body: Column(
+             children: [
+               userDetails(P),
+               userReceipt(P)
+             ],
       )
-
     );
   }
-
 }

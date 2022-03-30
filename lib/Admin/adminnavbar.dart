@@ -1,9 +1,11 @@
+
 import 'package:flutter/material.dart';
 import 'package:swiminit/Admin/pool_managers.dart';
 import 'package:swiminit/Admin/pool_status.dart';
 import 'package:swiminit/Admin/pending_dues.dart';
 import 'package:swiminit/Admin/search.dart';
 import 'package:swiminit/Admin/edit_swimmer_details.dart';
+
 import 'package:swiminit/Admin/admin_drawer_file.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:swiminit/Admin/quaterly_reports.dart';
@@ -11,7 +13,6 @@ import 'package:swiminit/main.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AdminNavBar extends StatelessWidget {
-
   const AdminNavBar({Key? key}) : super(key: key);
 
   @override
@@ -24,6 +25,7 @@ class AdminNavBar extends StatelessWidget {
 }
 
 class HomePage extends StatefulWidget {
+
   const HomePage({Key? key}) : super(key: key);
 
   @override
@@ -31,6 +33,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
   var currentPage = DrawerSections.poolManagers;
 
   @override
@@ -47,7 +50,7 @@ class _HomePageState extends State<HomePage> {
       container = PendingDuesPage();
       text = "Pending Dues";
     } else if (currentPage == DrawerSections.search) {
-      container = SearchPage(); //Wtf is this
+      container = Search(); //Search by membership ID and date
       text = "Search";
     } else if (currentPage == DrawerSections.editSwimmerDetails) {
       container = EditSwimmerPage();
@@ -55,11 +58,14 @@ class _HomePageState extends State<HomePage> {
     } else if (currentPage == DrawerSections.sendMail) {
       _contact();
       container = ViewPoolManagers();
+
       text = "Pool Managers";
     } else if (currentPage == DrawerSections.reports) {
       container = QuarterlyReports();
       text = "Reports";
+
     } else if (currentPage == DrawerSections.logOut) {
+
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => MyApp()));
     }
@@ -91,17 +97,20 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         children: [
           menuItem(1, "Pool Managers", Icons.dashboard_outlined,
+
               currentPage == DrawerSections.poolManagers ? true : false),
           menuItem(2, "Pool Status", Icons.people_alt_outlined,
               currentPage == DrawerSections.poolStatus ? true : false),
           menuItem(3, "Pending Dues", Icons.event,
               currentPage == DrawerSections.pendingDues ? true : false),
+
           menuItem(4, "Search", Icons.notes,
               currentPage == DrawerSections.search ? true : false),
           menuItem(
               5,
               "Edit Swimmer Details",
               Icons.settings_outlined,
+
               currentPage == DrawerSections.editSwimmerDetails
                   ? true
                   : false),
@@ -111,6 +120,7 @@ class _HomePageState extends State<HomePage> {
               currentPage == DrawerSections.reports ? true : false),
           menuItem(8, "Log out", Icons.privacy_tip_outlined,
               currentPage == DrawerSections.logOut ? true : false),
+
         ],
       ),
     );
@@ -124,6 +134,7 @@ class _HomePageState extends State<HomePage> {
           Navigator.pop(context);
           setState(() {
             if (id == 1) {
+
               currentPage = DrawerSections.poolManagers;
             } else if (id == 2) {
               currentPage = DrawerSections.poolStatus;
@@ -139,6 +150,7 @@ class _HomePageState extends State<HomePage> {
               currentPage = DrawerSections.reports;
             } else if (id == 8) {
               currentPage = DrawerSections.logOut;
+
             }
           });
         },
@@ -173,8 +185,10 @@ enum DrawerSections {
   logOut
 }
 
+
 void _contact() async {
-  const url = 'mailto:pavithra.rajan01@gmail.com';
+  final url = 'mailto:pavithra.rajan01@gmail.com';
+
   if (await canLaunch(url)) {
     await launch(url);
   } else {

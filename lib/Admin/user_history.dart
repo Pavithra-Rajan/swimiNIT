@@ -1,23 +1,57 @@
+import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'Person.dart';
+import 'package:flutter/services.dart';
 
-class UserHistoryPage extends StatefulWidget {
-  const UserHistoryPage({Key? key}) : super(key: key);
+class UserHistoryTable{
+  //data Type
+  int? id;
+  String? dateVisit;
+  String? timeEntry;
+  String? timeExit;
 
-  @override
-  State<UserHistoryPage> createState() => _UserHistoryPageState();
+
+// constructor
+  UserHistoryTable(
+      {
+        this.id,
+        this.dateVisit,
+        this.timeEntry,
+        this.timeExit,
+      }
+  );
+
+  //method that assign values to respective datatype vairables
+  UserHistoryTable.fromJson(Map<String,dynamic> json)
+  {
+    id = json['id'];
+    dateVisit = json['dateVisit'];
+    timeEntry =json['timeEntry'];
+    timeExit = json['timeExit'];
+
+  }
 }
 
-class _UserHistoryPageState extends State<UserHistoryPage> {
+class UserHistoryAdminPage extends StatefulWidget {
+  const UserHistoryAdminPage({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() {
+    return UserHistoryAdminPageState();
+
+  }
+}
+
+class UserHistoryAdminPageState extends State<UserHistoryAdminPage> {
   Person P = Person('Varun Anilkumar', 'lib/Resources/pic-1.png', "B190621CS", "16:36", "4", "0", "R-043657839", "200", "24-01-2022", "Student","varun_b190621cs@nitc.ac.in","6285435321","9061219855");
 
 
-  Widget userDetails(Person) {
+  Widget userDetails(Person p) {
     return Padding(
         padding: const EdgeInsets.all(1.0),
-        child: Container(
+        child: SizedBox(
           height: 173,
           child: Card(
             color: Color(0xFF93C6D3),
@@ -36,11 +70,11 @@ class _UserHistoryPageState extends State<UserHistoryPage> {
                     child: Container(
                         width: 55.0,
                         height: 55.0,
-                        decoration: new BoxDecoration(
+                        decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            image: new DecorationImage(
+                            image: DecorationImage(
                                 fit: BoxFit.cover,
-                                image: AssetImage(Person.profileImg)
+                                image: AssetImage(p.profileImg)
                             )
                         )),
                   ),
@@ -52,21 +86,21 @@ class _UserHistoryPageState extends State<UserHistoryPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(Person.name,
+                          Text(p.name,
                             style: GoogleFonts.poppins(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
                           ),
-                          Text(Person.role, style: GoogleFonts.poppins(color: Colors.black, fontSize: 13),
+                          Text(p.role, style: GoogleFonts.poppins(color: Colors.black, fontSize: 13),
                           ),
-                          Text(Person.rollno,
+                          Text(p.rollno,
                             style: GoogleFonts.poppins(color: Colors.black, fontSize: 13),
                           ),
-                          Text(Person.mailID,
+                          Text(p.mailID,
                             style: GoogleFonts.poppins(color: Colors.black, fontSize: 13),
                           ),
-                          Text(Person.contact1,
+                          Text(p.contact1,
                             style: GoogleFonts.poppins(color: Colors.black, fontSize: 13),
                           ),
-                          Text(Person.contact2,
+                          Text(p.contact2,
                             style: GoogleFonts.poppins(color: Colors.black, fontSize: 13),
                           ),
 
@@ -81,10 +115,10 @@ class _UserHistoryPageState extends State<UserHistoryPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: <Widget>[
-                          Text(Person.noOfVisits+' visits',
+                          Text(p.noOfVisits+' visits',
                             style: GoogleFonts.poppins(color: Colors.black, fontSize: 13),
                           ),
-                          Text('Dues: Rs. '+Person.dues,
+                          Text('Dues: Rs. '+p.dues,
                             style: GoogleFonts.poppins(color: Colors.black, fontSize: 13),
                           )
                         ],
@@ -101,10 +135,10 @@ class _UserHistoryPageState extends State<UserHistoryPage> {
     );
   }
 
-  Widget userReceipt(Person) {
+  Widget userReceipt(Person p) {
     return Padding(
         padding: const EdgeInsets.all(0),
-        child: Container(
+        child: SizedBox(
           height: 80,
           child: Card(
             color: Color(0xFF93C6D3),
@@ -123,10 +157,10 @@ class _UserHistoryPageState extends State<UserHistoryPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text('Receipt ID: '+ Person.receiptID,
+                          Text('Receipt ID: '+ p.receiptID,
                             style: GoogleFonts.poppins(color: Colors.black, fontSize: 13, fontWeight: FontWeight.w500),
                           ),
-                          Text('Amount Paid: Rs. '+Person.amtPaid, style: GoogleFonts.poppins(color: Colors.black, fontSize: 13, fontWeight: FontWeight.w500),
+                          Text('Amount Paid: Rs. '+p.amtPaid, style: GoogleFonts.poppins(color: Colors.black, fontSize: 13, fontWeight: FontWeight.w500),
                           ),
                         ],
                       ),
@@ -139,7 +173,7 @@ class _UserHistoryPageState extends State<UserHistoryPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: <Widget>[
-                          Text('Date: ' + Person.datePaid,
+                          Text('Date: ' + p.datePaid,
                             style: GoogleFonts.poppins(color: Colors.black, fontSize: 13),
                           ),
                         ],
@@ -156,402 +190,184 @@ class _UserHistoryPageState extends State<UserHistoryPage> {
     );
   }
 
-  Widget userVisits(Person){
-    return Padding(
-    padding: const EdgeInsets.all(0),
-    child: Container(
-
-    margin: EdgeInsets.only(left: 35, top:10, right: 35, bottom:0),
-    child:SingleChildScrollView(
-
-      child: FutureBuilder(
-      future: ReadJsonData(),
-      builder: (context, data){
-      if(data.hasError){
-        return Center(child: Text("${data.error}"));
-      }
-      else if(data.hasData){
-        var items = data.data as List<ProductDataModel>;
-        return Table(
-
-        border:TableBorder.all(
-        color: Colors.blueGrey,
-
-        ),
-        children: [
-
-        TableRow(
-        decoration: const BoxDecoration(
-        color: Colors.lightBlueAccent
-        ),
-        children: <Widget>[
-        Container(
-        height: 64,
-        child:Center(
-        child:Text(
-        "Membership ID",
-        textAlign:TextAlign.center,
-        style: TextStyle(
-        fontWeight: FontWeight. bold),),
-
-        ),
-
-        ),
-        Container(
-
-        height: 64,
-        child:Center(
-        child:Text(
-        "Date Of Visit",
-        textAlign:TextAlign.center,
-        style: TextStyle(
-        fontWeight: FontWeight. bold),),
-
-        ),
-
-        ),
-        Container(
-        height: 64,
-        child:Center(
-        child:Text(
-        "Start-End time",
-        textAlign:TextAlign.center,
-        style: TextStyle(
-        fontWeight: FontWeight. bold),
-        ),
-
-
-        ),
-
-        ),
-        ],
-        ),
-        for (i=0;i < items.length;i++) TableRow(
-
-        decoration: BoxDecoration(
-        color: colors[i%2],
-
-        ),
-        children: <Widget> [
-        Container(
-        height: 64,
-        child:Center(
-        child:Text(
-        items[i].first_name.toString(),
-        textAlign:TextAlign.center,
-        ),
-
-        ),
-
-        ),
-        Container(
-
-        height: 64,
-        child:Center(
-        child:Text(
-        "26-07-2001",
-        textAlign:TextAlign.center,
-        ),
-
-        ),
-
-        ),
-        Container(
-        height: 64,
-        child:Center(
-        child:Text(
-        "06:00:00-07:00:00",
-        textAlign:TextAlign.center,
-
-        ),
-
-
-        ),
-
-        ),
-        ],
-        ),
-
-
-
-        ],
-        );
-        //var items = data.data as List<ProductDataModel>;
-
-    }
-    else
-    {
-    return Center(child: CircularProgressIndicator(),);
-    }
-    throw '';
-    },
-
-    ),
-
-    ),
-
-    )
-  }
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          toolbarHeight: 70,
-          centerTitle: false,
-          backgroundColor: Color(0xFF14839F),
-          title: Text('User History', style: GoogleFonts.poppins(color: Colors.white)
-          ),
-        ),
-
-        body:
-        Column(
-          children: [
-            userDetails(P),
-            userReceipt(P),
-            userVisits(P),
-          ],
-        )
-
+  Widget downloadButton(){
+    return Container(
+      margin: EdgeInsets.only(left: 0, top:20, right: 0, bottom:20),
+      alignment: Alignment(0,0),
+      child: FractionallySizedBox(
+          widthFactor: 0.25,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: Color(0xFF93C6D3), // background
+              onPrimary: Colors.white, // foreground
+              minimumSize: Size(175,45),
+            ),
+            child: Text('Download',style: GoogleFonts.poppins(color: Colors.black, fontSize: 14),),
+            onPressed: () {},
+          )),
     );
   }
-
-}
-
-
-
-
-
-
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'dart:convert';
-// import 'package:swiminit/product_data_model.dart';
-
-
-class UserHistoryTable{
-  //data Type
-  String? dateVisit;
-  String? timeEntry;
-  String? timeExit;
-
-
-// constructor
-UserHistoryTable(
-      {
-        this.dateVisit,
-        this.timeEntry,
-        this.timeExit,
-      }
-      );
-
-  //method that assign values to respective datatype vairables
-  UserHistoryTable.fromJson(Map<String,dynamic> json)
-  {
-    dateVisit = json['dateVisit'];
-    timeEntry =json['timeEntry'];
-    timeExit = json['timeExit'];
-
-  }
-}
-
-
-class SearchByDateRange extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return SearchByDateRangeState();
-
-  }
-}
-
-class SearchByDateRangeState extends State<SearchByDateRange> {
-
-
-  // Fetch content from the json file
-
   @override
   Widget build(BuildContext context) {
     Future<List<UserHistoryTable>>ReadJsonData() async{
-      final jsondata= await rootBundle.loadString('assets/MOCK_DATA.json');
+      final jsondata= await rootBundle.loadString('VISIT_DATA.json');
       final list=json.decode(jsondata) as List<dynamic>;
       return list.map((e)=>UserHistoryTable.fromJson(e)).toList();
     }
     var i;
-
-    List<Color> colors = [Colors.cyan.shade50, Colors.cyan.shade300];
+    List<Color> colors = [Color(0xFFFFFFFF), Color(0xFFD2EAF0)];
     return Container(
 
-      child:Scaffold(
+      child: Scaffold(
+          appBar: AppBar(
+            centerTitle: false,
+            backgroundColor: Color(0xFF14839F),
+            title: Text('User History',
+              style: GoogleFonts.poppins(color: Colors.white),
+            ),
+          ),
+        body:
+        SingleChildScrollView(
+            child: Column(
+              children: [
+                userDetails(P),
+                userReceipt(P),
+                Container(
+                  margin: EdgeInsets.only(left: 20, top:10, right: 20, bottom:0),
+                  child:SingleChildScrollView(
 
-        body: Container(
-          margin: EdgeInsets.only(left: 35, top:10, right: 35, bottom:0),
-          child:SingleChildScrollView(
+                    child: FutureBuilder(
+                      future: ReadJsonData(),
+                      builder: (context, data){
+                        if(data.hasError){
+                          return Center(child: Text("${data.error}"));
+                        }
+                        else if(data.hasData){
+                          var items = data.data as List<UserHistoryTable>;
+                          return Table(
+
+                            border:TableBorder.all(
+                              color: Colors.white54,
+
+                            ),
+                            children: [
+                              TableRow(
+                                decoration: const BoxDecoration(
+                                    color: Color(0xFF93C6D3)
+                                ),
+                                children: <Widget>[
+                                  Container(
+                                    height: 64,
+                                    child:Center(
+                                      child:Text(
+                                        "Date of visit",
+                                        style: GoogleFonts.poppins(color: Colors.black, fontSize: 14, fontWeight: FontWeight. bold,),
+                                        textAlign:TextAlign.center,
+                                        ),
+
+                                    ),
+
+                                  ),
+                                  Container(
+
+                                    height: 64,
+                                    child:Center(
+                                      child:Text(
+                                        "Time of entry",
+                                        style: GoogleFonts.poppins(color: Colors.black, fontSize: 14, fontWeight: FontWeight. bold,),
+                                        textAlign:TextAlign.center,
+                                        ),
+
+                                    ),
+
+                                  ),
+                                  Container(
+                                    height: 64,
+                                    child:Center(
+                                      child:Text(
+                                        "Time of exit",
+                                        textAlign:TextAlign.center,
+                                        style: GoogleFonts.poppins(color: Colors.black, fontSize: 14, fontWeight: FontWeight. bold,),
+                                      ),
+                                    ),
+
+                                  ),
+                                ],
+                              ),
+                              for (i=0;i < items.length;i++) TableRow(
+
+                                decoration: BoxDecoration(
+                                  color: colors[i%2],
+
+                                ),
+                                children: <Widget> [
+                                  Container(
+                                    height: 64,
+                                    child:Center(
+                                      child:Text(
+                                        items[i].dateVisit.toString(),
+                                        textAlign:TextAlign.center,
+                                        style: GoogleFonts.poppins(color: Colors.black, fontSize: 14,),
+                                      ),
+
+                                    ),
+
+                                  ),
+                                  Container(
+
+                                    height: 64,
+                                    child:Center(
+                                      child:Text(
+                                        items[i].timeEntry.toString(),
+                                        textAlign:TextAlign.center,
+                                        style: GoogleFonts.poppins(color: Colors.black, fontSize: 14,),
+                                      ),
+
+                                    ),
+
+                                  ),
+                                  Container(
+                                    height: 64,
+                                    child:Center(
+                                      child:Text(
+                                        items[i].timeExit.toString(),
+                                        textAlign:TextAlign.center,
+                                        style: GoogleFonts.poppins(color: Colors.black, fontSize: 14,),
+                                      ),
 
 
-            child: FutureBuilder(
-              future: ReadJsonData(),
-              builder: (context, data){
-                if(data.hasError){
-                  return Center(child: Text("${data.error}"));
-                }
-                else if(data.hasData){
-                  var items = data.data as List<ProductDataModel>;
+                                    ),
 
-                  return Table(
+                                  ),
+                                ],
+                              ),
 
-                    border:TableBorder.all(
-                      color: Colors.blueGrey,
+
+
+                            ],
+                          );
+                          //var items = data.data as List<ProductDataModel>;
+
+                        }
+                        else
+                        {
+                          return Center(child: CircularProgressIndicator(),);
+                        }
+                        throw '';
+                      },
 
                     ),
-                    children: [
 
-                      TableRow(
-                        decoration: const BoxDecoration(
-                            color: Colors.lightBlueAccent
-                        ),
-                        children: <Widget>[
-                          Container(
-                            height: 64,
-                            child:Center(
-                              child:Text(
-                                "Membership ID",
-                                textAlign:TextAlign.center,
-                                style: TextStyle(
-                                    fontWeight: FontWeight. bold),),
-
-                            ),
-
-                          ),
-                          Container(
-
-                            height: 64,
-                            child:Center(
-                              child:Text(
-                                "Date Of Visit",
-                                textAlign:TextAlign.center,
-                                style: TextStyle(
-                                    fontWeight: FontWeight. bold),),
-
-                            ),
-
-                          ),
-                          Container(
-                            height: 64,
-                            child:Center(
-                              child:Text(
-                                "Start-End time",
-                                textAlign:TextAlign.center,
-                                style: TextStyle(
-                                    fontWeight: FontWeight. bold),
-                              ),
-
-
-                            ),
-
-                          ),
-                        ],
-                      ),
-                      for (i=0;i < items.length;i++) TableRow(
-
-                        decoration: BoxDecoration(
-                          color: colors[i%2],
-
-                        ),
-                        children: <Widget> [
-                          Container(
-                            height: 64,
-                            child:Center(
-                              child:Text(
-                                items[i].first_name.toString(),
-                                textAlign:TextAlign.center,
-                              ),
-
-                            ),
-
-                          ),
-                          Container(
-
-                            height: 64,
-                            child:Center(
-                              child:Text(
-                                "26-07-2001",
-                                textAlign:TextAlign.center,
-                              ),
-
-                            ),
-
-                          ),
-                          Container(
-                            height: 64,
-                            child:Center(
-                              child:Text(
-                                "06:00:00-07:00:00",
-                                textAlign:TextAlign.center,
-
-                              ),
-
-
-                            ),
-
-                          ),
-                        ],
-                      ),
-
-
-
-                    ],
-                  );
-                  //var items = data.data as List<ProductDataModel>;
-
-                }
-                else
-                {
-                  return Center(child: CircularProgressIndicator(),);
-                }
-                throw '';
-              },
-
-            ),
-
-          ),),
-        bottomNavigationBar:
-
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-
-          children: <Widget>[
-            SizedBox(
-              height:40, //height of button
-              width:384, //width of button equal to parent widget
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.cyan[900], //background color of button
-                  //border width and color
-                  elevation: 0, //elevation of button
-                  shape: RoundedRectangleBorder( //to set border radius to button
-                      borderRadius: BorderRadius.circular(3)
                   ),
-                  //content padding inside button
                 ),
-                child: Text(
-                  'Back',
-                  style: TextStyle(color: Colors.white, fontSize: 16),
-                ),
-                onPressed: ()=> {},
-              ),
+
+                downloadButton(),
+              ],
+            )
             )
 
-          ],
-
-
-        ),
-      ),);
-
-
-
+      )
+    );
   }
 
 }

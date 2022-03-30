@@ -5,7 +5,9 @@ class SendMailPage extends StatelessWidget {
   const SendMailPage({Key? key}) : super(key: key);
 
   void _contact() async {
+
     const url = 'mailto:pavithra.rajan01@gmail.com';
+
     if (await canLaunch(url)) {
       await launch(url);
     } else {
@@ -15,6 +17,7 @@ class SendMailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Center(
       child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -37,5 +40,3 @@ class SendMailPage extends StatelessWidget {
     );
   }
 }
-
-
