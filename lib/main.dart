@@ -11,15 +11,17 @@ import 'package:swiminit/SPM/registration.dart';
 import 'package:swiminit/Admin/adminnavbar.dart';
 import 'dart:math' as math;
 import 'package:swiminit/profile_screen.dart';
+import 'SPM/search_by_daterange_results.dart';
 import 'firebase_options.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'package:swiminit/SPM/DuesAlertBox.dart';
+import 'package:swiminit/SPM/FreeTrialsAlertBox.dart';
 import 'package:swiminit/Admin/adminnavbar.dart';
 
 import 'package:swiminit/Admin/user_history.dart';
 import 'package:swiminit/SPM/search_by_daterange_results.dart';
 import 'firebase_options.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -64,8 +66,7 @@ class _HomePageState extends State<HomePage> {
         future: _initializeFirebase(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-
-            return UserHistoryAdminPage();
+            return LoginScreen();
           }
           return const Center(
             child: CircularProgressIndicator(),
@@ -88,18 +89,18 @@ class _LoginScreenState extends State<LoginScreen> {
       {required String email,
       required String password,
       required BuildContext context}) async {
-          FirebaseAuth auth = FirebaseAuth.instance;
-          User? user;
-          try {
-            UserCredential userCredential = await auth.signInWithEmailAndPassword(
-                email: email, password: password);
-            user = userCredential.user;
-          } on FirebaseAuthException catch (e) {
-            if (e.code == "user-not-found") {
-              print("Incorrect Credentials");
-            }
-          }
-          return user;
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? user;
+    try {
+      UserCredential userCredential = await auth.signInWithEmailAndPassword(
+          email: email, password: password);
+      user = userCredential.user;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == "user-not-found") {
+        print("Incorrect Credentials");
+      }
+    }
+    return user;
   }
 
   @override
@@ -159,13 +160,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         context: context);
                     print(user);
                     if (user != null) {
-
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
                           builder: (context) => AdminNavBar()));
-
                     }
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => AdminNavBar())); //Put this back in that if later
+                        builder: (context) =>
+                            AdminNavBar())); //Put this back in that if later
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12.0),
@@ -176,11 +176,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       color: Colors.white,
                       fontSize: 14.0,
                     ),
-
-                  )
-              )
-          )
-
+                  )))
         ],
       ),
     );
@@ -213,6 +209,4 @@ class WaveClipper extends CustomClipper<Path> {
     // TODO: implement shouldReclip
     throw UnimplementedError();
   }
-
 }
-

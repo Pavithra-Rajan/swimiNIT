@@ -4,237 +4,186 @@ import 'package:flutter/services.dart';
 import 'dart:convert';
 // import 'package:swiminit/product_data_model.dart';
 
-
-class ProductDataModel{
+class ProductDataModel {
   //data Type
   int? id;
   String? first_name;
   String? date;
   String? time;
 
-
 // constructor
-  ProductDataModel(
-      {
-        this.id,
-        this.first_name,
-        this.date,
-        this.time,
-
-      }
-      );
+  ProductDataModel({
+    this.id,
+    this.first_name,
+    this.date,
+    this.time,
+  });
 
   //method that assign values to respective datatype vairables
-  ProductDataModel.fromJson(Map<String,dynamic> json)
-  {
+  ProductDataModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    first_name =json['first_name'];
+    first_name = json['first_name'];
     date = json['date'];
     time = json['time'];
-
   }
 }
+
 class SearchByDateRange extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return SearchByDateRangeState();
-
   }
 }
 
 class SearchByDateRangeState extends State<SearchByDateRange> {
-
-
   // Fetch content from the json file
 
   @override
   Widget build(BuildContext context) {
-    Future<List<ProductDataModel>>ReadJsonData() async{
-      final jsondata= await rootBundle.loadString('assets/MOCK_DATA.json');
-      final list=json.decode(jsondata) as List<dynamic>;
-      return list.map((e)=>ProductDataModel.fromJson(e)).toList();
+    Future<List<ProductDataModel>> ReadJsonData() async {
+      final jsondata = await rootBundle.loadString('assets/MOCK_DATA.json');
+      final list = json.decode(jsondata) as List<dynamic>;
+      return list.map((e) => ProductDataModel.fromJson(e)).toList();
     }
+
     var i;
 
     List<Color> colors = [Colors.cyan.shade50, Colors.cyan.shade300];
     return Container(
-
-
-      child:Scaffold(
-
+      child: Scaffold(
         appBar: AppBar(
           leading: Icon(Icons.menu),
           title: Text('Results'),
           backgroundColor: Color(0xFF14839F),
         ),
-
         body: Container(
-          margin: EdgeInsets.only(left: 35, top:10, right: 35, bottom:0),
-          child:SingleChildScrollView(
-
-
+          margin: EdgeInsets.only(left: 35, top: 10, right: 35, bottom: 0),
+          child: SingleChildScrollView(
             child: FutureBuilder(
               future: ReadJsonData(),
-              builder: (context, data){
-                if(data.hasError){
+              builder: (context, data) {
+                if (data.hasError) {
                   return Center(child: Text("${data.error}"));
-                }
-                else if(data.hasData){
+                } else if (data.hasData) {
                   var items = data.data as List<ProductDataModel>;
 
                   return Table(
-
-                    border:TableBorder.all(
+                    border: TableBorder.all(
                       color: Colors.blueGrey,
-
                     ),
                     children: [
-
                       TableRow(
-                        decoration: const BoxDecoration(
-                            color: Colors.lightBlueAccent
-                        ),
+                        decoration:
+                            const BoxDecoration(color: Colors.lightBlueAccent),
                         children: <Widget>[
                           Container(
                             height: 64,
-                            child:Center(
-                              child:Text(
+                            child: Center(
+                              child: Text(
                                 "Membership ID",
-                                textAlign:TextAlign.center,
-                                style: TextStyle(
-                                    fontWeight: FontWeight. bold),),
-
+                                textAlign: TextAlign.center,
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
                             ),
-
                           ),
                           Container(
-
                             height: 64,
-                            child:Center(
-                              child:Text(
+                            child: Center(
+                              child: Text(
                                 "Date Of Visit",
-                                textAlign:TextAlign.center,
-                                style: TextStyle(
-                                    fontWeight: FontWeight. bold),),
-
+                                textAlign: TextAlign.center,
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
                             ),
-
                           ),
                           Container(
                             height: 64,
-                            child:Center(
-                              child:Text(
+                            child: Center(
+                              child: Text(
                                 "Start-End time",
-                                textAlign:TextAlign.center,
-                                style: TextStyle(
-                                    fontWeight: FontWeight. bold),
+                                textAlign: TextAlign.center,
+                                style: TextStyle(fontWeight: FontWeight.bold),
                               ),
-
-
                             ),
-
                           ),
                         ],
                       ),
-                      for (i=0;i < items.length;i++) TableRow(
-
-                        decoration: BoxDecoration(
-                          color: colors[i%2],
-
+                      for (i = 0; i < items.length; i++)
+                        TableRow(
+                          decoration: BoxDecoration(
+                            color: colors[i % 2],
+                          ),
+                          children: <Widget>[
+                            Container(
+                              height: 64,
+                              child: Center(
+                                child: Text(
+                                  items[i].first_name.toString(),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              height: 64,
+                              child: Center(
+                                child: Text(
+                                  "26-07-2001",
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              height: 64,
+                              child: Center(
+                                child: Text(
+                                  "06:00:00-07:00:00",
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                        children: <Widget> [
-                          Container(
-                            height: 64,
-                            child:Center(
-                              child:Text(
-                                items[i].first_name.toString(),
-                                textAlign:TextAlign.center,
-                              ),
-
-                            ),
-
-                          ),
-                          Container(
-
-                            height: 64,
-                            child:Center(
-                              child:Text(
-                                "26-07-2001",
-                                textAlign:TextAlign.center,
-                              ),
-
-                            ),
-
-                          ),
-                          Container(
-                            height: 64,
-                            child:Center(
-                              child:Text(
-                                "06:00:00-07:00:00",
-                                textAlign:TextAlign.center,
-
-                              ),
-
-
-                            ),
-
-                          ),
-                        ],
-                      ),
-
-
-
                     ],
                   );
                   //var items = data.data as List<ProductDataModel>;
 
-                }
-                else
-                {
-                  return Center(child: CircularProgressIndicator(),);
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
                 }
                 throw '';
               },
-
             ),
-
-          ),),
-        bottomNavigationBar:
-
-        Row(
+          ),
+        ),
+        bottomNavigationBar: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-
           children: <Widget>[
             SizedBox(
-              height:40, //height of button
-              width:384, //width of button equal to parent widget
+              height: 40, //height of button
+              width: 384, //width of button equal to parent widget
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.cyan[900], //background color of button
+                  primary: Color(0xFF14839F), //background color of button
                   //border width and color
                   elevation: 0, //elevation of button
-                  shape: RoundedRectangleBorder( //to set border radius to button
-                      borderRadius: BorderRadius.circular(3)
-                  ),
+                  shape: RoundedRectangleBorder(
+                      //to set border radius to button
+                      borderRadius: BorderRadius.circular(3)),
                   //content padding inside button
                 ),
                 child: Text(
                   'Back',
                   style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
-                onPressed: ()=> {},
+                onPressed: () => {},
               ),
             )
-
           ],
-
-
         ),
-      ),);
-
-
-
+      ),
+    );
   }
-
 }

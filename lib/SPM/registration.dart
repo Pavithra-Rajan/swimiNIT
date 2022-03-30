@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:toggle_switch/toggle_switch.dart';
+
 class RegistrationPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -9,7 +10,7 @@ class RegistrationPage extends StatefulWidget {
 }
 
 class RegistrationPageState extends State<RegistrationPage> {
-  bool isVisible=false;
+  bool isVisible = false;
   Widget _buildMembershipId() {
     return TextFormField(
       decoration: InputDecoration(
@@ -17,23 +18,21 @@ class RegistrationPageState extends State<RegistrationPage> {
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: Colors.teal, width: 1.5),
         ),
-
       ),
-
-
     );
   }
+
   Widget _buildName() {
     return TextFormField(
-
-      decoration: InputDecoration(hintText: 'Name',
+      decoration: InputDecoration(
+        hintText: 'Name',
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: Colors.teal, width: 1.5),
         ),
       ),
-
     );
   }
+
   Widget _buildRole() {
     return TextFormField(
       decoration: InputDecoration(
@@ -42,9 +41,9 @@ class RegistrationPageState extends State<RegistrationPage> {
           borderSide: BorderSide(color: Colors.teal, width: 1.5),
         ),
       ),
-
     );
   }
+
   Widget _buildEmailId() {
     return TextFormField(
       decoration: InputDecoration(
@@ -53,9 +52,9 @@ class RegistrationPageState extends State<RegistrationPage> {
           borderSide: BorderSide(color: Colors.teal, width: 1.5),
         ),
       ),
-
     );
   }
+
   Widget _buildContactNo1() {
     return TextFormField(
       decoration: InputDecoration(
@@ -66,6 +65,7 @@ class RegistrationPageState extends State<RegistrationPage> {
       ),
     );
   }
+
   Widget _buildContactNo2() {
     return TextFormField(
       decoration: InputDecoration(
@@ -76,6 +76,7 @@ class RegistrationPageState extends State<RegistrationPage> {
       ),
     );
   }
+
   Widget _receiptId() {
     return TextFormField(
       decoration: InputDecoration(
@@ -86,6 +87,7 @@ class RegistrationPageState extends State<RegistrationPage> {
       ),
     );
   }
+
   Widget _paymentDate() {
     return TextFormField(
       decoration: InputDecoration(
@@ -96,6 +98,7 @@ class RegistrationPageState extends State<RegistrationPage> {
       ),
     );
   }
+
   Widget _quaterlyFees() {
     return TextFormField(
       decoration: InputDecoration(
@@ -106,6 +109,7 @@ class RegistrationPageState extends State<RegistrationPage> {
       ),
     );
   }
+
   Widget _moneyPaid() {
     return TextFormField(
       decoration: InputDecoration(
@@ -121,7 +125,6 @@ class RegistrationPageState extends State<RegistrationPage> {
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     return Scaffold(
-
       // appBar: AppBar(
       //   leading: Icon(Icons.menu),
       //   title: Text('Registration'),
@@ -129,7 +132,7 @@ class RegistrationPageState extends State<RegistrationPage> {
       // ),
       body: SingleChildScrollView(
         child: Container(
-          margin: EdgeInsets.only(left: 35, top:10, right: 35, bottom:0),
+          margin: EdgeInsets.only(left: 35, top: 10, right: 35, bottom: 0),
           child: Form(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -161,14 +164,11 @@ class RegistrationPageState extends State<RegistrationPage> {
                   labels: ['Pay Now', 'Pay Later'],
                   onToggle: (index) {
                     setState(() {
-                      if(index==0)
-                      {
-                        isVisible=true;
+                      if (index == 0) {
+                        isVisible = true;
                         print(isVisible);
-                      }
-                      else
-                      {
-                        isVisible=false;
+                      } else {
+                        isVisible = false;
                       }
                     });
                   },
@@ -186,64 +186,50 @@ class RegistrationPageState extends State<RegistrationPage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           SizedBox(
-                            width:100,
-                            child:_quaterlyFees(),),
+                            width: 100,
+                            child: _quaterlyFees(),
+                          ),
                           SizedBox(
-                            width:100,
-                            child:_moneyPaid(),)
-
+                            width: 100,
+                            child: _moneyPaid(),
+                          )
                         ],
                       ),
                     ],
-
-                  ) ,
+                  ),
                 ),
-
-
-
               ],
             ),
           ),
-
-
         ),
       ),
 
-
-      bottomNavigationBar:
-
-      Row(
+      bottomNavigationBar: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-
         children: <Widget>[
           SizedBox(
-            height:40, //height of button
-            width:384, //width of button equal to parent widget
+            height: 40, //height of button
+            width: 384, //width of button equal to parent widget
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: Colors.cyan[900], //background color of button
+                primary: Color(0xFF14839F), //background color of button
                 //border width and color
                 elevation: 0, //elevation of button
-                shape: RoundedRectangleBorder( //to set border radius to button
-                    borderRadius: BorderRadius.circular(3)
-                ),
+                shape: RoundedRectangleBorder(
+                    //to set border radius to button
+                    borderRadius: BorderRadius.circular(3)),
                 //content padding inside button
               ),
               child: Text(
                 'Submit',
                 style: TextStyle(color: Colors.white, fontSize: 16),
               ),
-              onPressed: ()=> {},
+              onPressed: () => {},
             ),
           )
-
         ],
-
-
       ),
     );
-
-
   }
 }
