@@ -14,6 +14,9 @@ import 'package:swiminit/profile_screen.dart';
 import 'firebase_options.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'package:swiminit/SPM/DuesAlertBox.dart';
+import 'package:swiminit/SPM/FreeTrialsAlertBox.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -160,7 +163,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           builder: (context) => AdminNavBar()));
                     }
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => AdminNavBar())); //Put this back in that if later
+                        builder: (context) =>
+                            AdminNavBar())); //Put this back in that if later
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12.0),

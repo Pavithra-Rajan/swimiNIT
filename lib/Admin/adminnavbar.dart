@@ -56,8 +56,8 @@ class _HomePageState extends State<HomePage> {
       container = QuarterlyReports();
       text = "Reports";
     } else if (currentPage == DrawerSections.log_out) {
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => MyApp()));
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => MyApp()));
     }
     return Scaffold(
       appBar: AppBar(
