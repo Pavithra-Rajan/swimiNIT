@@ -93,10 +93,7 @@ class _AdminAddSPMState extends State<AdminAddSPM>
             ),
           );
       }
-      else
-      {
-          return SizedBox();
-      }
+      else { return SizedBox(); }
     }
 
     return Scaffold(

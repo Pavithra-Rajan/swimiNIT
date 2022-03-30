@@ -30,6 +30,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   var currentPage = DrawerSections.entry;
+
   @override
   Widget build(BuildContext context) {
     Widget container = Container();
@@ -48,6 +49,7 @@ class _HomePageState extends State<HomePage> {
     } else if (currentPage == DrawerSections.logOut) {
       container = LogOutPage();
     }
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,

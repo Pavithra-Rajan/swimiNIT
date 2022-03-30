@@ -19,23 +19,18 @@ class SendMailPage extends StatelessWidget {
       child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-
-      const SizedBox(height: 30),
-      ElevatedButton(
-        onPressed: (){_contact();},
-        child: Text('Send Mail'),
-        style: ElevatedButton.styleFrom(
-            primary: Color(0xFF14839F),
-            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-//padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-            textStyle:
-            const TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
-
+              const SizedBox(height: 30),
+              ElevatedButton(
+                onPressed: (){_contact();},
+                child: Text('Send Mail'),
+                          style: ElevatedButton.styleFrom(
+                          primary: Color(0xFF14839F),
+                          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                          textStyle:
+                          const TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+              ),
+          ],
       ),
-      ],
-    ),
     );
   }
 }
-
-

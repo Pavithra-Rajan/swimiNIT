@@ -1,7 +1,6 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../SPM/spm.dart';
 
 class ViewPoolManagers extends StatefulWidget
@@ -17,6 +16,7 @@ class _ViewPoolManagers extends State<ViewPoolManagers>
   List<SPM> managers = [SPM("1234567890", "0987654321", "John Doe", "123456"),
                         SPM("1234567890", "0987654321", "John Wick", "123456"),
                         SPM("1234567890", "0987654321", "John Cena", "123456")];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,7 +74,6 @@ class _ViewPoolManagers extends State<ViewPoolManagers>
                 ],
               )
             ),
-
             expanded: Align(
               child: SizedBox(
                 width: MediaQuery.of(context).size.width * 0.5,
@@ -85,11 +84,9 @@ class _ViewPoolManagers extends State<ViewPoolManagers>
                       ),
               )
             ),
-
             collapsed: Container()
         ),
       ),
     );
   }
-
 }

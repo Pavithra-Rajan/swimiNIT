@@ -12,7 +12,6 @@ class PoolStatusPage extends StatefulWidget {
 
 class _PoolStatusPageState extends State<PoolStatusPage>
 {
-
   List<Person> persons = [
     Person('Varun Anilkumar', 'lib/Resources/pic-1.png', "B190621CS", "16:36", "4", "0", "R-043657839", "200", "24-01-2022"),
     Person('Lenoah Chacko', 'lib/Resources/pic-1.png', "B190657CS", "16:44", "8", "0", "R-043657239", "400", "22-01-2022"),
@@ -36,7 +35,6 @@ class _PoolStatusPageState extends State<PoolStatusPage>
                     padding: const EdgeInsets.all(1.0),
                     child: Stack(
                       children: <Widget>[
-
                         Align(
                           alignment: Alignment(-0.98,1),
                           child: Padding(
@@ -86,14 +84,11 @@ class _PoolStatusPageState extends State<PoolStatusPage>
                                 ],
                               ),
                             )
-
                         )
-
                       ],
                     ),
                   ),
                 ),
-
               ),
               collapsed: Container(),
               expanded:
@@ -102,7 +97,6 @@ class _PoolStatusPageState extends State<PoolStatusPage>
                 alignment: Alignment(0,0),
                 child: FractionallySizedBox(
                     widthFactor: 0.6,
-
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         primary: Color(0xFFDF4759), // background
@@ -135,6 +129,5 @@ class _PoolStatusPageState extends State<PoolStatusPage>
       ),
     );
   }
-
 }
 

@@ -37,7 +37,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   Future<FirebaseApp> _initializeFirebase() async {
     FirebaseApp firebaseApp = await Firebase.initializeApp();
-
     return firebaseApp;
   }
 
@@ -71,18 +70,18 @@ class _LoginScreenState extends State<LoginScreen> {
       {required String email,
       required String password,
       required BuildContext context}) async {
-    FirebaseAuth auth = FirebaseAuth.instance;
-    User? user;
-    try {
-      UserCredential userCredential = await auth.signInWithEmailAndPassword(
-          email: email, password: password);
-      user = userCredential.user;
-    } on FirebaseAuthException catch (e) {
-      if (e.code == "user-not-found") {
-        print("Incorrect Credentials");
-      }
-    }
-    return user;
+          FirebaseAuth auth = FirebaseAuth.instance;
+          User? user;
+          try {
+            UserCredential userCredential = await auth.signInWithEmailAndPassword(
+                email: email, password: password);
+            user = userCredential.user;
+          } on FirebaseAuthException catch (e) {
+            if (e.code == "user-not-found") {
+              print("Incorrect Credentials");
+            }
+          }
+          return user;
   }
 
   @override
@@ -92,8 +91,6 @@ class _LoginScreenState extends State<LoginScreen> {
     return Padding(
       padding: EdgeInsets.all(0.0),
       child: Column(
-        //mainAxisAlignment: MainAxisAlignment.center,
-        //crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Opacity(
               opacity: 1,
@@ -103,8 +100,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     color: Colors.blue[900],
                     height: 180,
                   ))),
-          //const SizedBox(height: 34.0,
-          //),
           Text("Login",
               style: TextStyle(
                 color: Colors.blue[900],
@@ -161,7 +156,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       color: Colors.white,
                       fontSize: 14.0,
                     ),
-                  )))
+                  )
+              )
+          )
         ],
       ),
     );
