@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'package:expandable/expandable.dart';
-
 import '../SPM/Person.dart';
 
 class PoolStatusPage extends StatefulWidget {
@@ -15,9 +13,9 @@ class PoolStatusPage extends StatefulWidget {
 class _PoolStatusPageState extends State<PoolStatusPage>
 {
   List<Person> persons = [
-    Person('Varun Anilkumar', 'lib/Resources/pic-1.png', "B190621CS", "16:36", "4", "0", "R-043657839", "200", "24-01-2022"),
-    Person('Lenoah Chacko', 'lib/Resources/pic-1.png', "B190657CS", "16:44", "8", "0", "R-043657239", "400", "22-01-2022"),
-    Person('Joseph Mani', 'lib/Resources/pic-1.png', "B190529CS", "17:05", "2", "0", "R-021657989", "200", "12-01-2022")
+    Person('Varun Anilkumar', 'lib/Resources/pic-1.png', "B190621CS", "16:36", "4", "0", "R-043657839", "200", "24-01-2022","student","varun_b190621cs@nitc.ac.in","6285435321","9061219855"),
+    Person('Lenoah Chacko', 'lib/Resources/pic-1.png', "B190657CS", "16:44", "8", "0", "R-043657239", "400", "22-01-2022","student","varun_b190621cs@nitc.ac.in","6285435321","9061219855"),
+    Person('Joseph Mani', 'lib/Resources/pic-1.png', "B190529CS", "17:05", "2", "0", "R-021657989", "200", "12-01-2022","student","varun_b190621cs@nitc.ac.in","6285435321","9061219855")
   ];
 
   Widget buildCard(Person p) {
