@@ -1,21 +1,26 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+
 import 'package:swiminit/Admin/send_mail.dart';
 import 'package:swiminit/Admin/adminaddspm.dart';
 import 'package:swiminit/Admin/pool_managers.dart';
 import 'package:swiminit/Admin/quaterly_reports.dart';
 import 'package:swiminit/SPM/spmnavbar.dart';
-import 'package:swiminit/SPM/pool_status.dart';
+import 'package:swiminit/SPM/registration.dart';
 import 'package:swiminit/Admin/adminnavbar.dart';
-
 import 'dart:math' as math;
 import 'package:swiminit/profile_screen.dart';
+import 'SPM/search_by_daterange_results.dart';
 import 'firebase_options.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:swiminit/SPM/DuesAlertBox.dart';
 import 'package:swiminit/SPM/FreeTrialsAlertBox.dart';
+import 'package:swiminit/Admin/adminnavbar.dart';
+
+import 'Admin/user_history.dart';
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -50,7 +55,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   Future<FirebaseApp> _initializeFirebase() async {
     FirebaseApp firebaseApp = await Firebase.initializeApp();
-
     return firebaseApp;
   }
 
@@ -105,8 +109,6 @@ class _LoginScreenState extends State<LoginScreen> {
     return Padding(
       padding: EdgeInsets.all(0.0),
       child: Column(
-        //mainAxisAlignment: MainAxisAlignment.center,
-        //crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Opacity(
               opacity: 1,
@@ -116,8 +118,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     color: Colors.blue[900],
                     height: 180,
                   ))),
-          //const SizedBox(height: 34.0,
-          //),
           Text("Login",
               style: TextStyle(
                 color: Colors.blue[900],

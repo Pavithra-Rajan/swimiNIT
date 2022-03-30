@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 class SendMailPage extends StatelessWidget {
   const SendMailPage({Key? key}) : super(key: key);
 
   void _contact() async {
-    final url = 'mailto:pavithra.rajan01@gmail.com';
+
+    const url = 'mailto:pavithra.rajan01@gmail.com';
+
     if (await canLaunch(url)) {
       await launch(url);
     } else {
@@ -37,5 +40,3 @@ class SendMailPage extends StatelessWidget {
     );
   }
 }
-
-

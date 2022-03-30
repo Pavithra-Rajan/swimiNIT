@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'Person.dart';
 import 'package:expandable/expandable.dart';
+import '../SPM/Person.dart';
 
 class PoolStatusPage extends StatefulWidget {
   const PoolStatusPage({Key? key}) : super(key: key);
@@ -12,14 +14,13 @@ class PoolStatusPage extends StatefulWidget {
 
 class _PoolStatusPageState extends State<PoolStatusPage>
 {
-
   List<Person> persons = [
-    Person('Varun Anilkumar', 'lib/Resources/pic-1.png', "B190621CS", "16:36"),
-    Person('Lenoah Chacko', 'lib/Resources/pic-1.png', "B190657CS", "16:44"),
-    Person('Joseph Mani', 'lib/Resources/pic-1.png', "B190529CS", "17:05")
+    Person('Varun Anilkumar', 'lib/Resources/pic-1.png', "B190621CS", "16:36", "4", "0", "R-043657839", "200", "24-01-2022", "Student","varun_b190621cs@nitc.ac.in","6285435321","9061219855"),
+    Person('Lenoah Chacko', 'lib/Resources/pic-1.png', "B190657CS", "16:44", "8", "0", "R-043657239", "400", "22-01-2022","Student","lenoah_b190657cs@nitc.ac.in","6285435321","9061219855"),
+    Person('Joseph Mani', 'lib/Resources/pic-1.png', "B190529CS", "17:05", "2", "0", "R-021657989", "200", "12-01-2022","Student","joseph_b190529cs@nitc.ac.in","6285435321","9061219855")
   ];
 
-  Widget buildCard(Person) {
+  Widget buildCard(Person p) {
     return Padding(
         padding: const EdgeInsets.all(1.0),
         child: Card(
@@ -36,7 +37,6 @@ class _PoolStatusPageState extends State<PoolStatusPage>
                     padding: const EdgeInsets.all(1.0),
                     child: Stack(
                       children: <Widget>[
-
                         Align(
                           alignment: Alignment(-0.98,1),
                           child: Padding(
@@ -44,11 +44,11 @@ class _PoolStatusPageState extends State<PoolStatusPage>
                             child: Container(
                                 width: 50.0,
                                 height: 50.0,
-                                decoration: new BoxDecoration(
+                                decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    image: new DecorationImage(
+                                    image: DecorationImage(
                                         fit: BoxFit.cover,
-                                        image: AssetImage(Person.profileImg)
+                                        image: AssetImage(p.profileImg)
                                     )
                                 )),
                           ),
@@ -60,10 +60,10 @@ class _PoolStatusPageState extends State<PoolStatusPage>
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  Text(Person.name,
+                                  Text(p.name,
                                     style: GoogleFonts.poppins(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
                                   ),
-                                  Text(Person.rollno,
+                                  Text(p.rollno,
                                     style: GoogleFonts.poppins(color: Colors.black, fontSize: 12),
                                   )
                                 ],
@@ -77,23 +77,20 @@ class _PoolStatusPageState extends State<PoolStatusPage>
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: <Widget>[
-                                  Text('Entered at '+Person.enteredAt,
+                                  Text('Entered at '+p.enteredAt,
                                     style: GoogleFonts.poppins(color: Colors.black, fontSize: 14),
                                   ),
-                                  Text(Person.rollno,
+                                  Text(p.rollno,
                                     style: GoogleFonts.poppins(color: Colors.black, fontSize: 12),
                                   )
                                 ],
                               ),
                             )
-
                         )
-
                       ],
                     ),
                   ),
                 ),
-
               ),
               collapsed: Container(),
               expanded:
@@ -102,7 +99,6 @@ class _PoolStatusPageState extends State<PoolStatusPage>
                 alignment: Alignment(0,0),
                 child: FractionallySizedBox(
                     widthFactor: 0.6,
-
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         primary: Color(0xFFDF4759), // background
@@ -121,15 +117,6 @@ class _PoolStatusPageState extends State<PoolStatusPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          toolbarHeight: 70,
-          centerTitle: false,
-          backgroundColor: Color(0xFF14839F),
-          title: Text('Status', style: GoogleFonts.poppins(color: Colors.white)
-          ),
-      ),
-
-
       body: Padding(
         padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
         child: Column(
@@ -141,9 +128,9 @@ class _PoolStatusPageState extends State<PoolStatusPage>
             )
           ],
         ),
+
       ),
     );
   }
-
 }
 
