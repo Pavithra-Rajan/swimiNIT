@@ -5,8 +5,10 @@ class LogOutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Center(
       child: Text('Log out Page'),
+
     );
   }
 }

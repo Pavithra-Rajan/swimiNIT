@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'Person.dart';
 import 'package:expandable/expandable.dart';
@@ -127,6 +128,7 @@ class _PoolStatusPageState extends State<PoolStatusPage>
             )
           ],
         ),
+
       ),
     );
   }

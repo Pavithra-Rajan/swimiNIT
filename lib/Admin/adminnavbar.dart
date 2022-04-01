@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:swiminit/Admin/pool_managers.dart';
-import 'package:swiminit/Admin/pool_status.dart';
 import 'package:swiminit/Admin/pending_dues.dart';
 import 'package:swiminit/Admin/search.dart';
 import 'package:swiminit/Admin/edit_swimmer_details.dart';
+
 import 'package:swiminit/Admin/admin_drawer_file.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:swiminit/Admin/quaterly_reports.dart';
@@ -11,7 +11,6 @@ import 'package:swiminit/main.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AdminNavBar extends StatelessWidget {
-
   const AdminNavBar({Key? key}) : super(key: key);
 
   @override
@@ -40,28 +39,26 @@ class _HomePageState extends State<HomePage> {
     if (currentPage == DrawerSections.poolManagers) {
       container = ViewPoolManagers();
       text = "Pool Managers";
-    } else if (currentPage == DrawerSections.poolStatus) {
-      container = PoolStatusPage(); //Does admin need this
-      text = "Pool Status";
     } else if (currentPage == DrawerSections.pendingDues) {
       container = PendingDuesPage();
       text = "Pending Dues";
     } else if (currentPage == DrawerSections.search) {
-      container = SearchPage(); //Wtf is this
+      container = Search(); //Search by membership ID and date
       text = "Search";
     } else if (currentPage == DrawerSections.editSwimmerDetails) {
       container = EditSwimmerPage();
-      text = "Edit swimmer details";
+      text = "Edit Swimmer Details";
     } else if (currentPage == DrawerSections.sendMail) {
       _contact();
       container = ViewPoolManagers();
+
       text = "Pool Managers";
     } else if (currentPage == DrawerSections.reports) {
       container = QuarterlyReports();
       text = "Reports";
     } else if (currentPage == DrawerSections.logOut) {
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => MyApp()));
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => MyApp()));
     }
     return Scaffold(
       appBar: AppBar(
@@ -92,24 +89,17 @@ class _HomePageState extends State<HomePage> {
         children: [
           menuItem(1, "Pool Managers", Icons.dashboard_outlined,
               currentPage == DrawerSections.poolManagers ? true : false),
-          menuItem(2, "Pool Status", Icons.people_alt_outlined,
-              currentPage == DrawerSections.poolStatus ? true : false),
-          menuItem(3, "Pending Dues", Icons.event,
+          menuItem(2, "Pending Dues", Icons.event,
               currentPage == DrawerSections.pendingDues ? true : false),
-          menuItem(4, "Search", Icons.notes,
+          menuItem(3, "Search", Icons.notes,
               currentPage == DrawerSections.search ? true : false),
-          menuItem(
-              5,
-              "Edit Swimmer Details",
-              Icons.settings_outlined,
-              currentPage == DrawerSections.editSwimmerDetails
-                  ? true
-                  : false),
-          menuItem(6, "Send Mail", Icons.notifications_outlined,
+          menuItem(4, "Edit Swimmer Details", Icons.settings_outlined,
+              currentPage == DrawerSections.editSwimmerDetails ? true : false),
+          menuItem(5, "Send Mail", Icons.notifications_outlined,
               currentPage == DrawerSections.sendMail ? true : false),
-          menuItem(7, "Reports", Icons.privacy_tip_outlined,
+          menuItem(6, "Reports", Icons.privacy_tip_outlined,
               currentPage == DrawerSections.reports ? true : false),
-          menuItem(8, "Log out", Icons.privacy_tip_outlined,
+          menuItem(7, "Log out", Icons.privacy_tip_outlined,
               currentPage == DrawerSections.logOut ? true : false),
         ],
       ),
@@ -126,18 +116,16 @@ class _HomePageState extends State<HomePage> {
             if (id == 1) {
               currentPage = DrawerSections.poolManagers;
             } else if (id == 2) {
-              currentPage = DrawerSections.poolStatus;
-            } else if (id == 3) {
               currentPage = DrawerSections.pendingDues;
-            } else if (id == 4) {
+            } else if (id == 3) {
               currentPage = DrawerSections.search;
-            } else if (id == 5) {
+            } else if (id == 4) {
               currentPage = DrawerSections.editSwimmerDetails;
-            } else if (id == 6) {
+            } else if (id == 5) {
               currentPage = DrawerSections.sendMail;
-            } else if (id == 7) {
+            } else if (id == 6) {
               currentPage = DrawerSections.reports;
-            } else if (id == 8) {
+            } else if (id == 7) {
               currentPage = DrawerSections.logOut;
             }
           });
@@ -164,7 +152,6 @@ class _HomePageState extends State<HomePage> {
 
 enum DrawerSections {
   poolManagers,
-  poolStatus,
   pendingDues,
   search,
   editSwimmerDetails,
@@ -174,7 +161,8 @@ enum DrawerSections {
 }
 
 void _contact() async {
-  const url = 'mailto:pavithra.rajan01@gmail.com';
+  final url = 'mailto:pavithra.rajan01@gmail.com';
+
   if (await canLaunch(url)) {
     await launch(url);
   } else {

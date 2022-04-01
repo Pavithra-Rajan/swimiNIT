@@ -7,7 +7,9 @@ import 'package:swiminit/SPM/pool_status.dart';
 import 'package:swiminit/SPM/registration.dart';
 import 'package:swiminit/SPM/search.dart';
 import 'package:swiminit/SPM/spm_drawer_file.dart';
+import 'package:swiminit/SPM/search_by_daterange_results.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:swiminit/main.dart';
 
 class SPMNavBar extends StatelessWidget {
   const SPMNavBar({Key? key}) : super(key: key);
@@ -34,18 +36,25 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     Widget container = Container();
+    String text = "Entry";
     if (currentPage == DrawerSections.entry) {
       container = EntryPage();
+      text = "Entry";
     } else if (currentPage == DrawerSections.poolStatus) {
       container = PoolStatusPage();
+      text = "Pool Status";
     } else if (currentPage == DrawerSections.search) {
       container = SearchPage();
+      text = "Search";
     } else if (currentPage == DrawerSections.registration) {
       container = RegistrationPage();
+      text = "Registration";
     } else if (currentPage == DrawerSections.editReceiptDetails) {
       container = EditReceiptPage();
+      text = "Edit Receipt Details";
     } else if (currentPage == DrawerSections.pendingDues) {
       container = PendingDuesPage();
+      text = "Pending Dues";
     } else if (currentPage == DrawerSections.logOut) {
       container = LogOutPage();
     }
@@ -55,7 +64,7 @@ class _HomePageState extends State<HomePage> {
         centerTitle: false,
         backgroundColor: Color(0xFF14839F),
         title: Text(
-          'Entry',
+          text,
           style: GoogleFonts.poppins(color: Colors.white),
         ),
       ),
@@ -85,13 +94,8 @@ class _HomePageState extends State<HomePage> {
               currentPage == DrawerSections.search ? true : false),
           menuItem(4, "Registration", Icons.notes,
               currentPage == DrawerSections.registration ? true : false),
-          menuItem(
-              5,
-              "Edit Receipt Details",
-              Icons.settings_outlined,
-              currentPage == DrawerSections.editReceiptDetails
-                  ? true
-                  : false),
+          menuItem(5, "Edit Receipt Details", Icons.settings_outlined,
+              currentPage == DrawerSections.editReceiptDetails ? true : false),
           menuItem(6, "Pending Dues", Icons.notifications_outlined,
               currentPage == DrawerSections.pendingDues ? true : false),
           menuItem(7, "Log out", Icons.privacy_tip_outlined,

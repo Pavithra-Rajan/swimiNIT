@@ -1,9 +1,27 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+
+import 'package:swiminit/Admin/send_mail.dart';
+import 'package:swiminit/Admin/adminaddspm.dart';
+import 'package:swiminit/Admin/pool_managers.dart';
+import 'package:swiminit/Admin/quaterly_reports.dart';
+import 'package:swiminit/SPM/spmnavbar.dart';
+import 'package:swiminit/SPM/registration.dart';
+import 'package:swiminit/Admin/adminnavbar.dart';
+import 'package:swiminit/SPM/user_history.dart';
+import 'dart:math' as math;
+import 'package:swiminit/profile_screen.dart';
+import 'SPM/search_by_daterange_results.dart';
+import 'firebase_options.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import 'package:swiminit/SPM/DuesAlertBox.dart';
+import 'package:swiminit/SPM/FreeTrialsAlertBox.dart';
 import 'package:swiminit/Admin/adminnavbar.dart';
 
-import 'Admin/user_history.dart';
+import 'package:swiminit/Admin/user_history.dart';
+import 'package:swiminit/SPM/search_by_daterange_results.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -72,18 +90,18 @@ class _LoginScreenState extends State<LoginScreen> {
       {required String email,
       required String password,
       required BuildContext context}) async {
-          FirebaseAuth auth = FirebaseAuth.instance;
-          User? user;
-          try {
-            UserCredential userCredential = await auth.signInWithEmailAndPassword(
-                email: email, password: password);
-            user = userCredential.user;
-          } on FirebaseAuthException catch (e) {
-            if (e.code == "user-not-found") {
-              print("Incorrect Credentials");
-            }
-          }
-          return user;
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? user;
+    try {
+      UserCredential userCredential = await auth.signInWithEmailAndPassword(
+          email: email, password: password);
+      user = userCredential.user;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == "user-not-found") {
+        print("Incorrect Credentials");
+      }
+    }
+    return user;
   }
 
   @override
@@ -147,7 +165,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           builder: (context) => AdminNavBar()));
                     }
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => AdminNavBar())); //Put this back in that if later
+                        builder: (context) =>
+                            AdminNavBar())); //Put this back in that if later
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12.0),
@@ -158,9 +177,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       color: Colors.white,
                       fontSize: 14.0,
                     ),
-                  )
-              )
-          )
+                  )))
         ],
       ),
     );

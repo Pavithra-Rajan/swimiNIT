@@ -13,164 +13,274 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage>
 {
   List<String> roles = ['Student', 'Faculty', 'Faculty Referral'];
   String dropDownVal = 'Student';
+  Person p = Person("name", "lib/Resources/pic-1.png", "rollno", "enteredAt", "noOfVisits", "dues", "receiptID", "amtPaid", "datePaid", "Student", "mailID", "contact1", "contact2");
+
   Widget detailsWidget(Person p)
   {
     TextEditingController _name = TextEditingController();
     return Padding(
-        padding: EdgeInsets.all(0),
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Align(
-                alignment: Alignment(-0.71, 10),
-                child: Text("Membership ID",
-                  style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+            padding: EdgeInsets.all(0),
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Align(
+                  alignment: Alignment(-0.71, 10),
+                  child: Text("Membership ID",
+                    style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                  ),
                 ),
-              ),
-              SizedBox(
-                  height: 10
-              ),
-              Align(
-                alignment: Alignment(-0.75, 1),
-                child: Text(p.rollno,
-                  style: GoogleFonts.poppins(),
+                SizedBox(
+                    height: 10
                 ),
-              ),
-              SizedBox(
-                  height: 20
-              ),
-              Align(
-                alignment: Alignment(-0.75, 1),
-                child: Text("Name",
-                  style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                Align(
+                  alignment: Alignment(-0.75, 1),
+                  child: Text(p.rollno,
+                    style: GoogleFonts.poppins(),
+                  ),
                 ),
-              ),
-              Align(
-                  alignment: Alignment(-0.42, 1),
-                  child: Container(
+                SizedBox(
+                    height: 20
+                ),
+                Align(
+                  alignment: Alignment(-0.75, 1),
+                  child: Text("Name",
+                    style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Align(
+                    alignment: Alignment(-0.42, 1),
+                    child: Container(
+                        alignment: Alignment.centerLeft,
+                        width: 250,
+                        child: TextField(
+                          decoration: InputDecoration(
+                            hintText: p.name,
+                          ),
+                          style: GoogleFonts.poppins(),
+                        )
+                    )
+                ),
+                SizedBox(
+                    height: 20
+                ),
+                Align(
+                  alignment: Alignment(-0.75, 1),
+                  child: Text("Role",
+                    style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Align(
+                    alignment: Alignment(-0.42, 1),
+                    child: Container(
                       alignment: Alignment.centerLeft,
                       width: 250,
-                      child: TextField(
-                        decoration: InputDecoration(
-                          hintText: p.name,
-                        ),
-                        style: GoogleFonts.poppins(),
-                      )
-                  )
-              ),
-              SizedBox(
-                  height: 20
-              ),
-              Align(
-                alignment: Alignment(-0.75, 1),
-                child: Text("Role",
-                  style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                      child: DropdownButton(
+                        value: dropDownVal,
+                        // Down Arrow Icon
+                        icon: const Icon(Icons.keyboard_arrow_down),
+                        items: roles.map((String items) {
+                          return DropdownMenuItem(
+                            value: items,
+                            child: Text(items),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() { dropDownVal = newValue!; p.role = dropDownVal;});
+                        },
+                      ),
+                    )
                 ),
-              ),
-              Align(
-                  alignment: Alignment(-0.42, 1),
-                  child: Container(
-                    alignment: Alignment.centerLeft,
-                    width: 250,
-                    child: DropdownButton(
-                      value: dropDownVal,
-                      // Down Arrow Icon
-                      icon: const Icon(Icons.keyboard_arrow_down),
-                      items: roles.map((String items) {
-                        return DropdownMenuItem(
-                          value: items,
-                          child: Text(items),
-                        );
-                      }).toList(),
-                      onChanged: (String? newValue) {
-                        setState(() { dropDownVal = newValue!;});
-                      },
+                SizedBox(
+                    height: 20
+                ),
+                Align(
+                  alignment: Alignment(-0.75, 1),
+                  child: Text("Email ID",
+                    style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Align(
+                    alignment: Alignment(-0.42, 1),
+                    child: Container(
+                        alignment: Alignment.centerLeft,
+                        width: 250,
+                        child: TextField(
+                          decoration: InputDecoration(
+                            hintText: p.mailID,
+                          ),
+                          style: GoogleFonts.poppins(),
+                        )
+                    )
+                ),
+                SizedBox(
+                    height: 20
+                ),
+                Align(
+                  alignment: Alignment(-0.75, 1),
+                  child: Text("Contact 1",
+                    style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Align(
+                    alignment: Alignment(-0.42, 1),
+                    child: Container(
+                        alignment: Alignment.centerLeft,
+                        width: 250,
+                        child: TextField(
+                          decoration: InputDecoration(
+                            hintText: p.contact1,
+                          ),
+                          style: GoogleFonts.poppins(),
+                        )
+                    )
+                ),
+                SizedBox(
+                    height: 20
+                ),
+                Align(
+                  alignment: Alignment(-0.75, 1),
+                  child: Text("Contact 2",
+                    style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Align(
+                    alignment: Alignment(-0.42, 1),
+                    child: Container(
+                        alignment: Alignment.centerLeft,
+                        width: 250,
+                        child: TextField(
+                          decoration: InputDecoration(
+                            hintText: p.contact2,
+                          ),
+                          style: GoogleFonts.poppins(),
+                        )
+                    )
+                ),
+                SizedBox(
+                    height: 20
+                ),
+                Align(
+                  alignment: Alignment(-0.75, 1),
+                  child: Text("Reciept ID",
+                    style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                SizedBox(
+                    height: 10
+                ),
+                Align(
+                    alignment: Alignment(-0.42, 1),
+                    child: Container(
+                        alignment: Alignment.centerLeft,
+                        width: 250,
+                        child: Text(
+                          p.receiptID,
+                          style: GoogleFonts.poppins(),
+                        )
+                    )
+                ),
+                SizedBox(
+                    height: 20
+                ),
+                Align(
+                  alignment: Alignment(-0.7, 1),
+                  child: Text("Date Of Payment",
+                    style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                SizedBox(
+                    height: 10
+                ),
+                Align(
+                    alignment: Alignment(-0.42, 1),
+                    child: Container(
+                        alignment: Alignment.centerLeft,
+                        width: 250,
+                        child: Text(
+                          p.datePaid,
+                          style: GoogleFonts.poppins(),
+                        )
+                    )
+                ),
+                SizedBox(
+                    height: 20
+                ),
+                Stack(
+                  children: [
+                    Column(
+                      children: [
+                        Align(
+                          alignment: Alignment(-0.7, 1),
+                          child: Text("Quaterly Fees",
+                            style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Align(
+                            alignment: Alignment(-0.42, 1),
+                            child: Container(
+                                margin: EdgeInsets.fromLTRB(0, 6, 0, 5),
+                                alignment: Alignment.centerLeft,
+                                width: 250,
+                                child: Text(
+                                  p.role.compareTo(roles[0]) == 0?"Rs 200":"Rs 500",
+                                  style: GoogleFonts.poppins(),
+                                )
+                            )
+                        ),
+                      ],
                     ),
-                  )
-              ),
-              SizedBox(
-                  height: 20
-              ),
-              Align(
-                alignment: Alignment(-0.75, 1),
-                child: Text("Email ID",
-                  style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
-                ),
-              ),
-              Align(
-                  alignment: Alignment(-0.42, 1),
-                  child: Container(
-                      alignment: Alignment.centerLeft,
-                      width: 250,
-                      child: TextField(
-                        decoration: InputDecoration(
-                          hintText: p.mailID,
+                    Column(
+                      children: [
+                        Align(
+                          alignment: Alignment(0.5, 0),
+                          child: Text("Fees Paid",
+                            style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                          ),
                         ),
-                        style: GoogleFonts.poppins(),
-                      )
-                  )
-              ),
-              SizedBox(
-                  height: 20
-              ),
-              Align(
-                alignment: Alignment(-0.75, 1),
-                child: Text("Contact 1",
-                  style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
-                ),
-              ),
-              Align(
-                  alignment: Alignment(-0.42, 1),
-                  child: Container(
-                      alignment: Alignment.centerLeft,
-                      width: 250,
-                      child: TextField(
-                        decoration: InputDecoration(
-                          hintText: p.contact1,
+                        Align(
+                            alignment: Alignment(-0.2, 1),
+                            child: Container(
+                                margin: EdgeInsets.fromLTRB(0, 6, 0, 5),
+                                alignment: Alignment.centerRight,
+                                width: 250,
+                                child: Text(
+                                  p.amtPaid,
+                                  style: GoogleFonts.poppins(),
+                                )
+                            )
                         ),
-                        style: GoogleFonts.poppins(),
-                      )
-                  )
-              ),
-              SizedBox(
-                  height: 20
-              ),
-              Align(
-                alignment: Alignment(-0.75, 1),
-                child: Text("Contact 2",
-                  style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                      ],
+                    ),
+                  ]
                 ),
-              ),
-              Align(
-                  alignment: Alignment(-0.42, 1),
-                  child: Container(
-                      alignment: Alignment.centerLeft,
-                      width: 250,
-                      child: TextField(
-                        decoration: InputDecoration(
-                          hintText: p.contact2,
-                        ),
-                        style: GoogleFonts.poppins(),
-                      )
-                  )
-              ),
-              SizedBox(
-                  height: 20
-              ),
-            ]
-        )
+                SizedBox(
+                  height: 10,
+                ),
+                Align(
+                  alignment: Alignment(0, 0),
+                  child: RawMaterialButton(
+                    onPressed: () {  },
+                    child: Text(
+                      "Submit",
+                    ),
+                    fillColor: Color(0xFF93C6D3),
+                  ),
+                ),
+              ]
+          )
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    Person p = Person("name", "lib/Resources/pic-1.png", "rollno", "enteredAt", "noOfVisits", "dues", "receiptID", "amtPaid", "datePaid", "role", "mailID", "contact1", "contact2");
-    return Column(
-        children: [
-          SizedBox(height: 10,),
-          detailsWidget(p)
-        ]
+    return SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(height: 10,),
+            detailsWidget(p)
+          ]
+      )
     );
   }
 }

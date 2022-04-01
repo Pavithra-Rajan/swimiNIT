@@ -1,0 +1,6 @@
+[{"id":1,"dateVisit":"01-01-2022","timeEntry":"16:00:36","timeExit":"16:53:20"},
+  {"id":2,"dateVisit":"02-01-2022","timeEntry":"16:32:36","timeExit":"17:05:20"},
+  {"id":3,"dateVisit":"03-01-2022","timeEntry":"17:02:36","timeExit":"18:01:40"},
+  {"id":4,"dateVisit":"04-01-2022","timeEntry":"16:02:36","timeExit":"16:59:53"},
+
+  {"id":1000,"dateVisit":"05-01-2022","timeEntry":"18:04:36","timeExit":"19:59:53"}]
