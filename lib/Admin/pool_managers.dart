@@ -2,6 +2,7 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../SPM/spm.dart';
+import '../httpservice.dart';
 
 class ViewPoolManagers extends StatefulWidget
 {
@@ -13,9 +14,9 @@ class ViewPoolManagers extends StatefulWidget
 
 class _ViewPoolManagers extends State<ViewPoolManagers>
 {
-  List<SPM> managers = [SPM("1234567890", "0987654321", "John Doe", "123456"),
-                        SPM("1234567890", "0987654321", "John Wick", "123456"),
-                        SPM("1234567890", "0987654321", "John Cena", "123456")];
+  final HttpService httpService = HttpService();
+
+  get managers => null;
 
   @override
   Widget build(BuildContext context) {
@@ -88,5 +89,9 @@ class _ViewPoolManagers extends State<ViewPoolManagers>
         ),
       ),
     );
+  }
+  ListView _buildCard(BuildContext context, List<SPM> posts)
+  {
+      return ListView();
   }
 }
