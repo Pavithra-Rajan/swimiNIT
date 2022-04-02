@@ -202,7 +202,7 @@ class UserHistoryAdminPageState extends State<UserHistoryAdminPage> {
               onPrimary: Colors.white, // foreground
               minimumSize: Size(175,45),
             ),
-            child: Text('Download',style: GoogleFonts.poppins(color: Colors.black, fontSize: 14),),
+            child: Text('Download',style: GoogleFonts.poppins(color: Colors.black, fontSize: 12, fontWeight: FontWeight.bold),),
             onPressed: () {},
           )),
     );
@@ -210,7 +210,7 @@ class UserHistoryAdminPageState extends State<UserHistoryAdminPage> {
   @override
   Widget build(BuildContext context) {
     Future<List<UserHistoryTable>>ReadJsonData() async{
-      final jsondata= await rootBundle.loadString('VISIT_DATA.json');
+      final jsondata= await rootBundle.loadString('assets/VISIT_DATA.json');
       final list=json.decode(jsondata) as List<dynamic>;
       return list.map((e)=>UserHistoryTable.fromJson(e)).toList();
     }
@@ -219,13 +219,7 @@ class UserHistoryAdminPageState extends State<UserHistoryAdminPage> {
     return Container(
 
       child: Scaffold(
-          appBar: AppBar(
-            centerTitle: false,
-            backgroundColor: Color(0xFF14839F),
-            title: Text('User History',
-              style: GoogleFonts.poppins(color: Colors.white),
-            ),
-          ),
+
         body:
         SingleChildScrollView(
             child: Column(

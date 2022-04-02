@@ -3,7 +3,7 @@ import 'package:swiminit/Admin/pool_managers.dart';
 import 'package:swiminit/Admin/pending_dues.dart';
 import 'package:swiminit/Admin/search.dart';
 import 'package:swiminit/Admin/edit_swimmer_details.dart';
-
+import 'package:swiminit/Admin/user_history.dart';
 import 'package:swiminit/Admin/admin_drawer_file.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:swiminit/Admin/quaterly_reports.dart';
@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
       container = PendingDuesPage();
       text = "Pending Dues";
     } else if (currentPage == DrawerSections.search) {
-      container = Search(); //Search by membership ID and date
+      container = UserHistoryAdminPage(); //Search by membership ID and date
       text = "Search";
     } else if (currentPage == DrawerSections.editSwimmerDetails) {
       container = EditSwimmerPage();

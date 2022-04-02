@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:swiminit/Admin/search.dart';
-import 'package:swiminit/Admin/send_mail.dart';
+import 'package:swiminit/Admin/pending_dues.dart';
 import 'package:swiminit/Admin/adminaddspm.dart';
 import 'package:swiminit/Admin/pool_managers.dart';
 import 'package:swiminit/Admin/quaterly_reports.dart';
@@ -16,8 +16,8 @@ import 'SPM/search_by_daterange_results.dart';
 import 'firebase_options.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:swiminit/SPM/DuesAlertBox.dart';
-import 'package:swiminit/SPM/FreeTrialsAlertBox.dart';
+import 'package:swiminit/SPM/entryAlerts/DuesAlertBox.dart';
+import 'package:swiminit/SPM/entryAlerts/FreeTrialsAlertBox.dart';
 import 'package:swiminit/Admin/adminnavbar.dart';
 
 import 'package:swiminit/Admin/user_history.dart';
@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> {
         future: _initializeFirebase(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            return LoginScreen();
+            return PendingDuesPage();
           }
           return const Center(
             child: CircularProgressIndicator(),
