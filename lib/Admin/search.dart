@@ -24,7 +24,7 @@ class SearchState extends State<Search> {
       //   backgroundColor: Color(0xFF14839F),
       // ),
       body: Container(
-        margin: EdgeInsets.only(left: 35, top: 30, right: 35, bottom: 0),
+        margin: EdgeInsets.only(left: 35, top: 40, right: 35, bottom: 0),
         child: Align(
           alignment: Alignment.center,
           child: Column(
@@ -32,9 +32,9 @@ class SearchState extends State<Search> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               ToggleSwitch(
-                minWidth: 160.0,
+                minWidth: 140.0,
                 minHeight: 40.0,
-                fontSize: 16.0,
+                fontSize: 14.0,
                 initialLabelIndex: 0,
                 activeBgColor: [Color(0xff0388A9)],
                 activeFgColor: Colors.white,
@@ -68,7 +68,7 @@ class SearchState extends State<Search> {
         children: <Widget>[
           SizedBox(
             height: 40, //height of button
-            width: 384, //width of button equal to parent widget
+            width: 410, //width of button equal to parent widget
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 primary: Color(0xFF14839F), //background color of button

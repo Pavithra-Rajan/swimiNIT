@@ -15,16 +15,19 @@ class  Daterange2State extends State<Daterange2> {
         hintStyle: TextStyle(color: Colors.black45),
         errorStyle: TextStyle(color: Colors.redAccent),
         enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.teal, width: 1.5),
+          borderSide: BorderSide(color: Color(0xFF14839F), width: 1.5),
         ),
         suffixIcon: Icon(Icons.event_note),
         labelText: 'From Date',
       ),
       mode: DateTimeFieldPickerMode.date,
       autovalidateMode: AutovalidateMode.always,
-      validator: (e) => (e?.day ?? 0) == 1 ? 'Please not the first day' : null,
+      lastDate: DateTime.now(),
+
       onDateSelected: (DateTime value) {
-        print(value);
+        //print(value);
+        var fromDate=value;
+        print(fromDate);
       },
     );
   }
@@ -34,17 +37,18 @@ class  Daterange2State extends State<Daterange2> {
         hintStyle: TextStyle(color: Colors.black45),
         errorStyle: TextStyle(color: Colors.redAccent),
         enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.teal, width: 1.5),
+          borderSide: BorderSide(color: Color(0xFF14839F), width: 1.5),
         ),
         suffixIcon: Icon(Icons.event_note),
         labelText: 'To Date',
       ),
       mode: DateTimeFieldPickerMode.date,
       autovalidateMode: AutovalidateMode.always,
-      validator: (e) => (e?.day ?? 0) == 1 ? 'Please not the first day' : null,
+      initialDate: DateTime.now(),
       onDateSelected: (DateTime value) {
         print(value);
       },
+
     );
   }
   @override
