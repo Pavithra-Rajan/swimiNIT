@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -56,11 +55,6 @@ class PendingDuesPageState extends State<PendingDuesPage> {
 
   @override
   Widget build(BuildContext context) {
-    Future<List<ProductDataModel>?> readJsonData() async {
-      final jsondata = await rootBundle.loadString('assets/MOCK_DATA.json');
-      final list = json.decode(jsondata) as List<dynamic>;
-      return list.map((e) => ProductDataModel.fromJson(e)).toList();
-    }
 
     int i;
 
@@ -82,41 +76,42 @@ class PendingDuesPageState extends State<PendingDuesPage> {
                   border: TableBorder.all(
                     color: Colors.white,
                   ),
-                  for (i = 0; i < items.length; i++)
-                    TableRow(
-                      decoration: BoxDecoration(
-                        color: colors[i % 2],
+                  children: [
+                    for (i = 0; i < items.length; i++)
+                      TableRow(
+                        decoration: BoxDecoration(
+                          color: colors[i % 2],
+                        ),
+                        children: <Widget>[
+                          SizedBox(
+                            height: 64,
+                            child: Center(
+                              child: Text(
+                                items[i].membershipID.toString(),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 64,
+                            child: Center(
+                              child: Text(
+                                items[i].name.toString(),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 64,
+                            child: Center(
+                              child: Text(
+                                items[i].dues.toString(),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      children: <Widget>[
-                        SizedBox(
-                          height: 64,
-                          child: Center(
-                            child: Text(
-                              items[i].membershipID.toString(),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 64,
-                          child: Center(
-                            child: Text(
-                              items[i].name.toString(),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 64,
-                          child: Center(
-                            child: Text(
-                              items[i].dues.toString(),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
                     for (i = 0; i < items.length; i++)
                       TableRow(
                         decoration: BoxDecoration(
@@ -154,8 +149,6 @@ class PendingDuesPageState extends State<PendingDuesPage> {
                       ),
                   ],
                 );
-                //var items = data.data as List<ProductDataModel>;
-
               } else {
                 return Center(
                   child: CircularProgressIndicator(),
