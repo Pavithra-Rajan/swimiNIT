@@ -65,39 +65,35 @@ class PendingDuesPageState extends State<PendingDuesPage> {
     int i;
 
     List<Color> colors = [Colors.cyan.shade50, Colors.cyan.shade300];
+
     return Scaffold(
-      appBar: AppBar(
-        leading: Icon(Icons.menu),
-        title: Text('Results'),
-        backgroundColor: Color(0xFF14839F),
-      ),
       body: Container(
         margin: EdgeInsets.only(left: 35, top: 20, right: 35, bottom: 0),
         child: SingleChildScrollView(
           child: FutureBuilder(
-            future: readJsonData(),
+            future: getDues(),
             builder: (context, data) {
               if (data.hasError) {
                 return Center(child: Text("${data.error}"));
               } else if (data.hasData) {
                 var items = data.data as List<ProductDataModel>;
-
+                //print('Inside');
                 return Table(
                   border: TableBorder.all(
                     color: Colors.white,
                   ),
-                  children: [
+                  for (i = 0; i < items.length; i++)
                     TableRow(
-                      decoration:
-                      const BoxDecoration(color: Color(0xFF14839F)),
-                      children: const <Widget>[
+                      decoration: BoxDecoration(
+                        color: colors[i % 2],
+                      ),
+                      children: <Widget>[
                         SizedBox(
                           height: 64,
                           child: Center(
                             child: Text(
-                              "Membership ID",
+                              items[i].membershipID.toString(),
                               textAlign: TextAlign.center,
-                              style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),
                             ),
                           ),
                         ),
@@ -105,9 +101,8 @@ class PendingDuesPageState extends State<PendingDuesPage> {
                           height: 64,
                           child: Center(
                             child: Text(
-                              "Name",
+                              items[i].name.toString(),
                               textAlign: TextAlign.center,
-                              style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),
                             ),
                           ),
                         ),
@@ -115,9 +110,8 @@ class PendingDuesPageState extends State<PendingDuesPage> {
                           height: 64,
                           child: Center(
                             child: Text(
-                              "Dues",
+                              items[i].dues.toString(),
                               textAlign: TextAlign.center,
-                              style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),
                             ),
                           ),
                         ),
@@ -158,81 +152,46 @@ class PendingDuesPageState extends State<PendingDuesPage> {
                           ),
                         ],
                       ),
-                      for (i = 0; i < items.length; i++)
-                        TableRow(
-                          decoration: BoxDecoration(
-                            color: colors[i % 2],
-                          ),
-                          children: <Widget>[
-                            SizedBox(
-                              height: 64,
-                              child: Center(
-                                child: Text(
-                                  items[i].membershipID.toString(),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 64,
-                              child: Center(
-                                child: Text(
-                                  items[i].name.toString(),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 64,
-                              child: Center(
-                                child: Text(
-                                  items[i].dues.toString(),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                    ],
-                  );
-                  //var items = data.data as List<ProductDataModel>;
+                  ],
+                );
+                //var items = data.data as List<ProductDataModel>;
 
-                } else {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                //throw '';
-              },
-            ),
+              } else {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              //throw '';
+            },
           ),
         ),
-      bottomNavigationBar: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          SizedBox(
-            height: 40, //height of button
-            width: 384, //width of button equal to parent widget
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: Color(0xFF14839F), //background color of button
-                //border width and color
-                elevation: 0, //elevation of button
-                shape: RoundedRectangleBorder(
-                  //to set border radius to button
-                    borderRadius: BorderRadius.circular(3)),
-                //content padding inside button
-              ),
-              child: Text(
-                'Back',
-                style: TextStyle(color: Colors.white, fontSize: 16),
-              ),
-              onPressed: () => {},
-            ),
-          )
-        ],
       ),
+    bottomNavigationBar: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        SizedBox(
+          height: 40, //height of button
+          width: 384, //width of button equal to parent widget
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: Color(0xFF14839F), //background color of button
+              //border width and color
+              elevation: 0, //elevation of button
+              shape: RoundedRectangleBorder(
+                //to set border radius to button
+                  borderRadius: BorderRadius.circular(3)),
+              //content padding inside button
+            ),
+            child: Text(
+              'Back',
+              style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
+            onPressed: () => {},
+          ),
+        )
+      ],
+    ),
     );
   }
 }
