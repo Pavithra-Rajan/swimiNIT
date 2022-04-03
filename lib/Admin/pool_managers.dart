@@ -21,10 +21,11 @@ class _ViewPoolManagers extends State<ViewPoolManagers> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: ListView(
-      children: [
-        for (int i = 0; i < managers.length; i++) buildCard(i),
-      ],
-    ));
+          children: [
+            for (int i = 0; i < managers.length; i++) buildCard(i),
+          ],
+        )
+    );
   }
 
   Widget buildCard(int i) {
