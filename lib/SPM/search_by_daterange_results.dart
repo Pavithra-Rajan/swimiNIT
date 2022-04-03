@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
@@ -7,14 +6,14 @@ import 'dart:convert';
 class ProductDataModel {
   //data Type
   int? id;
-  String? first_name;
+  String? firstName;
   String? date;
   String? time;
 
 // constructor
   ProductDataModel({
     this.id,
-    this.first_name,
+    this.firstName,
     this.date,
     this.time,
   });
@@ -22,13 +21,16 @@ class ProductDataModel {
   //method that assign values to respective datatype vairables
   ProductDataModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    first_name = json['first_name'];
+    firstName = json['first_name'];
     date = json['date'];
     time = json['time'];
   }
 }
 
 class SearchByDateRange extends StatefulWidget {
+
+  const SearchByDateRange({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return SearchByDateRangeState();
@@ -40,149 +42,147 @@ class SearchByDateRangeState extends State<SearchByDateRange> {
 
   @override
   Widget build(BuildContext context) {
-    Future<List<ProductDataModel>> ReadJsonData() async {
+    Future<List<ProductDataModel>> readJsonData() async {
       final jsondata = await rootBundle.loadString('assets/MOCK_DATA.json');
       final list = json.decode(jsondata) as List<dynamic>;
       return list.map((e) => ProductDataModel.fromJson(e)).toList();
     }
 
-    var i;
+    int i;
 
     List<Color> colors = [Colors.cyan.shade50, Colors.cyan.shade300];
-    return Container(
-      child: Scaffold(
-        appBar: AppBar(
-          leading: Icon(Icons.menu),
-          title: Text('Results'),
-          backgroundColor: Color(0xFF14839F),
-        ),
-        body: Container(
-          margin: EdgeInsets.only(left: 35, top: 10, right: 35, bottom: 0),
-          child: SingleChildScrollView(
-            child: FutureBuilder(
-              future: ReadJsonData(),
-              builder: (context, data) {
-                if (data.hasError) {
-                  return Center(child: Text("${data.error}"));
-                } else if (data.hasData) {
-                  var items = data.data as List<ProductDataModel>;
+    return Scaffold(
+      appBar: AppBar(
+        leading: Icon(Icons.menu),
+        title: Text('Results'),
+        backgroundColor: Color(0xFF14839F),
+      ),
+      body: Container(
+        margin: EdgeInsets.only(left: 35, top: 10, right: 35, bottom: 0),
+        child: SingleChildScrollView(
+          child: FutureBuilder(
+            future: readJsonData(),
+            builder: (context, data) {
+              if (data.hasError) {
+                return Center(child: Text("${data.error}"));
+              } else if (data.hasData) {
+                var items = data.data as List<ProductDataModel>;
 
-                  return Table(
-                    border: TableBorder.all(
-                      color: Colors.blueGrey,
+                return Table(
+                  border: TableBorder.all(
+                    color: Colors.blueGrey,
+                  ),
+                  children: [
+                    TableRow(
+                      decoration:
+                          const BoxDecoration(color: Colors.lightBlueAccent),
+                      children: const <Widget>[
+                        SizedBox(
+                          height: 64,
+                          child: Center(
+                            child: Text(
+                              "Membership ID",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 64,
+                          child: Center(
+                            child: Text(
+                              "Date Of Visit",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 64,
+                          child: Center(
+                            child: Text(
+                              "Start-End time",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    children: [
+                    for (i = 0; i < items.length; i++)
                       TableRow(
-                        decoration:
-                            const BoxDecoration(color: Colors.lightBlueAccent),
+                        decoration: BoxDecoration(
+                          color: colors[i % 2],
+                        ),
                         children: <Widget>[
-                          Container(
+                          SizedBox(
                             height: 64,
                             child: Center(
                               child: Text(
-                                "Membership ID",
+                                items[i].firstName.toString(),
                                 textAlign: TextAlign.center,
-                                style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),
-                          Container(
+                          SizedBox(
                             height: 64,
                             child: Center(
                               child: Text(
-                                "Date Of Visit",
+                                "26-07-2001",
                                 textAlign: TextAlign.center,
-                                style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),
-                          Container(
+                          SizedBox(
                             height: 64,
                             child: Center(
                               child: Text(
-                                "Start-End time",
+                                "06:00:00-07:00:00",
                                 textAlign: TextAlign.center,
-                                style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),
                         ],
                       ),
-                      for (i = 0; i < items.length; i++)
-                        TableRow(
-                          decoration: BoxDecoration(
-                            color: colors[i % 2],
-                          ),
-                          children: <Widget>[
-                            Container(
-                              height: 64,
-                              child: Center(
-                                child: Text(
-                                  items[i].first_name.toString(),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              height: 64,
-                              child: Center(
-                                child: Text(
-                                  "26-07-2001",
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              height: 64,
-                              child: Center(
-                                child: Text(
-                                  "06:00:00-07:00:00",
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                    ],
-                  );
-                  //var items = data.data as List<ProductDataModel>;
+                  ],
+                );
+                //var items = data.data as List<ProductDataModel>;
 
-                } else {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                throw '';
-              },
-            ),
+              } else {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              //throw '';
+            },
           ),
         ),
-        bottomNavigationBar: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(
-              height: 40, //height of button
-              width: 384, //width of button equal to parent widget
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Color(0xFF14839F), //background color of button
-                  //border width and color
-                  elevation: 0, //elevation of button
-                  shape: RoundedRectangleBorder(
-                      //to set border radius to button
-                      borderRadius: BorderRadius.circular(3)),
-                  //content padding inside button
-                ),
-                child: Text(
-                  'Back',
-                  style: TextStyle(color: Colors.white, fontSize: 16),
-                ),
-                onPressed: () => {},
+      ),
+      bottomNavigationBar: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          SizedBox(
+            height: 40, //height of button
+            width: 384, //width of button equal to parent widget
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Color(0xFF14839F), //background color of button
+                //border width and color
+                elevation: 0, //elevation of button
+                shape: RoundedRectangleBorder(
+                    //to set border radius to button
+                    borderRadius: BorderRadius.circular(3)),
+                //content padding inside button
               ),
-            )
-          ],
-        ),
+              child: Text(
+                'Back',
+                style: TextStyle(color: Colors.white, fontSize: 16),
+              ),
+              onPressed: () => {},
+            ),
+          )
+        ],
       ),
     );
   }

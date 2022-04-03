@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:swiminit/Admin/pool_managers.dart';
 import 'package:swiminit/Admin/pending_dues.dart';
-import 'package:swiminit/Admin/search.dart';
 import 'package:swiminit/Admin/edit_swimmer_details.dart';
 import 'package:swiminit/Admin/user_history.dart';
 import 'package:swiminit/Admin/admin_drawer_file.dart';
@@ -161,7 +160,7 @@ enum DrawerSections {
 }
 
 void _contact() async {
-  final url = 'mailto:pavithra.rajan01@gmail.com';
+  const url = 'mailto:pavithra.rajan01@gmail.com';
 
   if (await canLaunch(url)) {
     await launch(url);
