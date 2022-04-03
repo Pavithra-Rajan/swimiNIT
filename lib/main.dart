@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:swiminit/Admin/pending_dues.dart';
+import 'package:swiminit/Admin/pool_managers.dart';
 import 'package:swiminit/Admin/adminnavbar.dart';
 import 'firebase_options.dart';
 
