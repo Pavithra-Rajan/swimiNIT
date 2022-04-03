@@ -53,11 +53,6 @@ class PendingDuesPageState extends State<PendingDuesPage> {
     List<Color> colors = [Colors.cyan.shade50, Colors.cyan.shade300];
     return Container(
       child: Scaffold(
-        appBar: AppBar(
-          leading: Icon(Icons.menu),
-          title: Text('Pending Dues'),
-          backgroundColor: Color(0xFF14839F),
-        ),
         body: Container(
           margin: EdgeInsets.only(left: 35, top: 20, right: 35, bottom: 0),
           child: SingleChildScrollView(
