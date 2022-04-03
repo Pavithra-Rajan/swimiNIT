@@ -55,9 +55,7 @@ class PendingDuesPageState extends State<PendingDuesPage> {
 
   @override
   Widget build(BuildContext context) {
-
     int i;
-
     List<Color> colors = [Colors.cyan.shade50, Colors.cyan.shade300];
 
     return Scaffold(
