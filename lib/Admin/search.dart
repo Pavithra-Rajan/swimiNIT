@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:swiminit/Admin/search_membershipID.dart';
 import 'package:swiminit/Admin/search_dateRange.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class Search extends StatefulWidget {
+  const Search({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => SearchState();
 }
@@ -15,13 +16,8 @@ class SearchState extends State<Search> {
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
+
     return Scaffold(
-      // appBar: AppBar(
-      //   leading: Icon(Icons.menu),
-      //   title: Text('Search'),
-      //   backgroundColor: Color(0xFF14839F),
-      // ),
           body: Container(
               margin: EdgeInsets.only(left: 35, top: 40, right: 35, bottom: 0),
               child: Align(
@@ -93,7 +89,7 @@ class SearchState extends State<Search> {
 
 class SearchPage extends StatelessWidget {
 
-  final TextEditingController _mebIDController = TextEditingController();
+  final TextEditingController _membIDController = TextEditingController();
 
   SearchPage({Key? key}) : super(key: key);
 
@@ -105,13 +101,13 @@ class SearchPage extends StatelessWidget {
           child: TextField(
             autocorrect: false,
             cursorColor: Color(0xFF14839F),
-            controller: _mebIDController,
+            controller: _membIDController,
             keyboardType: TextInputType.emailAddress,
             decoration: const InputDecoration(
-            hintText: "Membership ID",
-            prefixIcon: Icon(Icons.person, color: Color(0xFF14839F)),
-      ),
-      )
+                hintText: "Membership ID",
+                prefixIcon: Icon(Icons.person, color: Color(0xFF14839F)),
+              ),
+          )
       )
     );
   }

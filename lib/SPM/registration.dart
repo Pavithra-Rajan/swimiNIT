@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 class RegistrationPage extends StatefulWidget {
+
+  const RegistrationPage({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return RegistrationPageState();
@@ -10,7 +13,11 @@ class RegistrationPage extends StatefulWidget {
 }
 
 class RegistrationPageState extends State<RegistrationPage> {
+
   bool isVisible = false;
+  List<String> roles = ['Student', 'Faculty', 'Faculty Referral'];
+  String dropDownVal = 'Student';
+
   Widget _buildMembershipId() {
     return TextFormField(
       decoration: InputDecoration(
@@ -34,13 +41,30 @@ class RegistrationPageState extends State<RegistrationPage> {
   }
 
   Widget _buildRole() {
-    return TextFormField(
-      decoration: InputDecoration(
-        hintText: 'Role',
-        enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.teal, width: 1.5),
-        ),
-      ),
+    return Column(
+      children: [
+        Align(
+          alignment: Alignment(-0.75, 1),
+          child: DropdownButton(
+            iconEnabledColor: Colors.teal,
+            iconDisabledColor: Colors.teal,
+            dropdownColor: Colors.teal,
+            focusColor: Colors.teal,
+
+            hint: Text("Select Role"),
+            icon: const Icon(Icons.keyboard_arrow_down),
+            items: roles.map((String items) {
+                return DropdownMenuItem(
+                  value: items,
+                  child: Text(items),
+                );
+            }).toList(),
+            onChanged: (String? newValue) {
+              dropDownVal = newValue!;
+            },
+            ),
+          )
+      ],
     );
   }
 
@@ -230,6 +254,7 @@ class RegistrationPageState extends State<RegistrationPage> {
           )
         ],
       ),
+      resizeToAvoidBottomInset: false,
     );
   }
 }

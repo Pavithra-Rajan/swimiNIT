@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../SPM/Person.dart';
-import 'package:http/http.dart';
 
 // class ProductDataModel {
 //   final String membershipID;
@@ -39,7 +38,6 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
       "contact2");
 
   Widget detailsWidget(Person p) {
-    TextEditingController _name = TextEditingController();
     return Padding(
         padding: EdgeInsets.all(0),
         child: Column(
@@ -281,28 +279,6 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                   ),
                 ]
               ),
-              SizedBox(
-                height: 10,
-              ),
-              Align(
-                alignment: Alignment(0, 0),
-                child: SizedBox(
-                  width: 150,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    child: Text(
-                      "Submit",
-                    ),
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                      ),
-                    ),
-                  ),
-                )
-              ),
             ]
         )
     );
@@ -310,15 +286,40 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        child: Column(
-            children: [
-                SizedBox(
-                    height: 10,
+    return Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+                  children: [
+                    SizedBox(
+                      height: 10,
+                    ),
+                    detailsWidget(p)
+                  ]
                 ),
-                detailsWidget(p)
-              ]
-        )
+          ),
+        bottomNavigationBar: Container(
+          margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+          child: FractionallySizedBox(
+            widthFactor: 1,
+            heightFactor: 0.07,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Color(0xFF14839F), //background color of button
+                //border width and color
+                elevation: 0, //elevation of button
+                shape: RoundedRectangleBorder(
+                  //to set border radius to button
+                    borderRadius: BorderRadius.circular(0)),
+                //content padding inside button
+              ),
+              child: Text(
+                'Submit',
+                style: TextStyle(color: Colors.white, fontSize: 16),
+              ),
+              onPressed: () => {},
+            ),
+          )
+      ),
     );
   }
 }

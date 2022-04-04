@@ -6,9 +6,7 @@ import 'package:swiminit/SPM/pool_status.dart';
 import 'package:swiminit/SPM/registration.dart';
 import 'package:swiminit/SPM/search.dart';
 import 'package:swiminit/SPM/spm_drawer_file.dart';
-import 'package:swiminit/SPM/search_by_daterange_results.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:swiminit/main.dart';
 
 class SPMNavBar extends StatelessWidget {
   const SPMNavBar({Key? key}) : super(key: key);
@@ -72,6 +70,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
+      resizeToAvoidBottomInset: false,
     );
   }
 
