@@ -1,7 +1,6 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../SPM/spm.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:swiminit/Admin/adminaddspm.dart';
@@ -48,7 +47,6 @@ class _ViewPoolManagers extends State<ViewPoolManagers> {
 
   @override
   Widget build(BuildContext context) {
-    int i;
     return Scaffold(
       body: Container(
           margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
@@ -103,7 +101,8 @@ class _ViewPoolManagers extends State<ViewPoolManagers> {
 
               },
             ),
-          )),
+          )
+      ),
     );
   }
 

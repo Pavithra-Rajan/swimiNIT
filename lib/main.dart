@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
         future: _initializeFirebase(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            return LoginScreen();
+            return SPMNavBar();
           }
           return const Center(
             child: CircularProgressIndicator(),
@@ -157,7 +157,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   builder: (context) => AdminNavBar()));
                         }
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (context) => AdminNavBar()));
+                            builder: (context) => SPMNavBar()));
                       },
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
