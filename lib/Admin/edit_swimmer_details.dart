@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../SPM/Person.dart';
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 // class ProductDataModel {
 //   final String membershipID;
@@ -11,6 +12,8 @@ import 'package:http/http.dart';
 //   final String contact1;
 //   final String contact2;
 //   final int fees;
+//   ProductDataModel(this.membershipID, this.name, this.role, this.emailID,
+//       this.contact1, this.contact2, this.fees);
 // }
 
 class EditSwimmerPage extends StatefulWidget {
@@ -21,6 +24,33 @@ class EditSwimmerPage extends StatefulWidget {
 }
 
 class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
+  // Future getDetails() async {
+  //   var mID = 'B190657CS';
+  //   var response = await http.get(Uri.parse(
+  //       'https://swiminit.herokuapp.com/getdetails?membershipID=$mID&Admin=True'));
+  //
+  //   var data = json.decode(response.body);
+  //   List<ProductDataModel> swimmerData = [];
+  //   // print(data['spms']);
+  //
+  //   for (var u in data['spms']) {
+  //     ProductDataModel swimmerData1 = ProductDataModel(
+  //         u["membershipID"],
+  //         u["name"],
+  //         u["role"],
+  //         u["emailID"],
+  //         u["contact1"],
+  //         u["contact2"],
+  //         u["fees"]);
+  //     //print(u["contact1"]);
+  //     swimmerData.add(swimmerData1);
+  //     //print(duesData1);
+  //   }
+  //   //print(duesData[0].contact1);
+  //
+  //   return swimmerData;
+  // }
+
   List<String> roles = ['Student', 'Faculty', 'Faculty Referral'];
   String dropDownVal = 'Student';
   Person p = Person(
@@ -229,20 +259,19 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                         style: GoogleFonts.poppins(),
                       ))),
               SizedBox(height: 20),
-              Stack(
+              Stack(children: [
+                Column(
                   children: [
-                    Column(
-                      children: [
-                        Align(
-                          alignment: Alignment(-0.7, 1),
-                          child: Text(
-                              "Quarterly Fees",
-                              style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment(-0.42, 1),
-                          child: Container(
+                    Align(
+                      alignment: Alignment(-0.7, 1),
+                      child: Text(
+                        "Quarterly Fees",
+                        style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Align(
+                        alignment: Alignment(-0.42, 1),
+                        child: Container(
                             margin: EdgeInsets.fromLTRB(0, 6, 0, 5),
                             alignment: Alignment.centerLeft,
                             width: 250,
@@ -251,10 +280,8 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                                   ? "Rs 200"
                                   : "Rs 500",
                               style: GoogleFonts.poppins(),
-                            )
-                          )
-                        ),
-                    ],
+                            ))),
+                  ],
                 ),
                 Column(
                   children: [
@@ -274,51 +301,43 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                             child: Text(
                               p.amtPaid,
                               style: GoogleFonts.poppins(),
-                            )
-                        )
-                      ),
-                    ],
-                  ),
-                ]
-              ),
+                            ))),
+                  ],
+                ),
+              ]),
               SizedBox(
                 height: 10,
               ),
               Align(
-                alignment: Alignment(0, 0),
-                child: SizedBox(
-                  width: 150,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    child: Text(
-                      "Submit",
-                    ),
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
+                  alignment: Alignment(0, 0),
+                  child: SizedBox(
+                    width: 150,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      child: Text(
+                        "Submit",
+                      ),
+                      style: ButtonStyle(
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                )
-              ),
-            ]
-        )
-    );
+                  )),
+            ]));
   }
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-        child: Column(
-            children: [
-                SizedBox(
-                    height: 10,
-                ),
-                detailsWidget(p)
-              ]
-        )
-    );
+        child: Column(children: [
+      SizedBox(
+        height: 10,
+      ),
+      detailsWidget(p)
+    ]));
   }
 }
