@@ -77,6 +77,12 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                       child: TextField(
                         decoration: InputDecoration(
                           hintText: p.name,
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Color(0xFF14839F)),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Color(0xFF14839F)),
+                          ),
                         ),
                         style: GoogleFonts.poppins(),
                       ))),
@@ -127,6 +133,12 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                       child: TextField(
                         decoration: InputDecoration(
                           hintText: p.mailID,
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Color(0xFF14839F)),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Color(0xFF14839F)),
+                          ),
                         ),
                         style: GoogleFonts.poppins(),
                       ))),
@@ -146,6 +158,12 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                       child: TextField(
                         decoration: InputDecoration(
                           hintText: p.contact1,
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Color(0xFF14839F)),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Color(0xFF14839F)),
+                          ),
                         ),
                         style: GoogleFonts.poppins(),
                       ))),
@@ -165,6 +183,12 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                       child: TextField(
                         decoration: InputDecoration(
                           hintText: p.contact2,
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Color(0xFF14839F)),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Color(0xFF14839F)),
+                          ),
                         ),
                         style: GoogleFonts.poppins(),
                       ))),
@@ -205,19 +229,20 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                         style: GoogleFonts.poppins(),
                       ))),
               SizedBox(height: 20),
-              Stack(children: [
-                Column(
+              Stack(
                   children: [
-                    Align(
-                      alignment: Alignment(-0.7, 1),
-                      child: Text(
-                        "Quarterly Fees",
-                        style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    Align(
-                        alignment: Alignment(-0.42, 1),
-                        child: Container(
+                    Column(
+                      children: [
+                        Align(
+                          alignment: Alignment(-0.7, 1),
+                          child: Text(
+                              "Quarterly Fees",
+                              style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment(-0.42, 1),
+                          child: Container(
                             margin: EdgeInsets.fromLTRB(0, 6, 0, 5),
                             alignment: Alignment.centerLeft,
                             width: 250,
@@ -226,8 +251,10 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                                   ? "Rs 200"
                                   : "Rs 500",
                               style: GoogleFonts.poppins(),
-                            ))),
-                  ],
+                            )
+                          )
+                        ),
+                    ],
                 ),
                 Column(
                   children: [
@@ -247,34 +274,51 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                             child: Text(
                               p.amtPaid,
                               style: GoogleFonts.poppins(),
-                            ))),
-                  ],
-                ),
-              ]),
+                            )
+                        )
+                      ),
+                    ],
+                  ),
+                ]
+              ),
               SizedBox(
                 height: 10,
               ),
               Align(
                 alignment: Alignment(0, 0),
-                child: RawMaterialButton(
-                  onPressed: () {},
-                  child: Text(
-                    "Submit",
+                child: SizedBox(
+                  width: 150,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    child: Text(
+                      "Submit",
+                    ),
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                      ),
+                    ),
                   ),
-                  fillColor: Color(0xFF93C6D3),
-                ),
+                )
               ),
-            ]));
+            ]
+        )
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-        child: Column(children: [
-      SizedBox(
-        height: 10,
-      ),
-      detailsWidget(p)
-    ]));
+        child: Column(
+            children: [
+                SizedBox(
+                    height: 10,
+                ),
+                detailsWidget(p)
+              ]
+        )
+    );
   }
 }
