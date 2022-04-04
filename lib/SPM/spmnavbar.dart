@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:swiminit/SPM/edit_receipt_details.dart';
 import 'package:swiminit/SPM/entry.dart';
 import 'package:swiminit/SPM/log_out.dart';
-import 'package:swiminit/SPM/pending_dues.dart';
 import 'package:swiminit/SPM/pool_status.dart';
 import 'package:swiminit/SPM/registration.dart';
 import 'package:swiminit/SPM/search.dart';
@@ -52,9 +51,6 @@ class _HomePageState extends State<HomePage> {
     } else if (currentPage == DrawerSections.editReceiptDetails) {
       container = EditReceiptPage();
       text = "Edit Receipt Details";
-    } else if (currentPage == DrawerSections.pendingDues) {
-      container = PendingDuesPage();
-      text = "Pending Dues";
     } else if (currentPage == DrawerSections.logOut) {
       container = LogOutPage();
     }
@@ -96,9 +92,7 @@ class _HomePageState extends State<HomePage> {
               currentPage == DrawerSections.registration ? true : false),
           menuItem(5, "Edit Receipt Details", Icons.settings_outlined,
               currentPage == DrawerSections.editReceiptDetails ? true : false),
-          menuItem(6, "Pending Dues", Icons.notifications_outlined,
-              currentPage == DrawerSections.pendingDues ? true : false),
-          menuItem(7, "Log out", Icons.privacy_tip_outlined,
+          menuItem(6, "Log out", Icons.privacy_tip_outlined,
               currentPage == DrawerSections.logOut ? true : false),
         ],
       ),
@@ -123,8 +117,6 @@ class _HomePageState extends State<HomePage> {
             } else if (id == 5) {
               currentPage = DrawerSections.editReceiptDetails;
             } else if (id == 6) {
-              currentPage = DrawerSections.pendingDues;
-            } else if (id == 7) {
               currentPage = DrawerSections.logOut;
             }
           });
@@ -155,6 +147,5 @@ enum DrawerSections {
   search,
   registration,
   editReceiptDetails,
-  pendingDues,
   logOut
 }

@@ -3,6 +3,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:swiminit/Admin/pool_managers.dart';
 import 'package:swiminit/Admin/adminnavbar.dart';
+import 'package:swiminit/SPM/entry.dart';
+import 'package:swiminit/SPM/pool_status.dart';
+import 'package:swiminit/SPM/spmnavbar.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -104,13 +107,11 @@ class _LoginScreenState extends State<LoginScreen> {
           Text("Login",
               textAlign: TextAlign.center,
               style: TextStyle(
-                color:Color(0xFF14839F),
+                color: Color(0xFF14839F),
                 fontSize: 28.0,
                 fontWeight: FontWeight.bold,
               )),
-          const SizedBox(
-              height: 44.0
-          ),
+          const SizedBox(height: 44.0),
           TextField(
             controller: _emailController,
             keyboardType: TextInputType.emailAddress,
@@ -134,15 +135,14 @@ class _LoginScreenState extends State<LoginScreen> {
             height: 40.0,
             width: 10.0,
           ),
-
           Stack(
-            alignment : Alignment.center,
+            alignment: Alignment.center,
             children: [
               Container(
-                width : 100,
-                height : 50,
-                color: Colors.white,
-                child : RawMaterialButton(
+                  width: 100,
+                  height: 50,
+                  color: Colors.white,
+                  child: RawMaterialButton(
                       fillColor: Color(0xFF14839F),
                       padding: const EdgeInsets.symmetric(vertical: 15.0),
                       onPressed: () async {
@@ -152,8 +152,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             context: context);
                         print(user);
                         if (user != null) {
-                          Navigator.of(context).pushReplacement(MaterialPageRoute(
-                              builder: (context) => AdminNavBar()));
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (context) => AdminNavBar()));
                         }
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
                             builder: (context) => AdminNavBar()));
@@ -167,9 +168,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           color: Colors.white,
                           fontSize: 14.0,
                         ),
-                      ))
-
-              )
+                      )))
             ],
           )
         ],

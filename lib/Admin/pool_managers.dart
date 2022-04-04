@@ -11,7 +11,6 @@ class ProductDataModel {
   final String name;
 
   ProductDataModel(this.contact1, this.contact2, this.name);
-
 }
 
 class ViewPoolManagers extends StatefulWidget {
@@ -22,19 +21,19 @@ class ViewPoolManagers extends StatefulWidget {
 }
 
 class _ViewPoolManagers extends State<ViewPoolManagers> {
-
   // Fetch content from the json file
 
   Future getSPM() async {
-    var response = await http
-        .get(Uri.parse('https://swiminit.herokuapp.com/getSPMs'));
+    var response =
+        await http.get(Uri.parse('https://swiminit.herokuapp.com/getSPMs'));
     //print(ProductDataModel.fromJson(jsonDecode(response.body)));
-    var data=json.decode(response.body);
-    List <ProductDataModel> duesData=[];
+    var data = json.decode(response.body);
+    List<ProductDataModel> duesData = [];
     // print(data['spms']);
 
-    for (var u in data['spms']){
-      ProductDataModel duesData1=ProductDataModel(u["contact1"],u["contact2"],u["name"]);
+    for (var u in data['spms']) {
+      ProductDataModel duesData1 =
+          ProductDataModel(u["contact1"], u["contact2"], u["name"]);
       //print(u["contact1"]);
       duesData.add(duesData1);
       //print(duesData1);
@@ -43,67 +42,61 @@ class _ViewPoolManagers extends State<ViewPoolManagers> {
     //print(duesData[0].contact1);
 
     return duesData;
-
   }
 
   @override
   Widget build(BuildContext context) {
     int i;
     return Scaffold(
-        body: Container(
+      body: Container(
           margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
           child: SingleChildScrollView(
-            child: FutureBuilder(
-            future: getSPM(),
-            builder: (context, data) {
-              if (data.hasError) {
-                return Center(child: Text("${data.error}"));
-              } else if (data.hasData) {
-                var items = data.data as List<ProductDataModel>;
-                return Container(
-                  width: 1500,
-                  height: 1500,
-                  margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                  child: ListView(
-                  children: [
-                  for (int i = 0; i < items.length; i++)
-                    buildCard(items[i], i)
-                    ],
-                  ),
-                );
-              } else {
-              return Center(
-              child: CircularProgressIndicator(),
-              );
-              }
-            }
-          )
-        )
-
-      ),
+              child: FutureBuilder(
+                  future: getSPM(),
+                  builder: (context, data) {
+                    if (data.hasError) {
+                      return Center(child: Text("${data.error}"));
+                    } else if (data.hasData) {
+                      var items = data.data as List<ProductDataModel>;
+                      return Container(
+                        width: 1500,
+                        height: 1500,
+                        margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                        child: ListView(
+                          children: [
+                            for (int i = 0; i < items.length; i++)
+                              buildCard(items[i], i)
+                          ],
+                        ),
+                      );
+                    } else {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  }))),
       bottomNavigationBar: Container(
-        margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-            child: FractionallySizedBox(
-              widthFactor: 1,
-              heightFactor: 0.07,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Color(0xFF14839F), //background color of button
-                  //border width and color
-                  elevation: 0, //elevation of button
-                  shape: RoundedRectangleBorder(
+          margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+          child: FractionallySizedBox(
+            widthFactor: 1,
+            heightFactor: 0.07,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Color(0xFF14839F), //background color of button
+                //border width and color
+                elevation: 0, //elevation of button
+                shape: RoundedRectangleBorder(
                     //to set border radius to button
-                      borderRadius: BorderRadius.circular(0)),
-                  //content padding inside button
-                ),
-                child: Text(
-                  'Back',
-                  style: TextStyle(color: Colors.white, fontSize: 16),
-                ),
-                onPressed: () => {},
+                    borderRadius: BorderRadius.circular(0)),
+                //content padding inside button
               ),
-            )
-      ),
+              child: Text(
+                'Add',
+                style: TextStyle(color: Colors.white, fontSize: 16),
+              ),
+              onPressed: () => {},
+            ),
+          )),
     );
   }
 
@@ -145,14 +138,15 @@ class _ViewPoolManagers extends State<ViewPoolManagers> {
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold),
                               ),
-
                               Text(
                                 managers.contact1,
-                                style: GoogleFonts.poppins(color: Colors.black, fontSize: 12),
+                                style: GoogleFonts.poppins(
+                                    color: Colors.black, fontSize: 12),
                               ),
                               Text(
                                 managers.contact2,
-                                style: GoogleFonts.poppins(color: Colors.black, fontSize: 12),
+                                style: GoogleFonts.poppins(
+                                    color: Colors.black, fontSize: 12),
                               )
                             ],
                           ),
@@ -170,17 +164,16 @@ class _ViewPoolManagers extends State<ViewPoolManagers> {
                           // managers.removeAt(i);
                         });
                       },
-                      child: Text("Delete",
+                      child: Text(
+                        "Delete",
                         style: TextStyle(
                           color: Colors.white,
                         ),
                       ),
                       fillColor: Color(0xFFDF4759),
-
                     ),
                   )),
-              ),
-
+            ),
             collapsed: Container()),
       ),
     );
