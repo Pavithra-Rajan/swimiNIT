@@ -181,32 +181,53 @@ class PendingDuesPageState extends State<PendingDuesPage> {
           ),
         ),
       ),
-      bottomNavigationBar: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          SizedBox(
-            height: 40, //height of button
-            width: 384, //width of button equal to parent widget
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: Color(0xFF14839F), //background color of button
-                //border width and color
-                elevation: 0, //elevation of button
-                shape: RoundedRectangleBorder(
-                    //to set border radius to button
-                    borderRadius: BorderRadius.circular(3)),
-                //content padding inside button
-              ),
-              child: Text(
-                'Back',
-                style: TextStyle(color: Colors.white, fontSize: 16),
-              ),
-              onPressed: () => {},
+      bottomNavigationBar: Container(
+        margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+        child: FractionallySizedBox(
+          widthFactor: 1,
+          heightFactor: 0.07,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: Color(0xFF14839F), //background color of button
+              //border width and color
+              elevation: 0, //elevation of button
+              shape: RoundedRectangleBorder(
+                  //to set border radius to button
+                  borderRadius: BorderRadius.circular(0)),
+              //content padding inside button
             ),
-          )
-        ],
+            child: Text(
+              'Download',
+              style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
+            onPressed: () => {},
+          ),
+        ),
       ),
     );
   }
 }
+
+// bottomNavigationBar: Container(
+// margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+// child: FractionallySizedBox(
+// widthFactor: 1,
+// heightFactor: 0.07,
+// child: ElevatedButton(
+// style: ElevatedButton.styleFrom(
+// primary: Color(0xFF14839F), //background color of button
+// //border width and color
+// elevation: 0, //elevation of button
+// shape: RoundedRectangleBorder(
+// //to set border radius to button
+// borderRadius: BorderRadius.circular(0)),
+// //content padding inside button
+// ),
+// child: Text(
+// 'Add',
+// style: TextStyle(color: Colors.white, fontSize: 16),
+// ),
+// onPressed: () => {},
+// ),
+// )),
+// );

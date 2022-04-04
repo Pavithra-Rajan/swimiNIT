@@ -147,7 +147,6 @@ class RegistrationPageState extends State<RegistrationPage> {
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       // appBar: AppBar(
       //   leading: Icon(Icons.menu),
@@ -228,13 +227,11 @@ class RegistrationPageState extends State<RegistrationPage> {
         ),
       ),
 
-      bottomNavigationBar: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          SizedBox(
-            height: 40, //height of button
-            width: 384, //width of button equal to parent widget
+      bottomNavigationBar: Container(
+          margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+          child: FractionallySizedBox(
+            widthFactor: 1,
+            heightFactor: 0.07,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 primary: Color(0xFF14839F), //background color of button
@@ -242,7 +239,7 @@ class RegistrationPageState extends State<RegistrationPage> {
                 elevation: 0, //elevation of button
                 shape: RoundedRectangleBorder(
                     //to set border radius to button
-                    borderRadius: BorderRadius.circular(3)),
+                    borderRadius: BorderRadius.circular(0)),
                 //content padding inside button
               ),
               child: Text(
@@ -252,7 +249,6 @@ class RegistrationPageState extends State<RegistrationPage> {
               onPressed: () => {},
             ),
           )
-        ],
       ),
       resizeToAvoidBottomInset: false,
     );
