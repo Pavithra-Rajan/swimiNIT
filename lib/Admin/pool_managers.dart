@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../SPM/spm.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:swiminit/Admin/adminaddspm.dart';
 
 class ProductDataModel {
   final String contact1;
@@ -43,6 +44,7 @@ class _ViewPoolManagers extends State<ViewPoolManagers> {
 
     return duesData;
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +96,12 @@ class _ViewPoolManagers extends State<ViewPoolManagers> {
                 'Add',
                 style: TextStyle(color: Colors.white, fontSize: 16),
               ),
-              onPressed: () => {},
+              onPressed: () => {
+              Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+              builder: (context) => AdminAddSPM())),
+
+              },
             ),
           )),
     );
