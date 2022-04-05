@@ -1,6 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+
+
+import 'package:swiminit/Admin/send_mail.dart';
+import 'package:swiminit/Admin/pool_status.dart';
+import 'package:swiminit/Admin/adminaddspm.dart';
+
+
 import 'package:swiminit/Admin/pool_managers.dart';
 import 'package:swiminit/Admin/adminnavbar.dart';
 import 'package:swiminit/SPM/entry.dart';
@@ -135,41 +142,76 @@ class _LoginScreenState extends State<LoginScreen> {
             height: 40.0,
             width: 10.0,
           ),
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              Container(
-                  width: 100,
-                  height: 50,
-                  color: Colors.white,
-                  child: RawMaterialButton(
-                      fillColor: Color(0xFF14839F),
-                      padding: const EdgeInsets.symmetric(vertical: 15.0),
-                      onPressed: () async {
-                        User? user = await loginUsingEmailPassword(
-                            email: _emailController.text,
-                            password: _passwordController.text,
-                            context: context);
-                        print(user);
-                        if (user != null) {
-                          Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                  builder: (context) => AdminNavBar()));
-                        }
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (context) => SPMNavBar()));
-                      },
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      child: const Text(
-                        "Log In",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14.0,
-                        ),
-                      )))
-            ],
+// <<<<<<< HEAD
+          SizedBox(
+              width: 100.0,
+              child: RawMaterialButton(
+                  fillColor: Colors.blue[900],
+                  padding: const EdgeInsets.symmetric(vertical: 15.0),
+                  onPressed: () async {
+                    User? user = await loginUsingEmailPassword(
+                        email: _emailController.text,
+                        password: _passwordController.text,
+                        context: context);
+                    print(user);
+                    if (user != null) {
+
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => SPMNavBar()));
+
+                    }
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => SPMNavBar())); //Put this back in that if later
+                  },
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                  child: const Text(
+                    "Log In",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14.0,
+                    ),
+
+                  )
+              )
+// =======
+//           Stack(
+//             alignment: Alignment.center,
+//             children: [
+//               Container(
+//                   width: 100,
+//                   height: 50,
+//                   color: Colors.white,
+//                   child: RawMaterialButton(
+//                       fillColor: Color(0xFF14839F),
+//                       padding: const EdgeInsets.symmetric(vertical: 15.0),
+//                       onPressed: () async {
+//                         User? user = await loginUsingEmailPassword(
+//                             email: _emailController.text,
+//                             password: _passwordController.text,
+//                             context: context);
+//                         print(user);
+//                         if (user != null) {
+//                           Navigator.of(context).pushReplacement(
+//                               MaterialPageRoute(
+//                                   builder: (context) => AdminNavBar()));
+//                         }
+//                         Navigator.of(context).pushReplacement(MaterialPageRoute(
+//                             builder: (context) => SPMNavBar()));
+//                       },
+//                       shape: RoundedRectangleBorder(
+//                         borderRadius: BorderRadius.circular(10.0),
+//                       ),
+//                       child: const Text(
+//                         "Log In",
+//                         style: TextStyle(
+//                           color: Colors.white,
+//                           fontSize: 14.0,
+//                         ),
+//                       )))
+//             ],
+// >>>>>>> 88ffe77a104da1a06a0b8ceae0386ade4f93ec59
           )
         ],
       ),

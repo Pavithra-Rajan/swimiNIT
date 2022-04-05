@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:swiminit/Admin/adminnavbar.dart';
 
 class AdminAddSPM extends StatefulWidget
 {
@@ -31,8 +32,8 @@ class _AdminAddSPMState extends State<AdminAddSPM>
                 keyboardType: TextInputType.name,
                 decoration: const InputDecoration(
                   hintText: "Name",
-                  prefixIcon: Icon(Icons.person,color:Colors.indigo),
-                  iconColor: Colors.indigo,
+                  prefixIcon: Icon(Icons.person,color:Color(0xFF14839F)),
+                  iconColor: Color(0xFF14839F),
                 ),
               ),
               const SizedBox(height: 26.0,),
@@ -42,7 +43,7 @@ class _AdminAddSPMState extends State<AdminAddSPM>
                 keyboardType: TextInputType.phone,
                 decoration: const InputDecoration(
                   hintText: "Contact 1",
-                  prefixIcon: Icon(Icons.local_phone,color:Colors.indigo),
+                  prefixIcon: Icon(Icons.local_phone,color:Color(0xFF14839F)),
                 ),
               ),
               const SizedBox(height: 26.0,
@@ -53,7 +54,7 @@ class _AdminAddSPMState extends State<AdminAddSPM>
                 keyboardType: TextInputType.phone,
                 decoration: const InputDecoration(
                   hintText: "Contact 2",
-                  prefixIcon: Icon(Icons.phone_android,color:Colors.indigo),
+                  prefixIcon: Icon(Icons.phone_android,color:Color(0xFF14839F)),
                 ),
               ),
               const SizedBox(height: 26.0,
@@ -64,9 +65,35 @@ class _AdminAddSPMState extends State<AdminAddSPM>
                 keyboardType: TextInputType.visiblePassword,
                 decoration: const InputDecoration(
                   hintText: "Password",
-                  prefixIcon: Icon(Icons.lock,color:Colors.indigo),
+                  prefixIcon: Icon(Icons.lock,color:Color(0xFF14839F)),
                 ),
-              ),]);
+              ),
+              Container(
+                margin: EdgeInsets.fromLTRB(0, 45, 0, 5),
+                  child: Stack(
+                    children: [
+                      Align(
+                          alignment: Alignment(0, 0),
+                          child: FractionallySizedBox(
+                              widthFactor: 0.25,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  primary: Color(0xFF93C6D3), // background
+                                  onPrimary: Colors.white, // foreground
+                                  minimumSize: Size(175,45),
+                                ),
+                                child: Text('Submit',style: GoogleFonts.poppins(color: Colors.black, fontSize: 14),),
+                                onPressed: () {},
+                              )
+                          )
+                      )
+                    ],
+
+                  )
+
+              )
+
+            ]);
       }
       else
       {
@@ -79,35 +106,44 @@ class _AdminAddSPMState extends State<AdminAddSPM>
       }
     }
 
-    SizedBox fab()
-    {
-      if(!added)
-      {
-          return SizedBox(
-            height: 70.0,
-            width: 70.0,
-            child: FittedBox(
-              child: FloatingActionButton(onPressed: () { setState(() {added = true;}); },
-                child: const Icon(Icons.add),
-              ),
-            ),
-          );
-      }
-
-      else { return SizedBox(); }
-
-    }
 
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Add Pool Manager'),
-        backgroundColor: Colors.blue[900],
+        backgroundColor: Color(0xFF14839F),
       ),
 
       body: adding(),
 
-      floatingActionButton: fab()
+      bottomNavigationBar: Container(
+            margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+            child: FractionallySizedBox(
+              widthFactor: 1,
+              heightFactor: 0.07,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xFF14839F), //background color of button
+                  //border width and color
+                  elevation: 0, //elevation of button
+                  shape: RoundedRectangleBorder(
+                    //to set border radius to button
+                      borderRadius: BorderRadius.circular(0)),
+                  //content padding inside button
+                ),
+                child: Text(
+                  'Back',
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+                onPressed: () => {
+                  Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                          builder: (context) => AdminNavBar())),
+
+                },
+              ),
+            )),
+
     );
   }
 }
