@@ -161,15 +161,36 @@ class _LoginScreenState extends State<LoginScreen> {
                               password: _passwordController.text,
                               context: context);
                           print(user);
-                          ;
-                          if (user != null) {
-                            print("executing this");
-                            Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                    builder: (context) => AdminNavBar()));
+
+                          print(user?.email);
+                          if(user != null){
+                            //final loginType = RegExp(r'/.+?(?=@)/');
+                            String emailID=user.email.toString();
+                            String result = emailID.substring(0, emailID.indexOf('@'));
+                            //print(result);
+                            //print(loginType.hasMatch(user.email.toString()));
+                            if (result == 'admin'){
+                              Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                      builder: (context) => AdminNavBar()));
+                            }
+                            else{
+                              Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                      builder: (context) => SPMNavBar()));
+                            }
                           }
+
+                          // if (user != null) {
+                          //   print("executing this");
+                          //
+                          //   Navigator.of(context).pushReplacement(
+                          //       MaterialPageRoute(
+                          //           builder: (context) => AdminNavBar()));
+                          // }
                           //Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          //   builder: (context) => AdminNavBar()));
+                           //   builder: (context) => AdminNavBar()));
+
                         },
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
