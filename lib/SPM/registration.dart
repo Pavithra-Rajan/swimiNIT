@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
+import '../SPM/Person.dart';
+
 class RegistrationPage extends StatefulWidget {
 
   const RegistrationPage({Key? key}) : super(key: key);
@@ -17,9 +19,14 @@ class RegistrationPageState extends State<RegistrationPage> {
   List<String> roles = ['Student', 'Faculty', 'Faculty Referral'];
   String dropDownVal = 'Student';
   bool swapColor = false;
+  late Person p;
+
+  final TextEditingController _memIDController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
 
   Widget _buildMembershipId() {
     return TextFormField(
+      controller: _memIDController,
       decoration: InputDecoration(
         hintText: 'Membership ID',
         enabledBorder: UnderlineInputBorder(
@@ -31,6 +38,7 @@ class RegistrationPageState extends State<RegistrationPage> {
 
   Widget _buildName() {
     return TextFormField(
+      controller: _nameController,
       decoration: InputDecoration(
         hintText: 'Name',
         enabledBorder: UnderlineInputBorder(
@@ -247,7 +255,11 @@ class RegistrationPageState extends State<RegistrationPage> {
                 'Submit',
                 style: TextStyle(color: Colors.white, fontSize: 16),
               ),
-              onPressed: () => {},
+              onPressed: () {
+                p.rollno = _memIDController.text;
+                p.name   = _nameController.text;
+                
+              },
             ),
           )
       ),
