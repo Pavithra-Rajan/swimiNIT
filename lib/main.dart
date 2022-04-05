@@ -141,6 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
               decoration: const InputDecoration(
                 hintText: "Password",
                 prefixIcon: Icon(Icons.lock, color: Color(0xFF14839F)),
+
               ),
             ),
             const SizedBox(
@@ -183,6 +184,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                       builder: (context) => SPMNavBar()));
                             }
                           }
+                          else {
+                            print("Invalid Credentials");
+
+                            //const SizedBox(height: 70.0);
+                            // Text(
+                            //   'hi',
+                            //   style: TextStyle(color: Colors.black),
+                            // );
+
+                          }
 
                           // if (user != null) {
                           //   print("executing this");
@@ -205,6 +216,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             fontSize: 14.0,
                           ),
                         )
+
                     )
                 )
               ],

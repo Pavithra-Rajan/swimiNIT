@@ -294,7 +294,10 @@ class EntryPageState extends State<EntryPage> {
                   setState(() {
                     swimmerEntry();
                     membershipID = "-2";
-                  })
+                  }),
+                Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => DuesAlertBox())),
                 },
               ),
             )),
