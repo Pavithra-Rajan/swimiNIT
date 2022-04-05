@@ -1,8 +1,11 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:toggle_switch/toggle_switch.dart';
+import 'package:http/http.dart' as http;
+import '../SPM/Person.dart';
 
-import '../Admin/Person.dart';
+//import '../Admin/Person.dart';
 
 class RegistrationPage extends StatefulWidget {
 
@@ -17,26 +20,26 @@ class RegistrationPage extends StatefulWidget {
 class RegistrationPageState extends State<RegistrationPage> {
 
   bool isVisible = false;
-  List<String> roles = ['Student', 'Faculty', 'Faculty Referral'];
+  List<String> roles = ['Student', 'Faculty', 'Faculty Dependant'];
   String dropDownVal = 'Student';
-  bool swapColor = false;
-  Person p = Person(
-      "name",
-      "lib/Resources/pic-1.png",
-      "rollno",
-      "enteredAt",
-      "noOfVisits",
-      "dues",
-      "receiptID",
-      "amtPaid",
-      "datePaid",
-      "Student",
-      "mailID",
-      "contact1",
-      "contact2");
+
+  bool swapColor = false, submitted = false;
+  late Person p;
+
+  final TextEditingController _memIDController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _mailIDController = TextEditingController();
+  final TextEditingController _contact1Controller = TextEditingController();
+  final TextEditingController _contact2Controller = TextEditingController();
+  final TextEditingController _receiptIDController = TextEditingController();
+  final TextEditingController _paymentDateController = TextEditingController();
+  final TextEditingController _feesController = TextEditingController();
+  final TextEditingController _moneyPaidController = TextEditingController();
+
 
   Widget _buildMembershipId() {
     return TextFormField(
+      controller: _memIDController,
       decoration: InputDecoration(
         hintText: 'Membership ID',
         enabledBorder: UnderlineInputBorder(
@@ -48,6 +51,7 @@ class RegistrationPageState extends State<RegistrationPage> {
 
   Widget _buildName() {
     return TextFormField(
+      controller: _nameController,
       decoration: InputDecoration(
         hintText: 'Name',
         enabledBorder: UnderlineInputBorder(
@@ -61,34 +65,35 @@ class RegistrationPageState extends State<RegistrationPage> {
     return Column(
       children: [
         Align(
-            alignment: Alignment(-0.42, 1),
-            child: Container(
-              alignment: Alignment.centerLeft,
-              width: 250,
-              child: DropdownButton(
-                value: dropDownVal,
-                // Down Arrow Icon
-                icon: const Icon(Icons.keyboard_arrow_down),
-                items: roles.map((String items) {
-                  return DropdownMenuItem(
-                    value: items,
-                    child: Text(items),
-                  );
-                }).toList(),
-                onChanged: (String? newValue) {
-                  setState(() {
-                    dropDownVal = newValue!;
-                    p.role = dropDownVal;
-                  });
-                },
-              ),
-            )),
+          alignment: Alignment(-1, 1),
+          child: DropdownButton(
+            iconEnabledColor: Colors.teal,
+            iconDisabledColor: Colors.teal,
+            dropdownColor: Colors.teal,
+            focusColor: Colors.teal,
+            icon: const Icon(Icons.keyboard_arrow_down),
+            value: dropDownVal,
+            items: roles.map((String items) {
+                return DropdownMenuItem(
+                  value: items,
+                  child: Text(items),
+                );
+            }).toList(),
+            onChanged: (String? newValue) {
+              setState(() {
+                dropDownVal = newValue!;
+              });
+            },
+            ),
+          )
+
       ],
     );
   }
 
   Widget _buildEmailId() {
     return TextFormField(
+      controller: _mailIDController,
       decoration: InputDecoration(
         hintText: 'Email Id',
         enabledBorder: UnderlineInputBorder(
@@ -100,6 +105,7 @@ class RegistrationPageState extends State<RegistrationPage> {
 
   Widget _buildContactNo1() {
     return TextFormField(
+      controller: _contact1Controller,
       decoration: InputDecoration(
         hintText: 'Contact No. 1',
         enabledBorder: UnderlineInputBorder(
@@ -111,6 +117,7 @@ class RegistrationPageState extends State<RegistrationPage> {
 
   Widget _buildContactNo2() {
     return TextFormField(
+      controller: _contact2Controller,
       decoration: InputDecoration(
         hintText: 'Contact No. 2',
         enabledBorder: UnderlineInputBorder(
@@ -122,6 +129,7 @@ class RegistrationPageState extends State<RegistrationPage> {
 
   Widget _receiptId() {
     return TextFormField(
+      controller: _receiptIDController,
       decoration: InputDecoration(
         hintText: 'Receipt ID',
         enabledBorder: UnderlineInputBorder(
@@ -133,6 +141,7 @@ class RegistrationPageState extends State<RegistrationPage> {
 
   Widget _paymentDate() {
     return TextFormField(
+      controller: _paymentDateController,
       decoration: InputDecoration(
         hintText: 'Payment Date',
         enabledBorder: UnderlineInputBorder(
@@ -143,34 +152,23 @@ class RegistrationPageState extends State<RegistrationPage> {
   }
 
   Widget _quaterlyFees() {
-    return Column(
-      children: [
-        Align(
-          alignment: Alignment(-0.7, 1),
 
-          child: Text(
-            "Quarterly Fees",
-            style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
-          ),
+    return TextFormField(
+      controller: _feesController,
+      decoration: InputDecoration(
+        hintText: 'Fees',
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.teal, width: 1.5),
+
         ),
-        Align(
-            alignment: Alignment(-0.42, 1),
-            child: Container(
-                margin: EdgeInsets.fromLTRB(0, 6, 0, 5),
-                alignment: Alignment.centerLeft,
-                width: 250,
-                child: Text(
-                  p.role.compareTo(roles[0]) == 0
-                      ? "Rs 200"
-                      : "Rs 500",
-                  style: GoogleFonts.poppins(),
-                ))),
-      ],
+
+    ),
     );
   }
 
   Widget _moneyPaid() {
     return TextFormField(
+      controller: _moneyPaidController,
       decoration: InputDecoration(
         hintText: 'Money Paid',
         enabledBorder: UnderlineInputBorder(
@@ -182,88 +180,127 @@ class RegistrationPageState extends State<RegistrationPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // appBar: AppBar(
-      //   leading: Icon(Icons.menu),
-      //   title: Text('Registration'),
-      //   backgroundColor: Color(0xFF14839F),
-      // ),
-      body: SingleChildScrollView(
-        child: Container(
-          margin: EdgeInsets.only(left: 35, top: 10, right: 35, bottom: 0),
-          child: Form(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                SizedBox(height: 20),
-                _buildMembershipId(),
-                SizedBox(height: 15),
-                _buildName(),
-                SizedBox(height: 15),
-                _buildRole(),
-                SizedBox(height: 15),
-                _buildEmailId(),
-                SizedBox(height: 15),
-                _buildContactNo1(),
-                SizedBox(height: 15),
-                _buildContactNo2(),
-                SizedBox(height: 15),
-                ToggleSwitch(
-                  minWidth: 140.0,
-                  minHeight: 50.0,
-                  fontSize: 16.0,
-                  initialLabelIndex: swapColor?0:1,
-                  activeBgColor: const [Color(0xff0388A9)],
-                  activeFgColor: Colors.white,
-                  inactiveBgColor: Color(0xffD1E9EF),
-                  inactiveFgColor: Color(0xff000000).withOpacity(0.5),
-                  totalSwitches: 2,
-                  labels: const ['Pay Now', 'Pay Later'],
-                  onToggle: (index) {
+
+    if(submitted)
+      {
+        return Scaffold(
+          body: Center(
+            child: Wrap(
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: const [
+                Icon(Icons.check,
+                  color: Color(0xFF149F88),),
+                Text(' Swimmer has been successfully registered',
+                    style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF149F88), fontSize: 18)),
+              ],
+            )
+          ),
+          bottomNavigationBar: Container(
+              margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+              child: FractionallySizedBox(
+                widthFactor: 1,
+                heightFactor: 0.07,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Color(0xFF14839F), //background color of button
+                    //border width and color
+                    elevation: 0, //elevation of button
+                    shape: RoundedRectangleBorder(
+                      //to set border radius to button
+                        borderRadius: BorderRadius.circular(0)),
+                    //content padding inside button
+                  ),
+                  child: Text(
+                    'Back',
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
+                  onPressed: () {
                     setState(() {
-                      if (index == 0) {
-                        isVisible = true;
-                        swapColor = !swapColor;
-                      } else {
-                        isVisible = false;
-                        swapColor = !swapColor;
-                      }
+                    submitted = false;
                     });
                   },
                 ),
-                Visibility(
-                  visible: isVisible,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      _receiptId(),
-                      _paymentDate(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          SizedBox(
-                            width: 100,
-                            child: _quaterlyFees(),
-                          ),
-                          SizedBox(
-                            width: 100,
-                            child: _moneyPaid(),
-                          )
-                        ],
-                      ),
-                    ],
+              )
+          ),
+        );
+      }
+    else {
+      return Scaffold(
+        body: SingleChildScrollView(
+          child: Container(
+            margin: EdgeInsets.only(left: 35, top: 10, right: 35, bottom: 0),
+            child: Form(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(height: 20),
+                  _buildMembershipId(),
+                  SizedBox(height: 15),
+                  _buildName(),
+                  SizedBox(height: 15),
+                  _buildRole(),
+                  SizedBox(height: 15),
+                  _buildEmailId(),
+                  SizedBox(height: 15),
+                  _buildContactNo1(),
+                  SizedBox(height: 15),
+                  _buildContactNo2(),
+                  SizedBox(height: 15),
+                  ToggleSwitch(
+                    minWidth: 140.0,
+                    minHeight: 50.0,
+                    fontSize: 16.0,
+                    initialLabelIndex: swapColor?0:1,
+                    activeBgColor: const [Color(0xff0388A9)],
+                    activeFgColor: Colors.white,
+                    inactiveBgColor: Color(0xffD1E9EF),
+                    inactiveFgColor: Color(0xff000000).withOpacity(0.5),
+                    totalSwitches: 2,
+                    labels: const ['Pay Now', 'Pay Later'],
+                    onToggle: (index) {
+                      setState(() {
+                        if (index == 0) {
+                          isVisible = true;
+                          swapColor = !swapColor;
+                        } else {
+                          isVisible = false;
+                          swapColor = !swapColor;
+                        }
+                      });
+                    },
                   ),
-                ),
-              ],
+                  Visibility(
+                    visible: isVisible,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        _receiptId(),
+                        _paymentDate(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            SizedBox(
+                              width: 100,
+                              child: _quaterlyFees(),
+                            ),
+                            SizedBox(
+                              width: 100,
+                              child: _moneyPaid(),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
-      ),
-
-      bottomNavigationBar: Container(
+        bottomNavigationBar: Container(
           margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
           child: FractionallySizedBox(
             widthFactor: 1,
@@ -282,11 +319,73 @@ class RegistrationPageState extends State<RegistrationPage> {
                 'Submit',
                 style: TextStyle(color: Colors.white, fontSize: 16),
               ),
-              onPressed: () => {},
+              onPressed: () {
+                if(_nameController.text.isEmpty || _memIDController.text.isEmpty || _mailIDController.text.isEmpty || _contact1Controller.text.isEmpty || _contact2Controller.text.isEmpty)
+                  {
+                    //show popup telling to fill details
+                    return;
+                  }
+                p = Person(_nameController.text,
+                    "profileImg",
+                    _memIDController.text,
+                    "enteredAt",
+                    "noOfVisits",
+                    "dues",
+                    "receiptID",
+                    "amtPaid",
+                    "datePaid",
+                    dropDownVal,
+                    _mailIDController.text,
+                    _contact1Controller.text,
+                    _contact2Controller.text);
+                if(!swapColor){
+                  p.receiptID = _receiptIDController.text;
+                  p.datePaid = _paymentDateController.text;
+                  p.amtPaid = _moneyPaidController.text;
+                }
+                swimmerRegistration();
+                _nameController.clear();
+                _memIDController.clear();
+                _mailIDController.clear();
+                _contact1Controller.clear();
+                _contact2Controller.clear();
+                _receiptIDController.clear();
+                _paymentDateController.clear();
+                _moneyPaidController.clear();
+                setState(() {
+                  submitted = true;
+                });
+              },
             ),
           )
       ),
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
+    );
+    }
+  }
+
+  Future swimmerRegistration() async
+  {
+    var jsonvalue = {};
+    var details = {};
+    jsonvalue["paid"] = swapColor.toString();
+    details["contact1"] = p.contact1;
+    details["contact2"] = p.contact2;
+    details["dues"] = p.role=="Student"?0:(swapColor?0:500);
+    details["role"] = p.role;
+    details["emailID"] = p.mailID;
+    details["fees"] = p.role=="Student"?200:500;
+    details["membershipID"] = p.rollno;
+    details["name"] = p.name;
+    details["numberOfFreeTrials"] = p.role=="Student"?5:0;
+    jsonvalue["details"] = details;
+
+    await http.post(
+      Uri.parse('https://swiminit.herokuapp.com/register'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: json.encode(jsonvalue)
     );
   }
 }

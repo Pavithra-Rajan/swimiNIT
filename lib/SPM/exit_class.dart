@@ -2,7 +2,6 @@
 //
 //     final exitSwimmers = exitSwimmersFromJson(jsonString);
 
-import 'dart:convert';
 
 // ExitSwimmers exitSwimmersFromJson(String str) => ExitSwimmers.fromJson(json.decode(str));
 //

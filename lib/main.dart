@@ -202,12 +202,15 @@ class _LoginScreenState extends State<LoginScreen> {
                             color: Colors.white,
                             fontSize: 14.0,
                           ),
-                        )))
+                        )
+                    )
+                )
               ],
             )
           ],
         ),
       ),
+      resizeToAvoidBottomInset: false,
     );
   }
 }

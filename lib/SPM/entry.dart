@@ -1,12 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:swiminit/Admin/Person.dart';
+import 'Person.dart';
 import 'package:http/http.dart' as http;
 import 'package:swiminit/SPM/entryAlerts/DuesAlertBox.dart';
 import 'package:swiminit/SPM/entryAlerts/FreeTrialsAlertBox.dart';
-
-import 'entryAlerts/DialogAlertBox.dart';
 
 class EntryPage extends StatefulWidget {
   const EntryPage({Key? key}) : super(key: key);
@@ -226,7 +224,7 @@ class EntryPageState extends State<EntryPage> {
             children: const [
               Icon(Icons.check,
               color: Color(0xFF149F88),),
-              Text(' Swimmers entry has been recorded',
+              Text(' Swimmer\'s entry has been recorded',
                 style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF149F88), fontSize: 18)),
             ],
           )

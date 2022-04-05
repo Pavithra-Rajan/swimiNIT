@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'DialogAlertBox.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class DuesAlertBox extends StatelessWidget {
   const DuesAlertBox({Key? key}) : super(key: key);

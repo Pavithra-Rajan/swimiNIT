@@ -2,16 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:swiminit/SPM/search.dart';
 import 'package:swiminit/SPM/edit_receipt_details.dart';
 import 'package:swiminit/SPM/entry.dart';
-import 'package:swiminit/SPM/log_out.dart';
-
-import 'package:swiminit/Admin/pending_dues.dart';
 import 'package:swiminit/Admin/pool_status.dart';
-
-
 import 'package:swiminit/SPM/registration.dart';
-import 'package:swiminit/SPM/search.dart';
 import 'package:swiminit/SPM/spm_drawer_file.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../main.dart';
 
 class SPMNavBar extends StatelessWidget {
   const SPMNavBar({Key? key}) : super(key: key);
@@ -56,7 +52,8 @@ class _HomePageState extends State<HomePage> {
       container = EditReceiptPage();
       text = "Edit Receipt Details";
     } else if (currentPage == DrawerSections.logOut) {
-      container = LogOutPage();
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => MyApp()));
     }
 
     return Scaffold(
