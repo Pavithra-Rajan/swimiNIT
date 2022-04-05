@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:swiminit/Admin/adminnavbar.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class AdminAddSPM extends StatefulWidget
 {
@@ -10,8 +12,23 @@ class AdminAddSPM extends StatefulWidget
   State<AdminAddSPM> createState() => _AdminAddSPMState();
 }
 
+
 class _AdminAddSPMState extends State<AdminAddSPM>
 {
+
+  Future putSPM() async{
+    print('function is getting executed');
+    await http.post(
+        Uri.parse('https://swiminit.herokuapp.com/addSPM'),
+        body: jsonEncode(<String, Map<String,String>>{
+          "details":{
+            "contact1":"123",
+            "contact2":"145",
+            "name":"josephmani"
+          }
+        })
+    );
+  }
   bool added = false;
   @override
   Widget build(BuildContext context) {
@@ -83,7 +100,9 @@ class _AdminAddSPMState extends State<AdminAddSPM>
                                   minimumSize: Size(175,45),
                                 ),
                                 child: Text('Submit',style: GoogleFonts.poppins(color: Colors.black, fontSize: 14),),
-                                onPressed: () {},
+                                onPressed: () {
+                                  putSPM();
+                                },
                               )
                           )
                       )
