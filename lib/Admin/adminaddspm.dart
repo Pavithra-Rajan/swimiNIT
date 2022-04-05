@@ -20,11 +20,14 @@ class _AdminAddSPMState extends State<AdminAddSPM>
     print('function is getting executed');
     await http.post(
         Uri.parse('https://swiminit.herokuapp.com/addSPM'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
         body: jsonEncode(<String, Map<String,String>>{
           "details":{
-            "contact1":"123",
-            "contact2":"145",
-            "name":"josephmani"
+            "contact1":"123456",
+            "contact2":"14578",
+            "name":"IT WORKSSSSSS! THANK GOD"
           }
         })
     );
