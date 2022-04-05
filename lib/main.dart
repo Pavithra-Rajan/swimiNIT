@@ -1,13 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-
-
-import 'package:swiminit/Admin/send_mail.dart';
-import 'package:swiminit/Admin/pool_status.dart';
-import 'package:swiminit/Admin/adminaddspm.dart';
-
-
 import 'package:swiminit/Admin/pool_managers.dart';
 import 'package:swiminit/Admin/adminnavbar.dart';
 import 'package:swiminit/SPM/entry.dart';
@@ -30,7 +23,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(scaffoldBackgroundColor: Color(0xffffffff)),
       home: HomePage(),
       routes: <String, WidgetBuilder>{
         '/login': (BuildContext context) => LoginScreen(),
@@ -80,19 +72,29 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   static Future<User?> loginUsingEmailPassword(
       {required String email,
-      required String password,
-      required BuildContext context}) async {
+        required String password,
+        required BuildContext context}) async {
     FirebaseAuth auth = FirebaseAuth.instance;
     User? user;
     try {
       UserCredential userCredential = await auth.signInWithEmailAndPassword(
           email: email, password: password);
+
+
+      //print("Userlogged in: " + userCredential.user?.uid);
       user = userCredential.user;
+      if(user != null){
+        print("User logged in: ");
+      }
+      else{
+        print("User not logged in: ");
+      }
     } on FirebaseAuthException catch (e) {
       if (e.code == "user-not-found") {
         print("Incorrect Credentials");
       }
     }
+
     return user;
   }
 
@@ -100,124 +102,99 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     TextEditingController _emailController = TextEditingController();
     TextEditingController _passwordController = TextEditingController();
-    return Container(
-      padding: EdgeInsets.all(0.0),
-      child: ListView(
-        children: [
-          Opacity(
-              opacity: 1,
-              child: ClipPath(
-                  clipper: WaveClipper(),
-                  child: Container(
-                    color: Color(0xFF14839F),
-                    height: 180,
-                  ))),
-          Text("Login",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Color(0xFF14839F),
-                fontSize: 28.0,
-                fontWeight: FontWeight.bold,
-              )),
-          const SizedBox(height: 44.0),
-          TextField(
-            controller: _emailController,
-            keyboardType: TextInputType.emailAddress,
-            decoration: const InputDecoration(
-              hintText: "Username",
-              prefixIcon: Icon(Icons.person, color: Color(0xFF14839F)),
+    //print(_emailController);
+    return Scaffold(
+
+      body: Container(
+        padding: EdgeInsets.all(0.0),
+        child: ListView(
+          children: [
+            Opacity(
+                opacity: 1,
+                child: ClipPath(
+                    clipper: WaveClipper(),
+                    child: Container(
+                      color: Color(0xFF14839F),
+                      height: 180,
+                    ))),
+            Text("Login",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Color(0xFF14839F),
+                  fontSize: 28.0,
+                  fontWeight: FontWeight.bold,
+                )),
+            const SizedBox(height: 44.0),
+            TextField(
+              controller: _emailController,
+              keyboardType: TextInputType.emailAddress,
+              decoration: const InputDecoration(
+                hintText: "Username",
+                prefixIcon: Icon(Icons.person, color: Color(0xFF14839F)),
+              ),
             ),
-          ),
-          const SizedBox(
-            height: 26.0,
-          ),
-          TextField(
-            controller: _passwordController,
-            obscureText: true,
-            decoration: const InputDecoration(
-              hintText: "Password",
-              prefixIcon: Icon(Icons.lock, color: Color(0xFF14839F)),
+
+            const SizedBox(
+              height: 26.0,
             ),
-          ),
-          const SizedBox(
-            height: 40.0,
-            width: 10.0,
-          ),
-// <<<<<<< HEAD
-          SizedBox(
-              width: 100.0,
-              child: RawMaterialButton(
-                  fillColor: Colors.blue[900],
-                  padding: const EdgeInsets.symmetric(vertical: 15.0),
-                  onPressed: () async {
-                    User? user = await loginUsingEmailPassword(
-                        email: _emailController.text,
-                        password: _passwordController.text,
-                        context: context);
-                    print(user);
-                    if (user != null) {
-
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => SPMNavBar()));
-
-                    }
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => SPMNavBar())); //Put this back in that if later
-                  },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  child: const Text(
-                    "Log In",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14.0,
-                    ),
-
-                  )
-              )
-// =======
-//           Stack(
-//             alignment: Alignment.center,
-//             children: [
-//               Container(
-//                   width: 100,
-//                   height: 50,
-//                   color: Colors.white,
-//                   child: RawMaterialButton(
-//                       fillColor: Color(0xFF14839F),
-//                       padding: const EdgeInsets.symmetric(vertical: 15.0),
-//                       onPressed: () async {
-//                         User? user = await loginUsingEmailPassword(
-//                             email: _emailController.text,
-//                             password: _passwordController.text,
-//                             context: context);
-//                         print(user);
-//                         if (user != null) {
-//                           Navigator.of(context).pushReplacement(
-//                               MaterialPageRoute(
-//                                   builder: (context) => AdminNavBar()));
-//                         }
-//                         Navigator.of(context).pushReplacement(MaterialPageRoute(
-//                             builder: (context) => SPMNavBar()));
-//                       },
-//                       shape: RoundedRectangleBorder(
-//                         borderRadius: BorderRadius.circular(10.0),
-//                       ),
-//                       child: const Text(
-//                         "Log In",
-//                         style: TextStyle(
-//                           color: Colors.white,
-//                           fontSize: 14.0,
-//                         ),
-//                       )))
-//             ],
-// >>>>>>> 88ffe77a104da1a06a0b8ceae0386ade4f93ec59
-          )
-        ],
+            TextField(
+              controller: _passwordController,
+              obscureText: true,
+              decoration: const InputDecoration(
+                hintText: "Password",
+                prefixIcon: Icon(Icons.lock, color: Color(0xFF14839F)),
+              ),
+            ),
+            const SizedBox(
+              height: 40.0,
+              width: 10.0,
+            ),
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                Container(
+                    width: 100,
+                    height: 50,
+                    color: Colors.white,
+                    child: RawMaterialButton(
+                        fillColor: Color(0xFF14839F),
+                        padding: const EdgeInsets.symmetric(vertical: 15.0),
+                        onPressed: () async {
+                          User? user = await loginUsingEmailPassword(
+                              email: _emailController.text,
+                              password: _passwordController.text,
+                              context: context);
+                          print(user);
+                          ;
+                          if (user != null) {
+                            print("executing this");
+                            Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                    builder: (context) => AdminNavBar()));
+                          }
+                          //Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          //   builder: (context) => AdminNavBar()));
+                        },
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: const Text(
+                          "Log In",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14.0,
+                          ),
+                        )))
+              ],
+            )
+          ],
+        ),
       ),
+
     );
+
   }
+
 }
 
 class WaveClipper extends CustomClipper<Path> {
@@ -232,7 +209,7 @@ class WaveClipper extends CustomClipper<Path> {
     path.quadraticBezierTo(firstStart.dx, firstStart.dy, firstEnd.dx,
         firstEnd.dy); //takes 3 points
     var secondStart =
-        Offset(size.width - (size.width / 3.24), size.height - 105);
+    Offset(size.width - (size.width / 3.24), size.height - 105);
     var secondEnd = Offset(size.width, size.height - 10);
     path.quadraticBezierTo(
         secondStart.dx, secondStart.dy, secondEnd.dx, secondEnd.dy);
