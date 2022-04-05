@@ -8,6 +8,7 @@ import 'package:swiminit/SPM/pool_status.dart';
 import 'package:swiminit/SPM/spmnavbar.dart';
 import 'firebase_options.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -76,6 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
       required BuildContext context}) async {
     FirebaseAuth auth = FirebaseAuth.instance;
     User? user;
+
     try {
       UserCredential userCredential = await auth.signInWithEmailAndPassword(
           email: email, password: password);
