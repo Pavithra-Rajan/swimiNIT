@@ -5,15 +5,15 @@ import 'package:swiminit/Admin/Person.dart';
 import 'package:http/http.dart' as http;
 
 class EntryPage extends StatefulWidget {
-
   const EntryPage({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() { return EntryPageState(); }
+  State<StatefulWidget> createState() {
+    return EntryPageState();
+  }
 }
 
-class EntryPageState extends State<EntryPage>
-{
+class EntryPageState extends State<EntryPage> {
   String membershipID = "-1";
 
   final TextEditingController _membIDController = TextEditingController();
@@ -33,9 +33,9 @@ class EntryPageState extends State<EntryPage>
       "contact1",
       "contact2");
 
-  Future getSwimmer() async
-  {
-    var response = await http.get(Uri.parse('https://swiminit.herokuapp.com/getdetails?membershipID=$membershipID&admin=False'));
+  Future getSwimmer() async {
+    var response = await http.get(Uri.parse(
+        'https://swiminit.herokuapp.com/getdetails?membershipID=$membershipID&admin=False'));
     var data = json.decode(response.body);
     p.dues = data["dues"].toString();
     p.mailID = data["emailID"];
@@ -45,25 +45,23 @@ class EntryPageState extends State<EntryPage>
     return p;
   }
 
-  Future swimmerEntry() async
-  {
-      final response = await http.post(
-          Uri.parse('https://swiminit.herokuapp.com/entry'),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode(<String, String>{
-          'membershipID': p.rollno,
-          'dateOfVisit' : DateTime.now().toString()
-        }),
-      );
+  Future swimmerEntry() async {
+    final response = await http.post(
+      Uri.parse('https://swiminit.herokuapp.com/entry'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'membershipID': p.rollno,
+        'dateOfVisit': DateTime.now().toString()
+      }),
+    );
   }
 
-  Widget detailsWidget(Person p)
-  {
+  Widget detailsWidget(Person p) {
     return Padding(
-        padding: EdgeInsets.all(0),
-        child: FutureBuilder(
+      padding: EdgeInsets.all(0),
+      child: FutureBuilder(
           future: getSwimmer(),
           builder: (context, data) {
             if (data.hasError) {
@@ -148,26 +146,23 @@ class EntryPageState extends State<EntryPage>
                     Align(
                       alignment: Alignment(-0.75, 1),
                       child: Text(
-                        int.parse(p.dues) == 0? "Yes" : "No" ,
+                        int.parse(p.dues) == 0 ? "Yes" : "No",
                         style: GoogleFonts.poppins(),
                       ),
                     ),
-                  ]
-              );
+                  ]);
             } else {
               return Center(
                 child: CircularProgressIndicator(),
               );
             }
-          }
-          ),
+          }),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    if(membershipID == "-1")
-    {
+    if (membershipID == "-1") {
       return Scaffold(
         body: Center(
             child: SizedBox(
@@ -181,40 +176,38 @@ class EntryPageState extends State<EntryPage>
                     hintText: "Membership ID",
                     prefixIcon: Icon(Icons.person, color: Color(0xFF14839F)),
                   ),
-                )
-            )
-        ),
-        bottomNavigationBar: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(
-              height: 40, //height of button
-              width: 384, //width of button equal to parent widget
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Color(0xFF14839F), //background color of button
-                  //border width and color
-                  elevation: 0, //elevation of button
-                  shape: RoundedRectangleBorder(
+                ))),
+        bottomNavigationBar: Container(
+          margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+          child: FractionallySizedBox(
+            widthFactor: 1,
+            heightFactor: 0.08,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Color(0xFF14839F), //background color of button
+                //border width and color
+                elevation: 0, //elevation of button
+                shape: RoundedRectangleBorder(
                     //to set border radius to button
-                      borderRadius: BorderRadius.circular(3)),
-                  //content padding inside button
-                ),
-                child: Text(
-                  'Search',
-                  style: TextStyle(color: Colors.white, fontSize: 16),
-                ),
-                onPressed: () => {setState(() { membershipID = _membIDController.text; _membIDController.clear(); })},
+                    borderRadius: BorderRadius.circular(0)),
+                //content padding inside button
               ),
-            )
-          ],
+              child: Text(
+                'Search',
+                style: TextStyle(color: Colors.white, fontSize: 16),
+              ),
+              onPressed: () => {
+                setState(() {
+                  membershipID = _membIDController.text;
+                  _membIDController.clear();
+                })
+              },
+            ),
+          ),
         ),
         resizeToAvoidBottomInset: false,
       );
-    }
-    else if(membershipID == "-2")
-    {
+    } else if (membershipID == "-2") {
       return Scaffold(
         body: Center(
           child: Image.asset("lib/Resources/entry_recorded.png"),
@@ -230,7 +223,7 @@ class EntryPageState extends State<EntryPage>
                   //border width and color
                   elevation: 0, //elevation of button
                   shape: RoundedRectangleBorder(
-                    //to set border radius to button
+                      //to set border radius to button
                       borderRadius: BorderRadius.circular(0)),
                   //content padding inside button
                 ),
@@ -238,48 +231,50 @@ class EntryPageState extends State<EntryPage>
                   'Back',
                   style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
-                onPressed: () => { setState(() { membershipID = "-1"; })},
+                onPressed: () => {
+                  setState(() {
+                    membershipID = "-1";
+                  })
+                },
               ),
-            )
-        ),
+            )),
       );
-    }
-    else
-    {
+    } else {
       return Scaffold(
-        body: Column(
-            children: [
-              SizedBox(
-                height: 10,
-              ),
-              detailsWidget(p)
-            ]
-        ),
+        body: Column(children: [
+          SizedBox(
+            height: 10,
+          ),
+          detailsWidget(p)
+        ]),
         bottomNavigationBar: Container(
             margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
             child: FractionallySizedBox(
-                  widthFactor: 1,
-                  heightFactor: 0.08,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Color(0xFF14839F), //background color of button
-                      //border width and color
-                      elevation: 0, //elevation of button
-                      shape: RoundedRectangleBorder(
-                        //to set border radius to button
-                          borderRadius: BorderRadius.circular(0)),
-                      //content padding inside button
-                    ),
-                    child: Text(
-                      'Allow Entry',
-                      style: TextStyle(color: Colors.white, fontSize: 16),
-                    ),
-                    onPressed: () => { setState(() { swimmerEntry(); membershipID = "-2"; })},
-                  ),
-                )
-        ),
+              widthFactor: 1,
+              heightFactor: 0.08,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xFF14839F), //background color of button
+                  //border width and color
+                  elevation: 0, //elevation of button
+                  shape: RoundedRectangleBorder(
+                      //to set border radius to button
+                      borderRadius: BorderRadius.circular(0)),
+                  //content padding inside button
+                ),
+                child: Text(
+                  'Allow Entry',
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+                onPressed: () => {
+                  setState(() {
+                    swimmerEntry();
+                    membershipID = "-2";
+                  })
+                },
+              ),
+            )),
       );
     }
   }
 }
-
