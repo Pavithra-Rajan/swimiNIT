@@ -62,11 +62,6 @@ class SearchByDateRangeState extends State<SearchByDateRange> {
 
       child:Scaffold(
 
-        appBar: AppBar(
-          leading: Icon(Icons.menu),
-          title: Text('Results'),
-          backgroundColor: Color(0xFF14839F),
-        ),
 
         body: Container(
           margin: EdgeInsets.only(left: 35, top:10, right: 35, bottom:0),

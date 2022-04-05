@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:swiminit/Admin/search.dart';
 import 'package:swiminit/SPM/edit_receipt_details.dart';
 import 'package:swiminit/SPM/entry.dart';
 import 'package:swiminit/SPM/log_out.dart';
 import 'package:swiminit/SPM/pending_dues.dart';
-import 'package:swiminit/SPM/pool_status.dart';
+import 'package:swiminit/Admin/pool_status.dart';
 import 'package:swiminit/SPM/registration.dart';
 import 'package:swiminit/SPM/search.dart';
 import 'package:swiminit/SPM/spm_drawer_file.dart';
@@ -39,12 +40,14 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     Widget container = Container();
+    String text = "Entry";
     if (currentPage == DrawerSections.entry) {
       container = EntryPage();
     } else if (currentPage == DrawerSections.poolStatus) {
       container = PoolStatusPage();
     } else if (currentPage == DrawerSections.search) {
-      container = SearchPage();
+      container = SearchByDateRange();
+      text = "Search";
     } else if (currentPage == DrawerSections.registration) {
       container = RegistrationPage();
     } else if (currentPage == DrawerSections.editReceiptDetails) {
@@ -60,7 +63,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         centerTitle: false,
         backgroundColor: Color(0xFF14839F),
-        title: Text('Entry',
+        title: Text(text,
           style: GoogleFonts.poppins(color: Colors.white),
         ),
       ),

@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
-
+import 'package:intl/intl.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:expandable/expandable.dart';
-import '../SPM/Person.dart';
+import 'package:swiminit/SPM/exit_class.dart';
+import 'package:swiminit/SPM/PoolStatusSwimmer.dart';
+import 'package:swiminit/SPM/pool_status_class.dart';
+import 'package:swiminit/SPM/pool_start_service.dart';
+
+
+import 'package:swiminit/SPM/swimmer_exit.dart';
 
 class PoolStatusPage extends StatefulWidget {
   const PoolStatusPage({Key? key}) : super(key: key);
@@ -13,13 +19,17 @@ class PoolStatusPage extends StatefulWidget {
 
 class _PoolStatusPageState extends State<PoolStatusPage>
 {
-  List<Person> persons = [
-    Person('Varun Anilkumar', 'lib/Resources/pic-1.png', "B190621CS", "16:36", "4", "0", "R-043657839", "200", "24-01-2022","student","varun_b190621cs@nitc.ac.in","6285435321","9061219855"),
-    Person('Lenoah Chacko', 'lib/Resources/pic-1.png', "B190657CS", "16:44", "8", "0", "R-043657239", "400", "22-01-2022","student","varun_b190621cs@nitc.ac.in","6285435321","9061219855"),
-    Person('Joseph Mani', 'lib/Resources/pic-1.png', "B190529CS", "17:05", "2", "0", "R-021657989", "200", "12-01-2022","student","varun_b190621cs@nitc.ac.in","6285435321","9061219855")
-  ];
 
-  Widget buildCard(Person p) {
+  Future<ExitSwimmers>? _exitswimmers;
+  List<PoolStatusSwimmer> persons = [];
+  void remove(int){
+    setState(() {
+
+      persons.clear();
+
+    });
+  }
+  Widget buildCard(PoolStatusSwimmer p) {
     return Padding(
         padding: const EdgeInsets.all(1.0),
         child: Card(
@@ -103,7 +113,34 @@ class _PoolStatusPageState extends State<PoolStatusPage>
                         minimumSize: Size(175,35),
                       ),
                       child: Text('Exit',style: GoogleFonts.poppins(color: Colors.white, fontSize: 14),),
-                      onPressed: () {},
+                      onPressed: () async {
+                        var now = DateTime.now();
+                        DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
+                        String datetime = dateFormat. format(now);
+                        final splitted=datetime.split(" ");
+                        String endtime='${splitted[0]};${splitted[1]}';
+                        final _exitswimmers= await PoolExitServices.exitSwimmers(p.rollno,endtime);
+                        // remove(p.rollno,endtime);
+                        var i=0;
+                        for(var items in persons)
+                          {
+                            if(items.rollno==p.rollno)
+                              {
+                                break;
+                              }
+                            i++;
+                          }
+
+
+
+                        remove(i);
+
+
+
+
+
+
+                      },
                     )),
               )
           ),
@@ -114,18 +151,46 @@ class _PoolStatusPageState extends State<PoolStatusPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
-        child: Column(
-          children: <Widget>[
-            Column(
-                children: persons.map((p) {
-                  return buildCard(p);
-                }).toList()
+      body: SingleChildScrollView(
+        child:Padding(
+            padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
+            child:FutureBuilder(
+              future: PoolStatusServices.getSwimmers(),
+
+              builder: (context, data){
+
+                if(data.hasError){
+                  return Center(child: Text("${data.error}"));
+                }
+                else if(data.hasData){
+                  var swimmers= data.data as LiveSwimmers;
+
+
+                  persons=[];
+                  for(var items in swimmers.visits)
+                    {
+                      persons.add(PoolStatusSwimmer('${items.swimmer.name}', 'lib/Resources/pic-1.png', "${items.swimmer.membershipId}", "${items.visit.dateOfVisit}", "${items.swimmer.dues}","${items.swimmer.emailId}","${items.swimmer.contact1}","${items.swimmer.contact2}")
+                      );
+
+
+                    }
+
+                  return Column(
+                    children: <Widget>[
+                      Column(
+                          children: persons.map((p) {
+                            return buildCard(p);
+                          }).toList()
+                      )
+                    ],
+                  );
+                }
+                return Center(child: Text("Loading"));
+              },
             )
-          ],
         ),
-      ),
+      )
+
     );
   }
 }

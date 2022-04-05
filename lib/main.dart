@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'package:swiminit/Admin/send_mail.dart';
+import 'package:swiminit/Admin/pool_status.dart';
 import 'package:swiminit/Admin/adminaddspm.dart';
 import 'package:swiminit/Admin/pool_managers.dart';
 import 'package:swiminit/Admin/quaterly_reports.dart';
@@ -161,11 +162,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     if (user != null) {
 
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => AdminNavBar()));
+                          builder: (context) => SPMNavBar()));
 
                     }
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => AdminNavBar())); //Put this back in that if later
+                        builder: (context) => SPMNavBar())); //Put this back in that if later
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12.0),
