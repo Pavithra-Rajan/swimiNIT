@@ -51,26 +51,32 @@ class SearchByDateRangeState extends State<SearchByDateRange> {
     int i;
 
     List<Color> colors = [Colors.cyan.shade50, Colors.cyan.shade300];
-    return Scaffold(
-      appBar: AppBar(
-        leading: Icon(Icons.menu),
-        title: Text('Results'),
-        backgroundColor: Color(0xFF14839F),
-      ),
-      body: Container(
-        margin: EdgeInsets.only(left: 35, top: 10, right: 35, bottom: 0),
-        child: SingleChildScrollView(
-          child: FutureBuilder(
-            future: readJsonData(),
-            builder: (context, data) {
-              if (data.hasError) {
-                return Center(child: Text("${data.error}"));
-              } else if (data.hasData) {
-                var items = data.data as List<ProductDataModel>;
 
-                return Table(
-                  border: TableBorder.all(
-                    color: Colors.blueGrey,
+    return Container(
+
+
+      child:Scaffold(
+
+
+        body: Container(
+          margin: EdgeInsets.only(left: 35, top:10, right: 35, bottom:0),
+          child:SingleChildScrollView(
+
+
+            child: FutureBuilder(
+              future: ReadJsonData(),
+              builder: (context, data){
+                if(data.hasError){
+                  return Center(child: Text("${data.error}"));
+                }
+                else if(data.hasData){
+                  var items = data.data as List<ProductDataModel>;
+
+                  return Table(
+
+                    border:TableBorder.all(
+                      color: Colors.blueGrey,
+
                   ),
                   children: [
                     TableRow(
@@ -184,6 +190,10 @@ class SearchByDateRangeState extends State<SearchByDateRange> {
           )
         ],
       ),
-    );
+    ),);
   }
+}
+
+Future<void> ReadJsonData() {
+  throw'';
 }
