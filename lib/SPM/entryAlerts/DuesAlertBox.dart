@@ -3,6 +3,8 @@ import 'DialogAlertBox.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DuesAlertBox extends StatelessWidget {
+  const DuesAlertBox({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

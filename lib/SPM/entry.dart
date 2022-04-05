@@ -6,6 +6,8 @@ import 'package:http/http.dart' as http;
 import 'package:swiminit/SPM/entryAlerts/DuesAlertBox.dart';
 import 'package:swiminit/SPM/entryAlerts/FreeTrialsAlertBox.dart';
 
+import 'entryAlerts/DialogAlertBox.dart';
+
 class EntryPage extends StatefulWidget {
 
   const EntryPage({Key? key}) : super(key: key);
@@ -49,7 +51,7 @@ class EntryPageState extends State<EntryPage>
 
   Future swimmerEntry() async
   {
-      final response = await http.post(
+      await http.post(
           Uri.parse('https://swiminit.herokuapp.com/entry'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
