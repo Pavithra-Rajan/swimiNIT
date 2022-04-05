@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
         future: _initializeFirebase(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            return LoginScreen();
+            return AdminNavBar();
           }
           return const Center(
             child: CircularProgressIndicator(),
@@ -72,21 +72,19 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   static Future<User?> loginUsingEmailPassword(
       {required String email,
-        required String password,
-        required BuildContext context}) async {
+      required String password,
+      required BuildContext context}) async {
     FirebaseAuth auth = FirebaseAuth.instance;
     User? user;
     try {
       UserCredential userCredential = await auth.signInWithEmailAndPassword(
           email: email, password: password);
 
-
       //print("Userlogged in: " + userCredential.user?.uid);
       user = userCredential.user;
-      if(user != null){
+      if (user != null) {
         print("User logged in: ");
-      }
-      else{
+      } else {
         print("User not logged in: ");
       }
     } on FirebaseAuthException catch (e) {
@@ -104,7 +102,6 @@ class _LoginScreenState extends State<LoginScreen> {
     TextEditingController _passwordController = TextEditingController();
     //print(_emailController);
     return Scaffold(
-
       body: Container(
         padding: EdgeInsets.all(0.0),
         child: ListView(
@@ -133,7 +130,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 prefixIcon: Icon(Icons.person, color: Color(0xFF14839F)),
               ),
             ),
-
             const SizedBox(
               height: 26.0,
             ),
@@ -165,15 +161,36 @@ class _LoginScreenState extends State<LoginScreen> {
                               password: _passwordController.text,
                               context: context);
                           print(user);
-                          ;
-                          if (user != null) {
-                            print("executing this");
-                            Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                    builder: (context) => AdminNavBar()));
+
+                          print(user?.email);
+                          if(user != null){
+                            //final loginType = RegExp(r'/.+?(?=@)/');
+                            String emailID=user.email.toString();
+                            String result = emailID.substring(0, emailID.indexOf('@'));
+                            //print(result);
+                            //print(loginType.hasMatch(user.email.toString()));
+                            if (result == 'admin'){
+                              Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                      builder: (context) => AdminNavBar()));
+                            }
+                            else{
+                              Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                      builder: (context) => SPMNavBar()));
+                            }
                           }
+
+                          // if (user != null) {
+                          //   print("executing this");
+                          //
+                          //   Navigator.of(context).pushReplacement(
+                          //       MaterialPageRoute(
+                          //           builder: (context) => AdminNavBar()));
+                          // }
                           //Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          //   builder: (context) => AdminNavBar()));
+                           //   builder: (context) => AdminNavBar()));
+
                         },
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
@@ -190,11 +207,8 @@ class _LoginScreenState extends State<LoginScreen> {
           ],
         ),
       ),
-
     );
-
   }
-
 }
 
 class WaveClipper extends CustomClipper<Path> {
@@ -209,7 +223,7 @@ class WaveClipper extends CustomClipper<Path> {
     path.quadraticBezierTo(firstStart.dx, firstStart.dy, firstEnd.dx,
         firstEnd.dy); //takes 3 points
     var secondStart =
-    Offset(size.width - (size.width / 3.24), size.height - 105);
+        Offset(size.width - (size.width / 3.24), size.height - 105);
     var secondEnd = Offset(size.width, size.height - 10);
     path.quadraticBezierTo(
         secondStart.dx, secondStart.dy, secondEnd.dx, secondEnd.dy);

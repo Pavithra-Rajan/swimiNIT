@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:swiminit/Admin/pool_managers.dart';
 import 'package:swiminit/Admin/pending_dues.dart';
@@ -16,21 +17,24 @@ class AdminNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: AdminPage(),
     );
   }
 }
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class AdminPage extends StatefulWidget {
+  const AdminPage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _AdminPageState createState() => _AdminPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _AdminPageState extends State<AdminPage> {
   var currentPage = DrawerSections.poolManagers;
-
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  _signOut() async {
+    await _firebaseAuth.signOut();
+  }
   @override
   Widget build(BuildContext context) {
     Widget container = Container();
@@ -56,8 +60,9 @@ class _HomePageState extends State<HomePage> {
       container = QuarterlyReports();
       text = "Reports";
     } else if (currentPage == DrawerSections.logOut) {
+      _signOut();
       Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => MyApp()));
+          .pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));
     }
     return Scaffold(
       appBar: AppBar(

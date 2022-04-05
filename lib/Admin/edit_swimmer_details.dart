@@ -298,13 +298,10 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                             child: Text(
                               p.amtPaid,
                               style: GoogleFonts.poppins(),
-                            )
-                        )
-                    ),
+                            ))),
                   ],
                 ),
-              ]
-              ),
+              ]),
               SizedBox(
                 height: 10,
               ),
@@ -327,25 +324,21 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                       ),
                     ),
                   )),
-            ]
-        )
-    );
+            ]));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-                  children: [
-                    SizedBox(
-                      height: 10,
-                    ),
-                    detailsWidget(p)
-                  ]
-                ),
+      body: SingleChildScrollView(
+        child: Column(children: [
+          SizedBox(
+            height: 10,
           ),
-        bottomNavigationBar: Container(
+          detailsWidget(p)
+        ]),
+      ),
+      bottomNavigationBar: Container(
           margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
           child: FractionallySizedBox(
             widthFactor: 1,
@@ -356,18 +349,17 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                 //border width and color
                 elevation: 0, //elevation of button
                 shape: RoundedRectangleBorder(
-                  //to set border radius to button
+                    //to set border radius to button
                     borderRadius: BorderRadius.circular(0)),
                 //content padding inside button
               ),
               child: Text(
-                'Submit',
+                'Back',
                 style: TextStyle(color: Colors.white, fontSize: 16),
               ),
               onPressed: () => {},
             ),
-          )
-      ),
+          )),
     );
   }
 }
