@@ -17,7 +17,8 @@ class _AdminAddSPMState extends State<AdminAddSPM>
 {
 
   Future putSPM(String contact1, String contact2, String name) async{
-    print('function is getting executed');
+    //print('function is getting executed');
+
     await http.post(
         Uri.parse('https://swiminit.herokuapp.com/addSPM'),
         headers: <String, String>{
