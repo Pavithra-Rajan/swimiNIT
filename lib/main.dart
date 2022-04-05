@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
         future: _initializeFirebase(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            return AdminNavBar();
+            return LoginScreen();
           }
           return const Center(
             child: CircularProgressIndicator(),
@@ -201,12 +201,15 @@ class _LoginScreenState extends State<LoginScreen> {
                             color: Colors.white,
                             fontSize: 14.0,
                           ),
-                        )))
+                        )
+                    )
+                )
               ],
             )
           ],
         ),
       ),
+      resizeToAvoidBottomInset: false,
     );
   }
 }

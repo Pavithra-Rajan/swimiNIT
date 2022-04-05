@@ -15,9 +15,7 @@ class AdminAddSPM extends StatefulWidget
 
 class _AdminAddSPMState extends State<AdminAddSPM>
 {
-
   Future putSPM() async{
-    print('function is getting executed');
     await http.post(
         Uri.parse('https://swiminit.herokuapp.com/addSPM'),
         headers: <String, String>{

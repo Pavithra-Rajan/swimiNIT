@@ -154,7 +154,7 @@ class SearchByDateRangeState extends State<SearchByDateRange> {
         ),
       ),
     ),
-    bottomNavigationBar: Row(
+      bottomNavigationBar: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
