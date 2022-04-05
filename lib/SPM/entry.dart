@@ -220,7 +220,19 @@ class EntryPageState extends State<EntryPage> {
       }
       return Scaffold(
         body: Center(
-          child: Image.asset("lib/Resources/entry_recorded.png"),
+          //child: Image.asset("lib/Resources/entry_recorded.png"),
+          child: Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: const [
+              Icon(Icons.check,
+              color: Color(0xFF149F88),),
+              Text(' Swimmers entry has been recorded',
+                style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF149F88), fontSize: 18)),
+            ],
+          )
+          // child: Text("Swimmers entry has been recorded",
+          //   style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF149F88), fontSize: 18),),
+
         ),
         bottomNavigationBar: Container(
             margin: EdgeInsets.fromLTRB(0, 0, 0, 0),

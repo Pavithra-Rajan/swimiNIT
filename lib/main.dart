@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
         future: _initializeFirebase(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            return AdminNavBar();
+            return LoginScreen();
           }
           return const Center(
             child: CircularProgressIndicator(),
@@ -170,6 +170,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             //print(result);
                             //print(loginType.hasMatch(user.email.toString()));
                             if (result == 'admin'){
+                              print("admin logged in");
                               Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
                                       builder: (context) => AdminNavBar()));

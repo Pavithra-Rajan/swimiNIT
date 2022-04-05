@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:toggle_switch/toggle_switch.dart';
+
+import '../Admin/Person.dart';
 
 class RegistrationPage extends StatefulWidget {
 
@@ -17,13 +20,27 @@ class RegistrationPageState extends State<RegistrationPage> {
   List<String> roles = ['Student', 'Faculty', 'Faculty Referral'];
   String dropDownVal = 'Student';
   bool swapColor = false;
+  Person p = Person(
+      "name",
+      "lib/Resources/pic-1.png",
+      "rollno",
+      "enteredAt",
+      "noOfVisits",
+      "dues",
+      "receiptID",
+      "amtPaid",
+      "datePaid",
+      "Student",
+      "mailID",
+      "contact1",
+      "contact2");
 
   Widget _buildMembershipId() {
     return TextFormField(
       decoration: InputDecoration(
         hintText: 'Membership ID',
         enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.teal, width: 1.5),
+          borderSide: BorderSide(color: Color(0xFF14839F), width: 1.5),
         ),
       ),
     );
@@ -34,7 +51,7 @@ class RegistrationPageState extends State<RegistrationPage> {
       decoration: InputDecoration(
         hintText: 'Name',
         enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.teal, width: 1.5),
+          borderSide: BorderSide(color: Color(0xFF14839F), width: 1.5),
         ),
       ),
     );
@@ -44,26 +61,28 @@ class RegistrationPageState extends State<RegistrationPage> {
     return Column(
       children: [
         Align(
-          alignment: Alignment(-0.75, 1),
-          child: DropdownButton(
-            iconEnabledColor: Colors.teal,
-            iconDisabledColor: Colors.teal,
-            dropdownColor: Colors.teal,
-            focusColor: Colors.teal,
-
-            hint: Text("Select Role"),
-            icon: const Icon(Icons.keyboard_arrow_down),
-            items: roles.map((String items) {
-                return DropdownMenuItem(
-                  value: items,
-                  child: Text(items),
-                );
-            }).toList(),
-            onChanged: (String? newValue) {
-              dropDownVal = newValue!;
-            },
-            ),
-          )
+            alignment: Alignment(-0.42, 1),
+            child: Container(
+              alignment: Alignment.centerLeft,
+              width: 250,
+              child: DropdownButton(
+                value: dropDownVal,
+                // Down Arrow Icon
+                icon: const Icon(Icons.keyboard_arrow_down),
+                items: roles.map((String items) {
+                  return DropdownMenuItem(
+                    value: items,
+                    child: Text(items),
+                  );
+                }).toList(),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    dropDownVal = newValue!;
+                    p.role = dropDownVal;
+                  });
+                },
+              ),
+            )),
       ],
     );
   }
@@ -73,7 +92,7 @@ class RegistrationPageState extends State<RegistrationPage> {
       decoration: InputDecoration(
         hintText: 'Email Id',
         enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.teal, width: 1.5),
+          borderSide: BorderSide(color: Color(0xFF14839F), width: 1.5),
         ),
       ),
     );
@@ -84,7 +103,7 @@ class RegistrationPageState extends State<RegistrationPage> {
       decoration: InputDecoration(
         hintText: 'Contact No. 1',
         enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.teal, width: 1.5),
+          borderSide: BorderSide(color: Color(0xFF14839F), width: 1.5),
         ),
       ),
     );
@@ -95,7 +114,7 @@ class RegistrationPageState extends State<RegistrationPage> {
       decoration: InputDecoration(
         hintText: 'Contact No. 2',
         enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.teal, width: 1.5),
+          borderSide: BorderSide(color: Color(0xFF14839F), width: 1.5),
         ),
       ),
     );
@@ -106,7 +125,7 @@ class RegistrationPageState extends State<RegistrationPage> {
       decoration: InputDecoration(
         hintText: 'Receipt ID',
         enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.teal, width: 1.5),
+          borderSide: BorderSide(color: Color(0xFF14839F), width: 1.5),
         ),
       ),
     );
@@ -117,20 +136,36 @@ class RegistrationPageState extends State<RegistrationPage> {
       decoration: InputDecoration(
         hintText: 'Payment Date',
         enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.teal, width: 1.5),
+          borderSide: BorderSide(color: Color(0xFF14839F), width: 1.5),
         ),
       ),
     );
   }
 
   Widget _quaterlyFees() {
-    return TextFormField(
-      decoration: InputDecoration(
-        hintText: 'Fees',
-        enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.teal, width: 1.5),
+    return Column(
+      children: [
+        Align(
+          alignment: Alignment(-0.7, 1),
+
+          child: Text(
+            "Quarterly Fees",
+            style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+          ),
         ),
-      ),
+        Align(
+            alignment: Alignment(-0.42, 1),
+            child: Container(
+                margin: EdgeInsets.fromLTRB(0, 6, 0, 5),
+                alignment: Alignment.centerLeft,
+                width: 250,
+                child: Text(
+                  p.role.compareTo(roles[0]) == 0
+                      ? "Rs 200"
+                      : "Rs 500",
+                  style: GoogleFonts.poppins(),
+                ))),
+      ],
     );
   }
 
@@ -139,7 +174,7 @@ class RegistrationPageState extends State<RegistrationPage> {
       decoration: InputDecoration(
         hintText: 'Money Paid',
         enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.teal, width: 1.5),
+          borderSide: BorderSide(color: Color(0xFF14839F), width: 1.5),
         ),
       ),
     );
