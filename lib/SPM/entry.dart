@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:swiminit/Admin/Person.dart';
 import 'package:http/http.dart' as http;
+import 'package:swiminit/SPM/entryAlerts/DuesAlertBox.dart';
+import 'package:swiminit/SPM/entryAlerts/FreeTrialsAlertBox.dart';
+
+import 'entryAlerts/DialogAlertBox.dart';
 
 class EntryPage extends StatefulWidget {
   const EntryPage({Key? key}) : super(key: key);
@@ -46,7 +50,7 @@ class EntryPageState extends State<EntryPage> {
   }
 
   Future swimmerEntry() async {
-    final response = await http.post(
+    await http.post(
       Uri.parse('https://swiminit.herokuapp.com/entry'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
@@ -146,7 +150,7 @@ class EntryPageState extends State<EntryPage> {
                     Align(
                       alignment: Alignment(-0.75, 1),
                       child: Text(
-                        int.parse(p.dues) == 0 ? "Yes" : "No",
+                        int.parse(p.dues) == 0 ? "No" : "Yes",
                         style: GoogleFonts.poppins(),
                       ),
                     ),
@@ -208,6 +212,12 @@ class EntryPageState extends State<EntryPage> {
         resizeToAvoidBottomInset: false,
       );
     } else if (membershipID == "-2") {
+      if (p.dues != "0") {
+        return DuesAlertBox();
+      }
+      if (p.noOfVisits == "5" && p.role == "Student") {
+        return FreeTrialsAlertBox();
+      }
       return Scaffold(
         body: Center(
           child: Image.asset("lib/Resources/entry_recorded.png"),

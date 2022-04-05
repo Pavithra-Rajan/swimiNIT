@@ -28,7 +28,7 @@ class _CustomAlertDialogBoxState extends State<CustomAlertDialogBox> {
         children: [
           SizedBox(height: 15),
           Text(
-            "${widget.title}",
+            widget.title,
             style: GoogleFonts.poppins(
               fontSize: 18.0,
               fontWeight: FontWeight.normal,
@@ -37,7 +37,7 @@ class _CustomAlertDialogBoxState extends State<CustomAlertDialogBox> {
           ),
           SizedBox(height: 20),
           Text(
-            "${widget.description}",
+            widget.description,
             style: GoogleFonts.rubik(
               fontSize: 11.4,
               color: Color(0xFF8E8E8E),
@@ -47,7 +47,7 @@ class _CustomAlertDialogBoxState extends State<CustomAlertDialogBox> {
           Divider(
             height: 1,
           ),
-          Container(
+          SizedBox(
             width: MediaQuery.of(context).size.width,
             height: 50,
             child: InkWell(
@@ -61,7 +61,7 @@ class _CustomAlertDialogBoxState extends State<CustomAlertDialogBox> {
               },
               child: Center(
                 child: Text(
-                  "Cancel",
+                  "Ok",
                   style: GoogleFonts.rubik(
                     fontSize: 16.0,
                     fontWeight: FontWeight.normal,

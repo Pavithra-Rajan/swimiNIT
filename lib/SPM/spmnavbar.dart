@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:swiminit/SPM/search.dart';
 import 'package:swiminit/SPM/edit_receipt_details.dart';
 import 'package:swiminit/SPM/entry.dart';
 import 'package:swiminit/SPM/log_out.dart';
-import 'package:swiminit/SPM/pool_status.dart';
+
+import 'package:swiminit/Admin/pending_dues.dart';
+import 'package:swiminit/Admin/pool_status.dart';
+
+
 import 'package:swiminit/SPM/registration.dart';
 import 'package:swiminit/SPM/search.dart';
 import 'package:swiminit/SPM/spm_drawer_file.dart';
@@ -42,6 +47,7 @@ class _HomePageState extends State<HomePage> {
       text = "Pool Status";
     } else if (currentPage == DrawerSections.search) {
       container = SearchPage();
+
       text = "Search";
     } else if (currentPage == DrawerSections.registration) {
       container = RegistrationPage();
@@ -57,8 +63,9 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         centerTitle: false,
         backgroundColor: Color(0xFF14839F),
-        title: Text(
-          text,
+
+        title: Text(text,
+
           style: GoogleFonts.poppins(color: Colors.white),
         ),
       ),

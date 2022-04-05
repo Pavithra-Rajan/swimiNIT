@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:toggle_switch/toggle_switch.dart';
 
 class RegistrationPage extends StatefulWidget {
@@ -17,6 +16,7 @@ class RegistrationPageState extends State<RegistrationPage> {
   bool isVisible = false;
   List<String> roles = ['Student', 'Faculty', 'Faculty Referral'];
   String dropDownVal = 'Student';
+  bool swapColor = false;
 
   Widget _buildMembershipId() {
     return TextFormField(
@@ -178,20 +178,21 @@ class RegistrationPageState extends State<RegistrationPage> {
                   minWidth: 140.0,
                   minHeight: 50.0,
                   fontSize: 16.0,
-                  initialLabelIndex: 1,
-                  activeBgColor: [Color(0xff0388A9)],
+                  initialLabelIndex: swapColor?0:1,
+                  activeBgColor: const [Color(0xff0388A9)],
                   activeFgColor: Colors.white,
                   inactiveBgColor: Color(0xffD1E9EF),
                   inactiveFgColor: Color(0xff000000).withOpacity(0.5),
                   totalSwitches: 2,
-                  labels: ['Pay Now', 'Pay Later'],
+                  labels: const ['Pay Now', 'Pay Later'],
                   onToggle: (index) {
                     setState(() {
                       if (index == 0) {
                         isVisible = true;
-                        print(isVisible);
+                        swapColor = !swapColor;
                       } else {
                         isVisible = false;
+                        swapColor = !swapColor;
                       }
                     });
                   },
