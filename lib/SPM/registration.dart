@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:toggle_switch/toggle_switch.dart';
+
 class RegistrationPage extends StatefulWidget {
+
+  const RegistrationPage({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return RegistrationPageState();
@@ -9,7 +13,11 @@ class RegistrationPage extends StatefulWidget {
 }
 
 class RegistrationPageState extends State<RegistrationPage> {
-  bool isVisible=false;
+
+  bool isVisible = false;
+  List<String> roles = ['Student', 'Faculty', 'Faculty Referral'];
+  String dropDownVal = 'Student';
+
   Widget _buildMembershipId() {
     return TextFormField(
       decoration: InputDecoration(
@@ -17,34 +25,49 @@ class RegistrationPageState extends State<RegistrationPage> {
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: Colors.teal, width: 1.5),
         ),
-
       ),
-
-
     );
   }
+
   Widget _buildName() {
     return TextFormField(
-
-      decoration: InputDecoration(hintText: 'Name',
-        enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.teal, width: 1.5),
-        ),
-      ),
-
-    );
-  }
-  Widget _buildRole() {
-    return TextFormField(
       decoration: InputDecoration(
-        hintText: 'Role',
+        hintText: 'Name',
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: Colors.teal, width: 1.5),
         ),
       ),
-
     );
   }
+
+  Widget _buildRole() {
+    return Column(
+      children: [
+        Align(
+          alignment: Alignment(-0.75, 1),
+          child: DropdownButton(
+            iconEnabledColor: Colors.teal,
+            iconDisabledColor: Colors.teal,
+            dropdownColor: Colors.teal,
+            focusColor: Colors.teal,
+
+            hint: Text("Select Role"),
+            icon: const Icon(Icons.keyboard_arrow_down),
+            items: roles.map((String items) {
+                return DropdownMenuItem(
+                  value: items,
+                  child: Text(items),
+                );
+            }).toList(),
+            onChanged: (String? newValue) {
+              dropDownVal = newValue!;
+            },
+            ),
+          )
+      ],
+    );
+  }
+
   Widget _buildEmailId() {
     return TextFormField(
       decoration: InputDecoration(
@@ -53,9 +76,9 @@ class RegistrationPageState extends State<RegistrationPage> {
           borderSide: BorderSide(color: Colors.teal, width: 1.5),
         ),
       ),
-
     );
   }
+
   Widget _buildContactNo1() {
     return TextFormField(
       decoration: InputDecoration(
@@ -66,6 +89,7 @@ class RegistrationPageState extends State<RegistrationPage> {
       ),
     );
   }
+
   Widget _buildContactNo2() {
     return TextFormField(
       decoration: InputDecoration(
@@ -76,6 +100,7 @@ class RegistrationPageState extends State<RegistrationPage> {
       ),
     );
   }
+
   Widget _receiptId() {
     return TextFormField(
       decoration: InputDecoration(
@@ -86,6 +111,7 @@ class RegistrationPageState extends State<RegistrationPage> {
       ),
     );
   }
+
   Widget _paymentDate() {
     return TextFormField(
       decoration: InputDecoration(
@@ -96,6 +122,7 @@ class RegistrationPageState extends State<RegistrationPage> {
       ),
     );
   }
+
   Widget _quaterlyFees() {
     return TextFormField(
       decoration: InputDecoration(
@@ -106,6 +133,7 @@ class RegistrationPageState extends State<RegistrationPage> {
       ),
     );
   }
+
   Widget _moneyPaid() {
     return TextFormField(
       decoration: InputDecoration(
@@ -119,9 +147,7 @@ class RegistrationPageState extends State<RegistrationPage> {
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
     return Scaffold(
-
       // appBar: AppBar(
       //   leading: Icon(Icons.menu),
       //   title: Text('Registration'),
@@ -129,7 +155,7 @@ class RegistrationPageState extends State<RegistrationPage> {
       // ),
       body: SingleChildScrollView(
         child: Container(
-          margin: EdgeInsets.only(left: 35, top:10, right: 35, bottom:0),
+          margin: EdgeInsets.only(left: 35, top: 10, right: 35, bottom: 0),
           child: Form(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -161,14 +187,11 @@ class RegistrationPageState extends State<RegistrationPage> {
                   labels: ['Pay Now', 'Pay Later'],
                   onToggle: (index) {
                     setState(() {
-                      if(index==0)
-                      {
-                        isVisible=true;
+                      if (index == 0) {
+                        isVisible = true;
                         print(isVisible);
-                      }
-                      else
-                      {
-                        isVisible=false;
+                      } else {
+                        isVisible = false;
                       }
                     });
                   },
@@ -186,64 +209,48 @@ class RegistrationPageState extends State<RegistrationPage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           SizedBox(
-                            width:100,
-                            child:_quaterlyFees(),),
+                            width: 100,
+                            child: _quaterlyFees(),
+                          ),
                           SizedBox(
-                            width:100,
-                            child:_moneyPaid(),)
-
+                            width: 100,
+                            child: _moneyPaid(),
+                          )
                         ],
                       ),
                     ],
-
-                  ) ,
+                  ),
                 ),
-
-
-
               ],
             ),
           ),
-
-
         ),
       ),
 
-
-      bottomNavigationBar:
-
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-
-        children: <Widget>[
-          SizedBox(
-            height:40, //height of button
-            width:384, //width of button equal to parent widget
+      bottomNavigationBar: Container(
+          margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+          child: FractionallySizedBox(
+            widthFactor: 1,
+            heightFactor: 0.07,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: Colors.cyan[900], //background color of button
+                primary: Color(0xFF14839F), //background color of button
                 //border width and color
                 elevation: 0, //elevation of button
-                shape: RoundedRectangleBorder( //to set border radius to button
-                    borderRadius: BorderRadius.circular(3)
-                ),
+                shape: RoundedRectangleBorder(
+                    //to set border radius to button
+                    borderRadius: BorderRadius.circular(0)),
                 //content padding inside button
               ),
               child: Text(
                 'Submit',
                 style: TextStyle(color: Colors.white, fontSize: 16),
               ),
-              onPressed: ()=> {},
+              onPressed: () => {},
             ),
           )
-
-        ],
-
-
       ),
+      resizeToAvoidBottomInset: false,
     );
-
-
   }
 }

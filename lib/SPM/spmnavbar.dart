@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:swiminit/Admin/search.dart';
+import 'package:swiminit/SPM/search.dart';
 import 'package:swiminit/SPM/edit_receipt_details.dart';
 import 'package:swiminit/SPM/entry.dart';
 import 'package:swiminit/SPM/log_out.dart';
-import 'package:swiminit/SPM/pending_dues.dart';
+
+import 'package:swiminit/Admin/pending_dues.dart';
 import 'package:swiminit/Admin/pool_status.dart';
+
+
 import 'package:swiminit/SPM/registration.dart';
 import 'package:swiminit/SPM/search.dart';
 import 'package:swiminit/SPM/spm_drawer_file.dart';
-import 'package:swiminit/SPM/search_by_daterange_results.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SPMNavBar extends StatelessWidget {
-
   const SPMNavBar({Key? key}) : super(key: key);
-
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +26,7 @@ class SPMNavBar extends StatelessWidget {
 }
 
 class HomePage extends StatefulWidget {
-
   const HomePage({Key? key}) : super(key: key);
-
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -43,45 +41,47 @@ class _HomePageState extends State<HomePage> {
     String text = "Entry";
     if (currentPage == DrawerSections.entry) {
       container = EntryPage();
+      text = "Entry";
     } else if (currentPage == DrawerSections.poolStatus) {
       container = PoolStatusPage();
+      text = "Pool Status";
     } else if (currentPage == DrawerSections.search) {
-      container = SearchByDateRange();
+      container = SearchPage();
+
       text = "Search";
     } else if (currentPage == DrawerSections.registration) {
       container = RegistrationPage();
+      text = "Registration";
     } else if (currentPage == DrawerSections.editReceiptDetails) {
       container = EditReceiptPage();
-    } else if (currentPage == DrawerSections.pendingDues) {
-      container = PendingDuesPage();
+      text = "Edit Receipt Details";
     } else if (currentPage == DrawerSections.logOut) {
       container = LogOutPage();
     }
-
 
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
         backgroundColor: Color(0xFF14839F),
+
         title: Text(text,
+
           style: GoogleFonts.poppins(color: Colors.white),
         ),
       ),
       body: container,
       drawer: Drawer(
         child: SingleChildScrollView(
-
           child: Column(
             children: [MyHeaderDrawer(), myDrawerList()],
-
           ),
         ),
       ),
+      resizeToAvoidBottomInset: false,
     );
   }
 
   Widget myDrawerList() {
-
     return Container(
       padding: EdgeInsets.only(
         top: 15,
@@ -91,26 +91,15 @@ class _HomePageState extends State<HomePage> {
           menuItem(1, "Entry", Icons.dashboard_outlined,
               currentPage == DrawerSections.entry ? true : false),
           menuItem(2, "Pool Status", Icons.people_alt_outlined,
-
               currentPage == DrawerSections.poolStatus ? true : false),
-
           menuItem(3, "Search", Icons.event,
               currentPage == DrawerSections.search ? true : false),
           menuItem(4, "Registration", Icons.notes,
               currentPage == DrawerSections.registration ? true : false),
-          menuItem(
-              5,
-              "Edit Receipt Details",
-              Icons.settings_outlined,
-
-              currentPage == DrawerSections.editReceiptDetails
-                  ? true
-                  : false),
-          menuItem(6, "Pending Dues", Icons.notifications_outlined,
-              currentPage == DrawerSections.pendingDues ? true : false),
-          menuItem(7, "Log out", Icons.privacy_tip_outlined,
+          menuItem(5, "Edit Receipt Details", Icons.settings_outlined,
+              currentPage == DrawerSections.editReceiptDetails ? true : false),
+          menuItem(6, "Log out", Icons.privacy_tip_outlined,
               currentPage == DrawerSections.logOut ? true : false),
-
         ],
       ),
     );
@@ -126,21 +115,15 @@ class _HomePageState extends State<HomePage> {
             if (id == 1) {
               currentPage = DrawerSections.entry;
             } else if (id == 2) {
-
               currentPage = DrawerSections.poolStatus;
-
             } else if (id == 3) {
               currentPage = DrawerSections.search;
             } else if (id == 4) {
               currentPage = DrawerSections.registration;
             } else if (id == 5) {
-
               currentPage = DrawerSections.editReceiptDetails;
             } else if (id == 6) {
-              currentPage = DrawerSections.pendingDues;
-            } else if (id == 7) {
               currentPage = DrawerSections.logOut;
-
             }
           });
         },
@@ -170,7 +153,5 @@ enum DrawerSections {
   search,
   registration,
   editReceiptDetails,
-  pendingDues,
   logOut
-
 }

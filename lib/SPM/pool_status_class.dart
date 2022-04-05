@@ -5,7 +5,6 @@
 import 'dart:convert';
 
 
-
 class LiveSwimmers {
   LiveSwimmers({
     required this.visits,
@@ -17,9 +16,7 @@ class LiveSwimmers {
     visits: List<Visits>.from(json["visits:"].map((x) => Visits.fromJson(x))),
   );
 
-  Map<String, dynamic> toJson() => {
-    "visits:": List<dynamic>.from(visits.map((x) => x.toJson())),
-  };
+
 }
 
 class Visits {
@@ -36,10 +33,7 @@ class Visits {
     visit: Visit.fromJson(json["visit"]),
   );
 
-  Map<String, dynamic> toJson() => {
-    "swimmer": swimmer.toJson(),
-    "visit": visit.toJson(),
-  };
+
 }
 
 class Swimmer {
@@ -62,7 +56,7 @@ class Swimmer {
   int fees;
   String membershipId;
   String name;
-  dynamic numberOfFreeTrials;
+  int numberOfFreeTrials;
   String role;
 
   factory Swimmer.fromJson(Map<String, dynamic> json) => Swimmer(
@@ -77,18 +71,11 @@ class Swimmer {
     role: json["role"],
   );
 
-  Map<String, dynamic> toJson() => {
-    "contact1": contact1,
-    "contact2": contact2,
-    "dues": dues,
-    "emailID": emailId,
-    "fees": fees,
-    "membershipID": membershipId,
-    "name": name,
-    "numberOfFreeTrials": numberOfFreeTrials,
-    "role": role,
-  };
+
 }
+
+
+
 
 class Visit {
   Visit({
@@ -107,9 +94,11 @@ class Visit {
     membershipId: json["membershipID"],
   );
 
-  Map<String, dynamic> toJson() => {
-    "dateOfVisit": dateOfVisit,
-    "endTime": endTime,
-    "membershipID": membershipId,
-  };
+
+
 }
+
+
+
+
+

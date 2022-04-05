@@ -4,8 +4,8 @@ import 'package:toggle_switch/toggle_switch.dart';
 import 'package:swiminit/Admin/search_membershipID.dart';
 import 'package:swiminit/Admin/search_dateRange.dart';
 
-class Search  extends StatefulWidget {
-
+class Search extends StatefulWidget {
+  const Search({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => SearchState();
@@ -16,104 +16,99 @@ class SearchState extends State<Search> {
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery
-        .of(context)
-        .size;
-    return Container(
-        child: Scaffold(
-          // appBar: AppBar(
-          //   leading: Icon(Icons.menu),
-          //   title: Text('Search'),
-          //   backgroundColor: Color(0xFF14839F),
-          // ),
+
+    return Scaffold(
           body: Container(
-            margin: EdgeInsets.only(left: 35, top: 30, right: 35, bottom: 0),
-            child: Align(
+              margin: EdgeInsets.only(left: 35, top: 40, right: 35, bottom: 0),
+              child: Align(
               alignment: Alignment.center,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  ToggleSwitch(
-                    minWidth: 160.0,
-                    minHeight: 40.0,
-                    fontSize: 16.0,
-                    initialLabelIndex: 0,
-                    activeBgColor: [Color(0xff0388A9)],
-                    activeFgColor: Colors.white,
-                    inactiveBgColor: Color(0xffD1E9EF),
-                    inactiveFgColor: Color(0xff000000).withOpacity(0.5),
-                    totalSwitches: 2,
-                    labels: ['By Membership ID', 'By Date'],
-                    onToggle: (index) {
-                      setState(() {
-                        if (index == 0) {
-                          showMembership = true;
-                        }
-                        else {
-                          showMembership = false;
-                        }
-                      });
-                    },
-                  ),
-                  // SizedBox(height: 75,),
-                  Visibility(
-                    visible: showMembership,
-                    child: MembershipIdSearch_1(),
-                    replacement: Daterange2(),
-
-                  ),
-
-                ],
-              ),),
-          ),
-          bottomNavigationBar:
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-
-            children: <Widget>[
-              SizedBox(
-                height: 40, //height of button
-                width: 384, //width of button equal to parent widget
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.cyan[900], //background color of button
-                    //border width and color
-                    elevation: 0, //elevation of button
-                    shape: RoundedRectangleBorder( //to set border radius to button
-                        borderRadius: BorderRadius.circular(3)
-                    ),
-                    //content padding inside button
-                  ),
-                  child: Text(
-                    'Search',
-                    style: TextStyle(color: Colors.white, fontSize: 16),
-                  ),
-                  onPressed: () => {},
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                        ToggleSwitch(
+                          minWidth: 140.0,
+                          minHeight: 40.0,
+                          fontSize: 14.0,
+                          initialLabelIndex: 0,
+                          activeBgColor: const [Color(0xff0388A9)],
+                          activeFgColor: Colors.white,
+                          inactiveBgColor: Color(0xffD1E9EF),
+                          inactiveFgColor: Color(0xff000000).withOpacity(0.5),
+                          totalSwitches: 2,
+                          labels: const ['By Membership ID', 'By Date'],
+                          onToggle: (index) {
+                            setState(() {
+                              if (index == 0) {
+                                showMembership = true;
+                              } else {
+                                showMembership = false;
+                              }
+                            });
+                          },
+                        ),
+                // SizedBox(height: 75,),
+                Visibility(
+                  visible: showMembership,
+                  child: MembershipIdSearch_1(),
+                  replacement: Daterange2(),
                 ),
-              )
-
-            ],
-
-
+              ],
+            ),
           ),
-
-        )
+      ),
+      bottomNavigationBar: Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: <Widget>[
+      SizedBox(
+        height: 40, //height of button
+        width: 410, //width of button equal to parent widget
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            primary: Color(0xFF14839F), //background color of button
+            //border width and color
+            elevation: 0, //elevation of button
+            shape: RoundedRectangleBorder(
+                //to set border radius to button
+                borderRadius: BorderRadius.circular(3)),
+            //content padding inside button
+          ),
+          child: Text(
+            'Search',
+            style: TextStyle(color: Colors.white, fontSize: 16),
+          ),
+          onPressed: () => {},
+        ),
+      )
+    ],
+      ),
     );
   }
 }
 
-
 class SearchPage extends StatelessWidget {
-  const SearchPage({Key? key}) : super(key: key);
+
+  final TextEditingController _membIDController = TextEditingController();
+
+  SearchPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text('Search Page'),
-
+      child: SizedBox(
+          width: 350,
+          child: TextField(
+            autocorrect: false,
+            cursorColor: Color(0xFF14839F),
+            controller: _membIDController,
+            keyboardType: TextInputType.emailAddress,
+            decoration: const InputDecoration(
+                hintText: "Membership ID",
+                prefixIcon: Icon(Icons.person, color: Color(0xFF14839F)),
+              ),
+          )
+      )
     );
   }
 }

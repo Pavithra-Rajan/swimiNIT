@@ -2,24 +2,18 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
+
 import 'package:swiminit/Admin/send_mail.dart';
 import 'package:swiminit/Admin/pool_status.dart';
 import 'package:swiminit/Admin/adminaddspm.dart';
+
+
 import 'package:swiminit/Admin/pool_managers.dart';
-import 'package:swiminit/Admin/quaterly_reports.dart';
+import 'package:swiminit/Admin/adminnavbar.dart';
+import 'package:swiminit/SPM/entry.dart';
+import 'package:swiminit/SPM/pool_status.dart';
 import 'package:swiminit/SPM/spmnavbar.dart';
-import 'package:swiminit/SPM/registration.dart';
-import 'package:swiminit/Admin/adminnavbar.dart';
-import 'dart:math' as math;
-import 'package:swiminit/profile_screen.dart';
 import 'firebase_options.dart';
-import 'package:google_fonts/google_fonts.dart';
-
-import 'package:swiminit/Admin/adminnavbar.dart';
-
-import 'Admin/user_history.dart';
-import 'firebase_options.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -64,9 +58,7 @@ class _HomePageState extends State<HomePage> {
         future: _initializeFirebase(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-
-            return LoginScreen();
-
+            return SPMNavBar();
           }
           return const Center(
             child: CircularProgressIndicator(),
@@ -89,39 +81,40 @@ class _LoginScreenState extends State<LoginScreen> {
       {required String email,
       required String password,
       required BuildContext context}) async {
-          FirebaseAuth auth = FirebaseAuth.instance;
-          User? user;
-          try {
-            UserCredential userCredential = await auth.signInWithEmailAndPassword(
-                email: email, password: password);
-            user = userCredential.user;
-          } on FirebaseAuthException catch (e) {
-            if (e.code == "user-not-found") {
-              print("Incorrect Credentials");
-            }
-          }
-          return user;
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? user;
+    try {
+      UserCredential userCredential = await auth.signInWithEmailAndPassword(
+          email: email, password: password);
+      user = userCredential.user;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == "user-not-found") {
+        print("Incorrect Credentials");
+      }
+    }
+    return user;
   }
 
   @override
   Widget build(BuildContext context) {
     TextEditingController _emailController = TextEditingController();
     TextEditingController _passwordController = TextEditingController();
-    return Padding(
+    return Container(
       padding: EdgeInsets.all(0.0),
-      child: Column(
+      child: ListView(
         children: [
           Opacity(
               opacity: 1,
               child: ClipPath(
                   clipper: WaveClipper(),
                   child: Container(
-                    color: Colors.blue[900],
+                    color: Color(0xFF14839F),
                     height: 180,
                   ))),
           Text("Login",
+              textAlign: TextAlign.center,
               style: TextStyle(
-                color: Colors.blue[900],
+                color: Color(0xFF14839F),
                 fontSize: 28.0,
                 fontWeight: FontWeight.bold,
               )),
@@ -131,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
             keyboardType: TextInputType.emailAddress,
             decoration: const InputDecoration(
               hintText: "Username",
-              prefixIcon: Icon(Icons.person, color: Colors.indigo),
+              prefixIcon: Icon(Icons.person, color: Color(0xFF14839F)),
             ),
           ),
           const SizedBox(
@@ -142,12 +135,14 @@ class _LoginScreenState extends State<LoginScreen> {
             obscureText: true,
             decoration: const InputDecoration(
               hintText: "Password",
-              prefixIcon: Icon(Icons.lock, color: Colors.indigo),
+              prefixIcon: Icon(Icons.lock, color: Color(0xFF14839F)),
             ),
           ),
           const SizedBox(
             height: 40.0,
+            width: 10.0,
           ),
+// <<<<<<< HEAD
           SizedBox(
               width: 100.0,
               child: RawMaterialButton(
@@ -180,8 +175,44 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   )
               )
+// =======
+//           Stack(
+//             alignment: Alignment.center,
+//             children: [
+//               Container(
+//                   width: 100,
+//                   height: 50,
+//                   color: Colors.white,
+//                   child: RawMaterialButton(
+//                       fillColor: Color(0xFF14839F),
+//                       padding: const EdgeInsets.symmetric(vertical: 15.0),
+//                       onPressed: () async {
+//                         User? user = await loginUsingEmailPassword(
+//                             email: _emailController.text,
+//                             password: _passwordController.text,
+//                             context: context);
+//                         print(user);
+//                         if (user != null) {
+//                           Navigator.of(context).pushReplacement(
+//                               MaterialPageRoute(
+//                                   builder: (context) => AdminNavBar()));
+//                         }
+//                         Navigator.of(context).pushReplacement(MaterialPageRoute(
+//                             builder: (context) => SPMNavBar()));
+//                       },
+//                       shape: RoundedRectangleBorder(
+//                         borderRadius: BorderRadius.circular(10.0),
+//                       ),
+//                       child: const Text(
+//                         "Log In",
+//                         style: TextStyle(
+//                           color: Colors.white,
+//                           fontSize: 14.0,
+//                         ),
+//                       )))
+//             ],
+// >>>>>>> 88ffe77a104da1a06a0b8ceae0386ade4f93ec59
           )
-
         ],
       ),
     );
@@ -214,6 +245,4 @@ class WaveClipper extends CustomClipper<Path> {
     // TODO: implement shouldReclip
     throw UnimplementedError();
   }
-
 }
-

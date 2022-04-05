@@ -14,7 +14,7 @@ class  MembershipIdSearchState_1 extends State<MembershipIdSearch_1> {
       decoration: InputDecoration(
         hintText: 'Membership ID',
         enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.teal, width: 1.5),
+          borderSide: BorderSide(color: Color(0xFF14839F), width: 1.5),
         ),
 
       ),
