@@ -60,9 +60,11 @@ class _AdminPageState extends State<AdminPage> {
       container = QuarterlyReports();
       text = "Reports";
     } else if (currentPage == DrawerSections.logOut) {
+      Future.delayed(Duration.zero, () {
       _signOut();
       Navigator.of(context)
           .pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));
+      });
     }
     return Scaffold(
       appBar: AppBar(
