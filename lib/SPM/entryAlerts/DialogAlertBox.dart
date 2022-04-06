@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:swiminit/SPM/spmnavbar.dart';
 
 class CustomAlertDialogBox extends StatefulWidget {
   const CustomAlertDialogBox({
@@ -19,7 +20,7 @@ class _CustomAlertDialogBoxState extends State<CustomAlertDialogBox> {
   Widget build(BuildContext context) {
     return Dialog(
       elevation: 0,
-      backgroundColor: Color(0xffffffff),
+      backgroundColor: Color(0xffd9f3fa),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
       ),
@@ -28,26 +29,28 @@ class _CustomAlertDialogBoxState extends State<CustomAlertDialogBox> {
         children: [
           SizedBox(height: 15),
           Text(
-            "${widget.title}",
+            widget.title,
             style: GoogleFonts.poppins(
               fontSize: 18.0,
-              fontWeight: FontWeight.normal,
+              fontWeight: FontWeight.bold,
               color: Color(0xFF070417),
             ),
           ),
           SizedBox(height: 20),
           Text(
-            "${widget.description}",
+            widget.description,
+            textAlign: TextAlign.center,
             style: GoogleFonts.rubik(
-              fontSize: 11.4,
-              color: Color(0xFF8E8E8E),
+              fontSize: 14.5,
+              color: Colors.black,
             ),
           ),
           SizedBox(height: 20),
           Divider(
-            height: 1,
+            height: 2,
+            color: Colors.black,
           ),
-          Container(
+          SizedBox(
             width: MediaQuery.of(context).size.width,
             height: 50,
             child: InkWell(
@@ -60,13 +63,22 @@ class _CustomAlertDialogBoxState extends State<CustomAlertDialogBox> {
                 Navigator.of(context).pop();
               },
               child: Center(
-                child: Text(
-                  "Cancel",
-                  style: GoogleFonts.rubik(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.normal,
-                    color: Color(0xFF070417),
+                child: RawMaterialButton(
+                  child: Text(
+                    "Ok",
+                    style: GoogleFonts.rubik(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.normal,
+                      color: Color(0xFF070417),
+                    ),
                   ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SPMNavBar()),
+                    );
+                  }
+
                 ),
               ),
             ),

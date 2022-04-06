@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'Person.dart';
+import '../SPM/Person.dart';
 import 'package:flutter/services.dart';
 
 class UserHistoryTable {

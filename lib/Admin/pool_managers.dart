@@ -5,12 +5,15 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:swiminit/Admin/adminaddspm.dart';
 
+import 'adminnavbar.dart';
+
 class ProductDataModel {
   final String contact1;
   final String contact2;
   final String name;
 
   ProductDataModel(this.contact1, this.contact2, this.name);
+
 }
 
 class ViewPoolManagers extends StatefulWidget {
@@ -44,6 +47,16 @@ class _ViewPoolManagers extends State<ViewPoolManagers> {
     return duesData;
   }
 
+  Future delSPM(String cont1) async{
+    String contact1 = cont1;
+    var response =
+    await http.delete(Uri.parse('https://swiminit.herokuapp.com/deleteSPM?contact1=$contact1'));
+    //print(ProductDataModel.fromJson(jsonDecode(response.body)));
+    var data = json.decode(response.body);
+    List<ProductDataModel> duesData = [];
+
+     return;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +111,6 @@ class _ViewPoolManagers extends State<ViewPoolManagers> {
               Navigator.of(context).pushReplacement(
               MaterialPageRoute(
               builder: (context) => AdminAddSPM())),
-
               },
             ),
           )
@@ -120,7 +132,7 @@ class _ViewPoolManagers extends State<ViewPoolManagers> {
                     Align(
                       alignment: Alignment(-0.98, 1),
                       child: Container(
-                        margin: EdgeInsets.fromLTRB(5, 5, 0, 3),
+                        margin: EdgeInsets.fromLTRB(7, 5, 0, 3),
                         width: 55,
                         height: 55,
                         decoration: BoxDecoration(
@@ -133,7 +145,7 @@ class _ViewPoolManagers extends State<ViewPoolManagers> {
                     Align(
                         alignment: Alignment(-0.40, 1),
                         child: Container(
-                          margin: EdgeInsets.fromLTRB(2, 6, 0, 5),
+                          margin: EdgeInsets.fromLTRB(30, 6, 0, 5),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
@@ -165,11 +177,12 @@ class _ViewPoolManagers extends State<ViewPoolManagers> {
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width * 0.5,
                     child: RawMaterialButton(
-                      onPressed: () {
-                        setState(() {
-                          // managers.removeAt(i);
-                        });
-                      },
+                      onPressed: () async{
+                        await delSPM(managers.contact1).then((value) => getSPM());
+                        Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                                builder: (context) => AdminNavBar()));
+                        },
                       child: Text(
                         "Delete",
                         style: TextStyle(

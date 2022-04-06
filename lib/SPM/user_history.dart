@@ -12,7 +12,7 @@ import 'package:swiminit/SPM/receipt_details_service_spm.dart';
 import 'package:swiminit/SPM/SwimmerDetailsSpmClass.dart';
 import 'package:swiminit/SPM/UserVisitsSpmClass.dart';
 import 'package:swiminit/SPM/ReceiptDetailsSpmClass.dart';
-import 'package:swiminit/SPM/search.dart';
+import 'package:swiminit/Admin/search.dart';
 //method that assign values to respective datatype vairables
 
 

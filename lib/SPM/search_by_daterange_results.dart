@@ -31,6 +31,7 @@ class SearchByDateRangeState extends State<SearchByDateRange> {
     int i;
 
 
+
     List<Color> colors = [Color(0xFFFFFFFF), Color(0xFFD2EAF0)];
     return Container(
 
@@ -57,44 +58,48 @@ class SearchByDateRangeState extends State<SearchByDateRange> {
                     border:TableBorder.all(
                       color: Colors.blueGrey,
 
+
+
+                ),
+                children: [
+                  TableRow(
+                    decoration:
+                        const BoxDecoration(color: Colors.lightBlueAccent),
+                    children: const <Widget>[
+                      SizedBox(
+                        height: 64,
+                        child: Center(
+                          child: Text(
+                            "Membership ID",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 64,
+                        child: Center(
+                          child: Text(
+                            "Date Of Visit",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 64,
+                        child: Center(
+                          child: Text(
+                            "Start-End time",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    ],
+
                   ),
-                  children: [
-                    TableRow(
-                      decoration:
-                          const BoxDecoration(color: Color(0xFF93C6D3)),
-                      children: const <Widget>[
-                        SizedBox(
-                          height: 64,
-                          child: Center(
-                            child: Text(
-                              "Membership ID",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 64,
-                          child: Center(
-                            child: Text(
-                              "Date Of Visit",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 64,
-                          child: Center(
-                            child: Text(
-                              "Start-End time",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+
                     for (i = 0; i < items.visits.length; i++)
                       TableRow(
                         decoration: BoxDecoration(
@@ -134,16 +139,20 @@ class SearchByDateRangeState extends State<SearchByDateRange> {
                 );
                 //var items = data.data as List<ProductDataModel>;
 
-              } else {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              //throw '';
-            },
-          ),
+
+              //var items = data.data as List<ProductDataModel>;
+
+
+            } else {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            //throw '';
+          },
         ),
       ),
+    ),
       bottomNavigationBar: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -169,14 +178,13 @@ class SearchByDateRangeState extends State<SearchByDateRange> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (BuildContext context) => Search()))},
-            ),
-          )
-        ],
-      ),
-    ),);
-  }
-}
 
-Future<void> ReadJsonData() {
-  throw'';
+            ),
+
+          ),
+        ],),
+
+    ),
+    );
+  }
 }

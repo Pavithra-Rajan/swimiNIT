@@ -2,10 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
+
 import 'package:swiminit/Admin/search_membershipID.dart';
 import 'package:swiminit/Admin/search.dart';
 import 'package:swiminit/Admin/pool_status.dart';
 import 'package:swiminit/Admin/adminaddspm.dart';
+
 
 
 import 'package:swiminit/Admin/pool_managers.dart';
@@ -58,7 +60,9 @@ class _HomePageState extends State<HomePage> {
         future: _initializeFirebase(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
+
             return Search();
+
           }
           return const Center(
             child: CircularProgressIndicator(),
@@ -86,12 +90,20 @@ class _LoginScreenState extends State<LoginScreen> {
     try {
       UserCredential userCredential = await auth.signInWithEmailAndPassword(
           email: email, password: password);
+
+      //print("Userlogged in: " + userCredential.user?.uid);
       user = userCredential.user;
+      if (user != null) {
+        print("User logged in: ");
+      } else {
+        print("User not logged in: ");
+      }
     } on FirebaseAuthException catch (e) {
       if (e.code == "user-not-found") {
         print("Incorrect Credentials");
       }
     }
+
     return user;
   }
 
@@ -99,122 +111,114 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     TextEditingController _emailController = TextEditingController();
     TextEditingController _passwordController = TextEditingController();
-    return Container(
-      padding: EdgeInsets.all(0.0),
-      child: ListView(
-        children: [
-          Opacity(
-              opacity: 1,
-              child: ClipPath(
-                  clipper: WaveClipper(),
-                  child: Container(
-                    color: Color(0xFF14839F),
-                    height: 180,
-                  ))),
-          Text("Login",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Color(0xFF14839F),
-                fontSize: 28.0,
-                fontWeight: FontWeight.bold,
-              )),
-          const SizedBox(height: 44.0),
-          TextField(
-            controller: _emailController,
-            keyboardType: TextInputType.emailAddress,
-            decoration: const InputDecoration(
-              hintText: "Username",
-              prefixIcon: Icon(Icons.person, color: Color(0xFF14839F)),
+    //print(_emailController);
+    return Scaffold(
+      body: Container(
+        padding: EdgeInsets.all(0.0),
+        child: ListView(
+          children: [
+            Opacity(
+                opacity: 1,
+                child: ClipPath(
+                    clipper: WaveClipper(),
+                    child: Container(
+                      color: Color(0xFF14839F),
+                      height: 180,
+                    ))),
+            Text("Login",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Color(0xFF14839F),
+                  fontSize: 28.0,
+                  fontWeight: FontWeight.bold,
+                )),
+            const SizedBox(height: 44.0),
+            TextField(
+              controller: _emailController,
+              keyboardType: TextInputType.emailAddress,
+              decoration: const InputDecoration(
+                hintText: "Username",
+                prefixIcon: Icon(Icons.person, color: Color(0xFF14839F)),
+              ),
             ),
-          ),
-          const SizedBox(
-            height: 26.0,
-          ),
-          TextField(
-            controller: _passwordController,
-            obscureText: true,
-            decoration: const InputDecoration(
-              hintText: "Password",
-              prefixIcon: Icon(Icons.lock, color: Color(0xFF14839F)),
+            const SizedBox(
+              height: 26.0,
             ),
-          ),
-          const SizedBox(
-            height: 40.0,
-            width: 10.0,
-          ),
-// <<<<<<< HEAD
-          SizedBox(
-              width: 100.0,
-              child: RawMaterialButton(
-                  fillColor: Colors.blue[900],
-                  padding: const EdgeInsets.symmetric(vertical: 15.0),
-                  onPressed: () async {
-                    User? user = await loginUsingEmailPassword(
-                        email: _emailController.text,
-                        password: _passwordController.text,
-                        context: context);
-                    print(user);
-                    if (user != null) {
+            TextField(
+              controller: _passwordController,
+              obscureText: true,
+              decoration: const InputDecoration(
+                hintText: "Password",
+                prefixIcon: Icon(Icons.lock, color: Color(0xFF14839F)),
+              ),
+            ),
+            const SizedBox(
+              height: 40.0,
+              width: 10.0,
+            ),
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                Container(
+                    width: 100,
+                    height: 50,
+                    color: Colors.white,
+                    child: RawMaterialButton(
+                        fillColor: Color(0xFF14839F),
+                        padding: const EdgeInsets.symmetric(vertical: 15.0),
+                        onPressed: () async {
+                          User? user = await loginUsingEmailPassword(
+                              email: _emailController.text,
+                              password: _passwordController.text,
+                              context: context);
+                          print(user);
 
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => SPMNavBar()));
+                          print(user?.email);
+                          if (user != null) {
+                            //final loginType = RegExp(r'/.+?(?=@)/');
+                            String emailID = user.email.toString();
+                            String result =
+                                emailID.substring(0, emailID.indexOf('@'));
+                            //print(result);
+                            //print(loginType.hasMatch(user.email.toString()));
+                            if (result == 'admin') {
+                              print("admin logged in");
+                              Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                      builder: (context) => AdminNavBar()));
+                            } else {
+                              Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                      builder: (context) => SPMNavBar()));
+                            }
+                          }
 
-                    }
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => SPMNavBar())); //Put this back in that if later
-                  },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  child: const Text(
-                    "Log In",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14.0,
-                    ),
-
-                  )
-              )
-// =======
-//           Stack(
-//             alignment: Alignment.center,
-//             children: [
-//               Container(
-//                   width: 100,
-//                   height: 50,
-//                   color: Colors.white,
-//                   child: RawMaterialButton(
-//                       fillColor: Color(0xFF14839F),
-//                       padding: const EdgeInsets.symmetric(vertical: 15.0),
-//                       onPressed: () async {
-//                         User? user = await loginUsingEmailPassword(
-//                             email: _emailController.text,
-//                             password: _passwordController.text,
-//                             context: context);
-//                         print(user);
-//                         if (user != null) {
-//                           Navigator.of(context).pushReplacement(
-//                               MaterialPageRoute(
-//                                   builder: (context) => AdminNavBar()));
-//                         }
-//                         Navigator.of(context).pushReplacement(MaterialPageRoute(
-//                             builder: (context) => SPMNavBar()));
-//                       },
-//                       shape: RoundedRectangleBorder(
-//                         borderRadius: BorderRadius.circular(10.0),
-//                       ),
-//                       child: const Text(
-//                         "Log In",
-//                         style: TextStyle(
-//                           color: Colors.white,
-//                           fontSize: 14.0,
-//                         ),
-//                       )))
-//             ],
-// >>>>>>> 88ffe77a104da1a06a0b8ceae0386ade4f93ec59
-          )
-        ],
+                          // if (user != null) {
+                          //   print("executing this");
+                          //
+                          //   Navigator.of(context).pushReplacement(
+                          //       MaterialPageRoute(
+                          //           builder: (context) => AdminNavBar()));
+                          // }
+                          //Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          //   builder: (context) => AdminNavBar()));
+                        },
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: const Text(
+                          "Log In",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14.0,
+                          ),
+                        )))
+              ],
+            )
+          ],
+        ),
       ),
+      resizeToAvoidBottomInset: false,
     );
   }
 }

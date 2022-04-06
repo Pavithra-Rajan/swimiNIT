@@ -2,7 +2,6 @@
 //
 //     final liveSwimmers = liveSwimmersFromJson(jsonString);
 
-import 'dart:convert';
 
 
 class LiveSwimmers {

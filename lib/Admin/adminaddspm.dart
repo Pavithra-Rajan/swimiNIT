@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:swiminit/Admin/adminnavbar.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class AdminAddSPM extends StatefulWidget
 {
@@ -10,8 +12,61 @@ class AdminAddSPM extends StatefulWidget
   State<AdminAddSPM> createState() => _AdminAddSPMState();
 }
 
+
 class _AdminAddSPMState extends State<AdminAddSPM>
 {
+
+  Future putSPM(String contact1, String contact2, String name) async{
+    //print('function is getting executed');
+
+    await http.post(
+        Uri.parse('https://swiminit.herokuapp.com/addSPM'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, Map<String,String>>{
+          "details":{
+            "contact1":contact1,
+            "contact2":contact2,
+            "name":name
+          }
+        })
+    );
+  }
+
+
+  Future<void> popupSPMadded() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return
+          Container(
+              margin: EdgeInsets.fromLTRB(10, 5, 10,3 ),
+              child: AlertDialog(
+                content: Stack(
+                  children: [
+                    Text('SPM has been added successfully',style: GoogleFonts.poppins(color: Color(0xFF149F88), fontSize: 30),),
+                  ],
+                ),
+                actions: <Widget>[
+                  TextButton(
+                    child: Text('Okay'),
+                    onPressed: () {
+                      Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                              builder: (context) => AdminNavBar()));
+
+                    },
+                  ),
+                ],
+              ),
+          );
+
+      },
+    );
+  }
+
   bool added = false;
   @override
   Widget build(BuildContext context) {
@@ -24,76 +79,81 @@ class _AdminAddSPMState extends State<AdminAddSPM>
     {
       if(!added)
       {
-        return Column(
-            children: [
-              const SizedBox(height: 40.0),
-              TextField(
-                controller: _name,
-                keyboardType: TextInputType.name,
-                decoration: const InputDecoration(
-                  hintText: "Name",
-                  prefixIcon: Icon(Icons.person,color:Color(0xFF14839F)),
-                  iconColor: Color(0xFF14839F),
-                ),
-              ),
-              const SizedBox(height: 26.0,),
-              TextField(
-                controller: _contact1,
-                obscureText: false,
-                keyboardType: TextInputType.phone,
-                decoration: const InputDecoration(
-                  hintText: "Contact 1",
-                  prefixIcon: Icon(Icons.local_phone,color:Color(0xFF14839F)),
-                ),
-              ),
-              const SizedBox(height: 26.0,
-              ),
-              TextField(
-                controller: _contact2,
-                obscureText: false,
-                keyboardType: TextInputType.phone,
-                decoration: const InputDecoration(
-                  hintText: "Contact 2",
-                  prefixIcon: Icon(Icons.phone_android,color:Color(0xFF14839F)),
-                ),
-              ),
-              const SizedBox(height: 26.0,
-              ),
-              TextField(
-                controller: _password,
-                obscureText: true,
-                keyboardType: TextInputType.visiblePassword,
-                decoration: const InputDecoration(
-                  hintText: "Password",
-                  prefixIcon: Icon(Icons.lock,color:Color(0xFF14839F)),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.fromLTRB(0, 45, 0, 5),
-                  child: Stack(
-                    children: [
+        return ListView(
+          children: [
+                  Column(
+                  children: [
+                  const SizedBox(height: 40.0),
+                    TextField(
+                      controller: _name,
+                      keyboardType: TextInputType.name,
+                      decoration: const InputDecoration(
+                        hintText: "Name",
+                        prefixIcon: Icon(Icons.person,color:Color(0xFF14839F)),
+                        iconColor: Color(0xFF14839F),
+                        ),
+                      ),
+                    const SizedBox(height: 26.0,),
+                    TextField(
+                      controller: _contact1,
+                      obscureText: false,
+                      keyboardType: TextInputType.phone,
+                        decoration: const InputDecoration(
+                        hintText: "Contact 1",
+                        prefixIcon: Icon(Icons.local_phone,color:Color(0xFF14839F)),
+                      ),
+                    ),
+                  const SizedBox(height: 26.0,
+                  ),
+                  TextField(
+                    controller: _contact2,
+                    obscureText: false,
+                    keyboardType: TextInputType.phone,
+                    decoration: const InputDecoration(
+                      hintText: "Contact 2",
+                      prefixIcon: Icon(Icons.phone_android,color:Color(0xFF14839F)),
+                      ),
+                    ),
+                  const SizedBox(height: 26.0,
+                  ),
+                  TextField(
+                    controller: _password,
+                    obscureText: true,
+                    keyboardType: TextInputType.visiblePassword,
+                    decoration: const InputDecoration(
+                      hintText: "Password",
+                      prefixIcon: Icon(Icons.lock,color:Color(0xFF14839F)),
+                      ),
+                    ),
+                  Container(
+                      margin: EdgeInsets.fromLTRB(0, 45, 0, 5),
+                      child: Stack(
+                      children: [
                       Align(
                           alignment: Alignment(0, 0),
                           child: FractionallySizedBox(
-                              widthFactor: 0.25,
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  primary: Color(0xFF93C6D3), // background
-                                  onPrimary: Colors.white, // foreground
-                                  minimumSize: Size(175,45),
-                                ),
-                                child: Text('Submit',style: GoogleFonts.poppins(color: Colors.black, fontSize: 14),),
-                                onPressed: () {},
-                              )
-                          )
+                          widthFactor: 0.25,
+                          child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                          primary: Color(0xFF93C6D3), // background
+                          onPrimary: Colors.white, // foreground
+                          minimumSize: Size(175,45),
+                          ),
+                            child: Text('Submit',style: GoogleFonts.poppins(color: Colors.black, fontSize: 14),),
+                            onPressed: () {
+                            putSPM(_contact1.text,_contact2.text,_name.text);
+                            popupSPMadded();
+                            },
+                        )
                       )
-                    ],
-
+                    )
+                  ],
+                      )
                   )
-
-              )
-
-            ]);
+              ]
+                  )
+          ],
+        );
       }
       else
       {
