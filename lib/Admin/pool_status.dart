@@ -115,7 +115,7 @@ class _PoolStatusPageState extends State<PoolStatusPage>
                       child: Text('Exit',style: GoogleFonts.poppins(color: Colors.white, fontSize: 14),),
                       onPressed: () async {
                         var now = DateTime.now();
-                        DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
+                        DateFormat dateFormat = DateFormat("dd-MM-yyyy HH:mm:ss");
                         String datetime = dateFormat. format(now);
                         final splitted=datetime.split(" ");
                         String endtime='${splitted[0]};${splitted[1]}';

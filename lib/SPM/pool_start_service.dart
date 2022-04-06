@@ -4,7 +4,7 @@ import 'dart:convert';
 
 class PoolStatusServices {
   static const String url='https://swiminit.herokuapp.com/getLiveSwimmers';
-  static Future<LiveSwimmers> getSwimmers() async {
+  static Future<dynamic> getSwimmers() async {
 
       final response=await http.get(Uri.parse(url));
       if(200 == response.statusCode) {

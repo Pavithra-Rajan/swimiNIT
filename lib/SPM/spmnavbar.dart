@@ -9,7 +9,7 @@ import 'package:swiminit/Admin/pool_status.dart';
 
 
 import 'package:swiminit/SPM/registration.dart';
-import 'package:swiminit/SPM/search.dart';
+
 import 'package:swiminit/SPM/spm_drawer_file.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
       container = PoolStatusPage();
       text = "Pool Status";
     } else if (currentPage == DrawerSections.search) {
-      container = SearchPage();
+      container = Search();
 
       text = "Search";
     } else if (currentPage == DrawerSections.registration) {
