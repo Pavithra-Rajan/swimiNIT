@@ -76,7 +76,7 @@ class EntryPageState extends State<EntryPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Align(
-                      alignment: Alignment(-0.75, 1),
+                      alignment: Alignment(-0.5, 1),
                       child: Text(
                         "Membership ID",
                         style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
