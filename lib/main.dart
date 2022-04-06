@@ -163,19 +163,19 @@ class _LoginScreenState extends State<LoginScreen> {
                           print(user);
 
                           print(user?.email);
-                          if(user != null){
+                          if (user != null) {
                             //final loginType = RegExp(r'/.+?(?=@)/');
-                            String emailID=user.email.toString();
-                            String result = emailID.substring(0, emailID.indexOf('@'));
+                            String emailID = user.email.toString();
+                            String result =
+                                emailID.substring(0, emailID.indexOf('@'));
                             //print(result);
                             //print(loginType.hasMatch(user.email.toString()));
-                            if (result == 'admin'){
+                            if (result == 'admin') {
                               print("admin logged in");
                               Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
                                       builder: (context) => AdminNavBar()));
-                            }
-                            else{
+                            } else {
                               Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
                                       builder: (context) => SPMNavBar()));
@@ -190,8 +190,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           //           builder: (context) => AdminNavBar()));
                           // }
                           //Navigator.of(context).pushReplacement(MaterialPageRoute(
-                           //   builder: (context) => AdminNavBar()));
-
+                          //   builder: (context) => AdminNavBar()));
                         },
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
@@ -202,9 +201,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             color: Colors.white,
                             fontSize: 14.0,
                           ),
-                        )
-                    )
-                )
+                        )))
               ],
             )
           ],
