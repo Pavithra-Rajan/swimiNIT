@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:swiminit/Admin/adminnavbar.dart';
@@ -6,7 +7,6 @@ import 'dart:convert';
 import 'package:swiminit/SPM/get_date_visits_spm.dart';
 import 'package:swiminit/SPM/get_date_visits_service_spm.dart';
 // import 'package:swiminit/product_data_model.dart';
-
 import 'package:swiminit/SPM/search.dart';
 import 'package:swiminit/SPM/spmnavbar.dart';
 
@@ -36,8 +36,8 @@ class SearchByDateRangeState extends State<SearchByDateRange> {
 
 
     List<Color> colors = [Color(0xFFFFFFFF), Color(0xFFD2EAF0)];
-    return Container(
 
+    return Container(
 
       child:Scaffold(
         appBar: AppBar(
@@ -69,9 +69,6 @@ class SearchByDateRangeState extends State<SearchByDateRange> {
 
                     border:TableBorder.all(
                       color: Colors.blueGrey,
-
-
-
                 ),
                 children: [
                   TableRow(
@@ -112,62 +109,58 @@ class SearchByDateRangeState extends State<SearchByDateRange> {
 
                   ),
 
-                    for (i = 0; i < items.visits.length; i++)
-                      TableRow(
-                        decoration: BoxDecoration(
-                          color: colors[i % 2],
-                        ),
-                        children: <Widget>[
-                          SizedBox(
-                            height: 64,
-                            child: Center(
-                              child: Text(
-                                items.visits[i].membershipId,
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 64,
-                            child: Center(
-                              child: Text(
-                                items.visits[i].dateOfVisit.split(";")[0],
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 64,
-                            child: Center(
-                              child: Text(
-                                items.visits[i].dateOfVisit.split(";")[1],
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
-                        ],
+                  for (i = 0; i < items.visits.length; i++)
+                    TableRow(
+                      decoration: BoxDecoration(
+                        color: colors[i % 2],
                       ),
-                  ],
-                );
-                //var items = data.data as List<ProductDataModel>;
-
-
-              //var items = data.data as List<ProductDataModel>;
-
-
-            } else {
-              return Center(
-                child: CircularProgressIndicator(),
+                      children: <Widget>[
+                        SizedBox(
+                          height: 64,
+                          child: Center(
+                            child: Text(
+                              items.visits[i].membershipId,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 64,
+                          child: Center(
+                            child: Text(
+                              items.visits[i].dateOfVisit.split(";")[0],
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 64,
+                          child: Center(
+                            child: Text(
+                              items.visits[i].dateOfVisit.split(";")[1],
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                ],
               );
-            }
-            //throw '';
-          },
-        ),
+              //var items = data.data as List<ProductDataModel>;
+            //var items = data.data as List<ProductDataModel>;
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          //throw '';
+        },
+      ),
       ),
     ),
 
 
-    ),
+      ),
     );
   }
 }
