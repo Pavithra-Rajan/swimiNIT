@@ -63,16 +63,20 @@ class _PoolStatusPageState extends State<PoolStatusPage>
                         Align(
                             alignment: Alignment(-0.35, 1),
                             child: Container(
-                              margin: EdgeInsets.fromLTRB(0, 6, 0, 5),
+                              margin: EdgeInsets.fromLTRB(40, 6, 0, 5),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
+
                                 children: <Widget>[
+
                                   Text(p.name,
+                                    //textAlign: TextAlign.center,
                                     style: GoogleFonts.poppins(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
                                   ),
-                                  Text(p.rollno,
-                                    style: GoogleFonts.poppins(color: Colors.black, fontSize: 12),
-                                  )
+                                  Text('Entered at '+p.enteredAt,
+                                    style: GoogleFonts.poppins(color: Colors.black, fontSize: 14),
+                                  ),
+
                                 ],
                               ),
                             )
@@ -84,12 +88,13 @@ class _PoolStatusPageState extends State<PoolStatusPage>
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: <Widget>[
-                                  Text('Entered at '+p.enteredAt,
-                                    style: GoogleFonts.poppins(color: Colors.black, fontSize: 14),
-                                  ),
                                   Text(p.rollno,
                                     style: GoogleFonts.poppins(color: Colors.black, fontSize: 12),
                                   )
+
+                                  // Text(p.rollno,
+                                  //   style: GoogleFonts.poppins(color: Colors.black, fontSize: 12),
+                                  // )
                                 ],
                               ),
                             )
@@ -123,13 +128,13 @@ class _PoolStatusPageState extends State<PoolStatusPage>
                         // remove(p.rollno,endtime);
                         var i=0;
                         for(var items in persons)
+                        {
+                          if(items.rollno==p.rollno)
                           {
-                            if(items.rollno==p.rollno)
-                              {
-                                break;
-                              }
-                            i++;
+                            break;
                           }
+                          i++;
+                        }
 
 
 
@@ -151,23 +156,23 @@ class _PoolStatusPageState extends State<PoolStatusPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child:Padding(
-            padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
-            child:FutureBuilder(
-              future: PoolStatusServices.getSwimmers(),
+        body: SingleChildScrollView(
+          child:Padding(
+              padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
+              child:FutureBuilder(
+                future: PoolStatusServices.getSwimmers(),
 
-              builder: (context, data){
+                builder: (context, data){
 
-                if(data.hasError){
-                  return Center(child: Text("${data.error}"));
-                }
-                else if(data.hasData){
-                  var swimmers= data.data as LiveSwimmers;
+                  if(data.hasError){
+                    return Center(child: Text("${data.error}"));
+                  }
+                  else if(data.hasData){
+                    var swimmers= data.data as LiveSwimmers;
 
 
-                  persons=[];
-                  for(var items in swimmers.visits)
+                    persons=[];
+                    for(var items in swimmers.visits)
                     {
                       persons.add(PoolStatusSwimmer('${items.swimmer.name}', 'lib/Resources/pic-1.png', "${items.swimmer.membershipId}", "${items.visit.dateOfVisit}", "${items.swimmer.dues}","${items.swimmer.emailId}","${items.swimmer.contact1}","${items.swimmer.contact2}")
                       );
@@ -175,21 +180,21 @@ class _PoolStatusPageState extends State<PoolStatusPage>
 
                     }
 
-                  return Column(
-                    children: <Widget>[
-                      Column(
-                          children: persons.map((p) {
-                            return buildCard(p);
-                          }).toList()
-                      )
-                    ],
-                  );
-                }
-                return Center(child: Text("Loading"));
-              },
-            )
-        ),
-      )
+                    return Column(
+                      children: <Widget>[
+                        Column(
+                            children: persons.map((p) {
+                              return buildCard(p);
+                            }).toList()
+                        )
+                      ],
+                    );
+                  }
+                  return Center(child: Text("Loading"));
+                },
+              )
+          ),
+        )
 
     );
   }

@@ -5,6 +5,8 @@ import 'Person.dart';
 import 'package:http/http.dart' as http;
 import 'package:swiminit/SPM/entryAlerts/DuesAlertBox.dart';
 import 'package:swiminit/SPM/entryAlerts/FreeTrialsAlertBox.dart';
+import 'package:intl/intl.dart'; // for date format
+
 
 class EntryPage extends StatefulWidget {
   const EntryPage({Key? key}) : super(key: key);
@@ -55,7 +57,7 @@ class EntryPageState extends State<EntryPage> {
       },
       body: jsonEncode(<String, String>{
         'membershipID': p.rollno,
-        'dateOfVisit': DateTime.now().toString()
+        'dateOfVisit': DateFormat('dd-MM-yyyy;hh:mm:ss').format(DateTime.now())
       }),
     );
   }
@@ -178,7 +180,9 @@ class EntryPageState extends State<EntryPage> {
                     hintText: "Membership ID",
                     prefixIcon: Icon(Icons.person, color: Color(0xFF14839F)),
                   ),
-                ))),
+                )
+            )
+        ),
         bottomNavigationBar: Container(
           margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
           child: FractionallySizedBox(
@@ -290,10 +294,14 @@ class EntryPageState extends State<EntryPage> {
                   setState(() {
                     swimmerEntry();
                     membershipID = "-2";
-                  })
+                  }),
+                Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => DuesAlertBox())),
                 },
               ),
-            )),
+            )
+        ),
       );
     }
   }

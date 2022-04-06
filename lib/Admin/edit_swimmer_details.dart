@@ -33,12 +33,6 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
     return s;
   }
 
-  Future getReceiptDetails() async {
-    var response = await http.get(Uri.parse(
-        'https://swiminit.herokuapp.com/getreceiptdetails?membershipID=$membershipID'));
-    var data = json.decode(response.body);
-  }
-
   Widget detailsWidget(Swimmer s) {
     return Padding(
       padding: EdgeInsets.all(0),
