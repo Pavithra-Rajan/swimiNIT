@@ -36,7 +36,6 @@ class _AdminAddSPMState extends State<AdminAddSPM>
 
 
   Future<void> popupSPMadded() async {
-    print('pop is getting executed');
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
@@ -145,19 +144,16 @@ class _AdminAddSPMState extends State<AdminAddSPM>
                             putSPM(_contact1.text,_contact2.text,_name.text);
                             popupSPMadded();
                             },
+                        )
+                      )
+                    )
+                  ],
                       )
                   )
+              ]
                   )
-                  ],
-
-                  )
-
-                  )
-
-              ])
           ],
         );
-
       }
       else
       {

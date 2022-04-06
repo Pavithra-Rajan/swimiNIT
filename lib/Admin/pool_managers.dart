@@ -111,7 +111,6 @@ class _ViewPoolManagers extends State<ViewPoolManagers> {
               Navigator.of(context).pushReplacement(
               MaterialPageRoute(
               builder: (context) => AdminAddSPM())),
-
               },
             ),
           )
