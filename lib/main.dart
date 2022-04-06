@@ -48,10 +48,7 @@ class _HomePageState extends State<HomePage> {
         future: _initializeFirebase(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-
-
             return LoginScreen();
-
           }
           return const Center(
             child: CircularProgressIndicator(),
@@ -181,9 +178,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                       builder: (context) => SPMNavBar()));
                             }
                           }
-                          // Navigator.of(context).pushReplacement(
-                          //     MaterialPageRoute(
-                          //         builder: (context) => SPMNavBar()));
 
                           // if (user != null) {
                           //   print("executing this");

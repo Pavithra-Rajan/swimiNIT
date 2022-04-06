@@ -321,7 +321,7 @@ class UserHistoryAdminPageState extends State<UserHistoryAdminPage> {
                                       height: 64,
                                       child: Center(
                                         child: Text(
-                                          items[i].dateVisit.toString(),
+                                          items[i].dateVisit.toString().split(";")[0],
                                           textAlign: TextAlign.center,
                                           style: GoogleFonts.poppins(
                                             color: Colors.black,

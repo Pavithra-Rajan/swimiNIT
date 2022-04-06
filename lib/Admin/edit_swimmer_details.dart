@@ -35,28 +35,70 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
       builder: (BuildContext context) {
         return
           Container(
-            margin: EdgeInsets.fromLTRB(10, 5, 10,3 ),
-            child: AlertDialog(
-              content: Stack(
-                children: [
-                  Text('Swimmer details updated successfully.',style: GoogleFonts.poppins(color: Color(0xFF149F88), fontSize: 15),),
-                ],
-              ),
-              actions: <Widget>[
-                TextButton(
-                  child: Text('OK'),
-                  onPressed: () {
-                    Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                            builder: (context) => AdminNavBar()));
-                  },
+              margin: EdgeInsets.fromLTRB(10, 5, 10,3 ),
+              child: AlertDialog(
+                content: Stack(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.fromLTRB(40, 8, 40, 50),
+                      child: Text('Swimmer details updated successfully',style: GoogleFonts.poppins(color: Color(0xFF149F88), fontSize: 15),textAlign: TextAlign.center),
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(100, 70, 100, 5),
+
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Color(0xFF149F88), // background
+                          onPrimary: Colors.white, // foreground
+                          minimumSize: Size(100,45),
+                        ),
+                        child: Text('OK'),
+                        onPressed: () {
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (context) => AdminNavBar()));
+                        },
+                      ),
+                    )
+                  ],
                 ),
-              ],
-            ),
+
+              ),
           );
+
       },
     );
   }
+
+  // Future<void> popupSwimmerDetailsUpdated() async {
+  //   return showDialog<void>(
+  //     context: context,
+  //     barrierDismissible: false, // user must tap button!
+  //     builder: (BuildContext context) {
+  //       return
+  //         Container(
+  //           margin: EdgeInsets.fromLTRB(10, 5, 10,3 ),
+  //           child: AlertDialog(
+  //             content: Stack(
+  //               children: [
+  //                 Text('Swimmer details updated successfully.',style: GoogleFonts.poppins(color: Color(0xFF149F88), fontSize: 15),),
+  //               ],
+  //             ),
+  //             actions: <Widget>[
+  //               TextButton(
+  //                 child: Text('OK'),
+  //                 onPressed: () {
+  //                   Navigator.of(context).pushReplacement(
+  //                       MaterialPageRoute(
+  //                           builder: (context) => AdminNavBar()));
+  //                 },
+  //               ),
+  //             ],
+  //           ),
+  //         );
+  //     },
+  //   );
+  // }
 
   Future getSwimmer() async {
     var response = await http.get(Uri.parse(
