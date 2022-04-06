@@ -14,10 +14,9 @@ class Daterange2 extends StatefulWidget {
 class Daterange2State extends State<Daterange2> {
   bool isVisible = false;
   bool isChecked=false;
+  bool swapColor = false;
   var fromdate;
   var enddate;
-  TextEditingController _textEditingController1 =TextEditingController();
-  TextEditingController _textEditingController2 =TextEditingController();
 
   Widget _builddaterange1() {
     return DateTimeFormField(
@@ -73,21 +72,9 @@ class Daterange2State extends State<Daterange2> {
   @override
   Widget build(BuildContext context) {
 
-  Color getColor(Set<MaterialState> states) {
-    const Set<MaterialState> interactiveStates = <MaterialState>{
-      MaterialState.pressed,
-      MaterialState.hovered,
-      MaterialState.focused,
-    };
-    if (states.any(interactiveStates.contains)) {
-      return Colors.cyan.shade900;
-    }
-    return Colors.cyan.shade900;
-  }
   void check(bool value)
   {
     setState(() {
-
       isChecked=value;
     });
   }
@@ -104,7 +91,7 @@ class Daterange2State extends State<Daterange2> {
                 minWidth: 140.0,
                 minHeight: 40.0,
                 fontSize: 14.0,
-                initialLabelIndex: 0,
+                initialLabelIndex: swapColor?0:1,
                 activeBgColor: const [Color(0xff0388A9)],
                 activeFgColor: Colors.white,
                 inactiveBgColor: Color(0xffD1E9EF),
@@ -115,11 +102,13 @@ class Daterange2State extends State<Daterange2> {
                   if(index==0 && widget.showMembership==false) {
                     setState(() {
                       widget.toggleswitch();
+                      swapColor = !swapColor;
                     });
                   }
                   if(index==1 && widget.showMembership==true) {
                     setState(() {
                       widget.toggleswitch();
+                      swapColor = !swapColor;
                     });
                   }
                 },
@@ -133,9 +122,9 @@ class Daterange2State extends State<Daterange2> {
                   _builddaterange1(),
                   StatefulBuilder(
                   builder: (BuildContext context, StateSetter setState) {
-                    return Checkbox(
+                    return CheckboxListTile(
                       checkColor: Colors.white,
-                      fillColor: MaterialStateProperty.resolveWith(getColor),
+                      title: Text("End day is same as start day"),
                       value: isChecked,
                       onChanged: (bool? value) {
                         // setState(() {
@@ -148,11 +137,11 @@ class Daterange2State extends State<Daterange2> {
 
                   }),
                   Visibility(
-                  child:_builddaterange2(),
-                  visible: !isChecked,
+                    child:_builddaterange2(),
+                    visible: !isChecked,
                   ),
-
-                ]),
+                ]
+            ),
           ),
             ],
           ),

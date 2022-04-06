@@ -88,7 +88,6 @@ class EditReceiptPageState extends State<EditReceiptPage>
     p.name = data["name"];
     p.rollno = data["membershipID"];
     p.dues = data["dues"].toString();
-    print(p.dues);
     p.role = data["roles"];
     p.mailID = data["emailID"];
 
@@ -99,34 +98,33 @@ class EditReceiptPageState extends State<EditReceiptPage>
   {
     int x = curDT.month;
     if(x <= 3) {
-      return DateFormat("yyyy-MM-dd").format(DateTime(curDT.year, 3, 31)).toString();
+      return DateFormat('dd-MM-yyyy').format(DateTime(curDT.year, 3, 31)).toString();
     }
     else if(x <= 6) {
-      return DateFormat("yyyy-MM-dd").format(DateTime(curDT.year, 6, 30)).toString();
+      return DateFormat('dd-MM-yyyy').format(DateTime(curDT.year, 6, 30)).toString();
     }else if(x <= 9) {
-      return DateFormat("yyyy-MM-dd").format(DateTime(curDT.year, 9, 30)).toString();
+      return DateFormat('dd-MM-yyyy').format(DateTime(curDT.year, 9, 30)).toString();
     }else {
-      return DateFormat("yyyy-MM-dd").format(DateTime(curDT.year, 12, 31)).toString();
+      return DateFormat('dd-MM-yyyy').format(DateTime(curDT.year, 12, 31)).toString();
     }
   }
 
   Future editReceiptDetails() async {
+    var jsonvalue = {};
+    var details = {};
+    details["accountBalance"] = -int.parse(p.dues) + int.parse(_moneyPaidController.text);
+    details["membershipID"] = membershipID;
+    details["moneyPaid"] = int.parse(_moneyPaidController.text);
+    details["paymentDate"] = DateFormat('dd-MM-yyyy').format(_selectedDate);
+    details["receiptID"] = _recieptController.text;
+    details["validUntil"] = findQuarterEnd(_selectedDate);
+    jsonvalue["details"] = details;
     await http.put(
       Uri.parse('https://swiminit.herokuapp.com/editReceiptDetails'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: jsonEncode(<String, Map<String, String>>{
-        "details": {
-          'accountBalance': (-int.parse(p.dues) +
-              int.parse(_moneyPaidController.text)).toString(),
-          'membershipID': membershipID,
-          'moneyPaid': _moneyPaidController.text,
-          'paymentDate': DateFormat('dd-MM-yyyy').format(_selectedDate),
-          'receiptID': _recieptController.text,
-          'validUntil': findQuarterEnd(_selectedDate)
-        }
-      }),
+      body: json.encode(jsonvalue),
     );
   }
 
@@ -249,7 +247,7 @@ class EditReceiptPageState extends State<EditReceiptPage>
                                   ),
                                   Align(
                                     alignment: Alignment(0, 0),
-                                    child: RawMaterialButton(child: Icon(Icons.date_range), onPressed: _pickDateDialog),
+                                    child: RawMaterialButton(child: Icon(Icons.event_note), onPressed: _pickDateDialog),
                                   ),
                                 ]
                             )

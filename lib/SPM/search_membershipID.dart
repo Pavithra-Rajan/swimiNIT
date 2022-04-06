@@ -15,7 +15,9 @@ class MembershipIdSearch1  extends StatefulWidget {
 
 class  MembershipIdSearchState1 extends State<MembershipIdSearch1> {
   late String rollno;
+  bool swapColor = false;
   bool isVisible=false;
+
   Widget _buildMembershipId() {
     return TextFormField(
       decoration: InputDecoration(
@@ -44,7 +46,7 @@ class  MembershipIdSearchState1 extends State<MembershipIdSearch1> {
                 minWidth: 140.0,
                 minHeight: 40.0,
                 fontSize: 14.0,
-                initialLabelIndex: 0,
+                initialLabelIndex: swapColor?1:0,
                 activeBgColor: const [Color(0xff0388A9)],
                 activeFgColor: Colors.white,
                 inactiveBgColor: Color(0xffD1E9EF),
@@ -55,11 +57,13 @@ class  MembershipIdSearchState1 extends State<MembershipIdSearch1> {
                   if(index==0 && widget.showMembership==false) {
                     setState(() {
                       widget.toggleswitch();
+                      swapColor = !swapColor;
                     });
                   }
                   if(index==1 && widget.showMembership==true) {
                     setState(() {
                       widget.toggleswitch();
+                      swapColor = !swapColor;
                     });
                   }
                 },
@@ -67,7 +71,6 @@ class  MembershipIdSearchState1 extends State<MembershipIdSearch1> {
               // SizedBox(height: 75,),
               Expanded(
                 child: Column(
-
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
