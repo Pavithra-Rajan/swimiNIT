@@ -57,9 +57,7 @@ class EntryPageState extends State<EntryPage> {
       },
       body: jsonEncode(<String, String>{
         'membershipID': p.rollno,
-
         'dateOfVisit': DateFormat('dd-MM-yyyy;hh:mm:ss').format(DateTime.now())
-
       }),
     );
   }

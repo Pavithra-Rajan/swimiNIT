@@ -254,7 +254,9 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                       child: Text(
                         p.datePaid,
                         style: GoogleFonts.poppins(),
-                      ))),
+                      )
+                  )
+              ),
               SizedBox(height: 20),
               Stack(children: [
                 Column(
@@ -324,7 +326,9 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                       ),
                     ),
                   )),
-            ]));
+            ]
+        )
+    );
   }
 
   @override

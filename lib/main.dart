@@ -1,10 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:swiminit/Admin/pool_managers.dart';
 import 'package:swiminit/Admin/adminnavbar.dart';
-import 'package:swiminit/SPM/entry.dart';
-import 'package:swiminit/SPM/pool_status.dart';
+import 'package:swiminit/SPM/edit_receipt_details.dart';
 import 'package:swiminit/SPM/spmnavbar.dart';
 import 'firebase_options.dart';
 
@@ -52,7 +50,7 @@ class _HomePageState extends State<HomePage> {
         future: _initializeFirebase(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            return AdminNavBar();
+            return SPMNavBar();
           }
           return const Center(
             child: CircularProgressIndicator(),
