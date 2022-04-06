@@ -94,30 +94,13 @@ class EditReceiptPageState extends State<EditReceiptPage>
     return p;
   }
 
-  String findQuarterEnd(DateTime curDT)
-  {
-    int x = curDT.month;
-    if(x <= 3) {
-      return DateFormat('dd-MM-yyyy').format(DateTime(curDT.year, 3, 31)).toString();
-    }
-    else if(x <= 6) {
-      return DateFormat('dd-MM-yyyy').format(DateTime(curDT.year, 6, 30)).toString();
-    }else if(x <= 9) {
-      return DateFormat('dd-MM-yyyy').format(DateTime(curDT.year, 9, 30)).toString();
-    }else {
-      return DateFormat('dd-MM-yyyy').format(DateTime(curDT.year, 12, 31)).toString();
-    }
-  }
-
   Future editReceiptDetails() async {
     var jsonvalue = {};
     var details = {};
-    details["accountBalance"] = -int.parse(p.dues) + int.parse(_moneyPaidController.text);
     details["membershipID"] = membershipID;
     details["moneyPaid"] = int.parse(_moneyPaidController.text);
     details["paymentDate"] = DateFormat('dd-MM-yyyy').format(_selectedDate);
     details["receiptID"] = _recieptController.text;
-    details["validUntil"] = findQuarterEnd(_selectedDate);
     jsonvalue["details"] = details;
     await http.put(
       Uri.parse('https://swiminit.herokuapp.com/editReceiptDetails'),
