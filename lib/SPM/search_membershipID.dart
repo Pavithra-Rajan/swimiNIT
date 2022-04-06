@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
-import 'package:swiminit/SPM/trial.dart';
+import 'package:swiminit/SPM/user_history.dart';
 
-class MembershipIdSearch1  extends StatefulWidget {
-
+class MembershipIdSearch1 extends StatefulWidget {
   final Function toggleswitch;
   final bool showMembership;
 
-  const MembershipIdSearch1({required this.toggleswitch,required this.showMembership});
+  const MembershipIdSearch1(
+      {required this.toggleswitch, required this.showMembership});
 
   @override
   State<StatefulWidget> createState() => MembershipIdSearchState1();
 }
 
-class  MembershipIdSearchState1 extends State<MembershipIdSearch1> {
+class MembershipIdSearchState1 extends State<MembershipIdSearch1> {
   late String rollno;
   bool swapColor = false;
-  bool isVisible=false;
+  bool isVisible = false;
 
   Widget _buildMembershipId() {
     return TextFormField(
@@ -26,11 +26,12 @@ class  MembershipIdSearchState1 extends State<MembershipIdSearch1> {
           borderSide: BorderSide(color: Color(0xFF14839F), width: 1.5),
         ),
       ),
-      onChanged:(value){
-        rollno=value;
+      onChanged: (value) {
+        rollno = value;
       },
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +47,7 @@ class  MembershipIdSearchState1 extends State<MembershipIdSearch1> {
                 minWidth: 140.0,
                 minHeight: 40.0,
                 fontSize: 14.0,
-                initialLabelIndex: swapColor?1:0,
+                initialLabelIndex: swapColor ? 1 : 0,
                 activeBgColor: const [Color(0xff0388A9)],
                 activeFgColor: Colors.white,
                 inactiveBgColor: Color(0xffD1E9EF),
@@ -54,13 +55,13 @@ class  MembershipIdSearchState1 extends State<MembershipIdSearch1> {
                 totalSwitches: 2,
                 labels: const ['By Membership ID', 'By Date'],
                 onToggle: (index) {
-                  if(index==0 && widget.showMembership==false) {
+                  if (index == 0 && widget.showMembership == false) {
                     setState(() {
                       widget.toggleswitch();
                       swapColor = !swapColor;
                     });
                   }
-                  if(index==1 && widget.showMembership==true) {
+                  if (index == 1 && widget.showMembership == true) {
                     setState(() {
                       widget.toggleswitch();
                       swapColor = !swapColor;
@@ -75,71 +76,40 @@ class  MembershipIdSearchState1 extends State<MembershipIdSearch1> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       _buildMembershipId(),
-                    ]
-                ),
+                    ]),
               )
             ],
           ),
         ),
       ),
-      // bottomNavigationBar: Row(
-      //   mainAxisAlignment: MainAxisAlignment.center,
-      //   crossAxisAlignment: CrossAxisAlignment.center,
-      //   children: <Widget>[
-      //     SizedBox(
-      //       height: 40, //height of button
-      //       width: 410, //width of button equal to parent widget
-      //       child: ElevatedButton(
-      //         style: ElevatedButton.styleFrom(
-      //           primary: Color(0xFF14839F), //background color of button
-      //           //border width and color
-      //           elevation: 0, //elevation of button
-      //           shape: RoundedRectangleBorder(
-      //             //to set border radius to button
-      //               borderRadius: BorderRadius.circular(3)),
-      //           //content padding inside button
-      //         ),
-      //         child: Text(
-      //           'Search',
-      //           style: TextStyle(color: Colors.white, fontSize: 16),
-      //         ),
-      //         onPressed: () => {
-      //         Navigator.push(
-      //         context,
-      //         MaterialPageRoute(builder: (BuildContext context) => UserHistorySPMPage(rollno: rollno)))
-      //         },
-      //       ),
-      //     )
-      //   ],
-      // ),
-
       bottomNavigationBar: Container(
-            margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-            child: FractionallySizedBox(
-              widthFactor: 1,
-              heightFactor: 0.08,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Color(0xFF14839F), //background color of button
-                  //border width and color
-                  elevation: 0, //elevation of button
-                  shape: RoundedRectangleBorder(
-                      //to set border radius to button
-                      borderRadius: BorderRadius.circular(0)),
-                  //content padding inside button
-                ),
-                child: Text(
-                  'Search',
-                  style: TextStyle(color: Colors.white, fontSize: 16),
-                ),
-                onPressed: () => {
-                  Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (BuildContext context) => UserHistorySPMPage(rollno: rollno)))
-                },
+          margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+          child: FractionallySizedBox(
+            widthFactor: 1,
+            heightFactor: 0.08,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Color(0xFF14839F), //background color of button
+                //border width and color
+                elevation: 0, //elevation of button
+                shape: RoundedRectangleBorder(
+                    //to set border radius to button
+                    borderRadius: BorderRadius.circular(0)),
+                //content padding inside button
               ),
-            )
-        ),
+              child: Text(
+                'Search',
+                style: TextStyle(color: Colors.white, fontSize: 16),
+              ),
+              onPressed: () => {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            UserHistorySPMPage(rollno: rollno)))
+              },
+            ),
+          )),
     );
   }
 }
