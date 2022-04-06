@@ -344,35 +344,7 @@ class UserHistorySPMPageState extends State<UserHistorySPMPage> {
             ],
           )
       ),
-      bottomNavigationBar: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          SizedBox(
-            height: 40, //height of button
-            width: 384, //width of button equal to parent widget
-            child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Color(0xFF14839F), //background color of button
-                  //border width and color
-                  elevation: 0, //elevation of button
-                  shape: RoundedRectangleBorder(
-                    //to set border radius to button
-                      borderRadius: BorderRadius.circular(3)),
-                  //content padding inside button
-                ),
-                child: Text(
-                  'Back',
-                  style: TextStyle(color: Colors.white, fontSize: 16),
-                ),
-                onPressed: () => {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (BuildContext context) => Search()))}
-            ),
-          ),
-        ],
-      ),
+
     );
   }
 }

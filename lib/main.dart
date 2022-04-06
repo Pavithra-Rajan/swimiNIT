@@ -54,7 +54,6 @@ class _HomePageState extends State<HomePage> {
 
             return LoginScreen();
 
-
           }
           return const Center(
             child: CircularProgressIndicator(),
@@ -184,6 +183,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                       builder: (context) => SPMNavBar()));
                             }
                           }
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (context) => SPMNavBar()));
 
                           // if (user != null) {
                           //   print("executing this");

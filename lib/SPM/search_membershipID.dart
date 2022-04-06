@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
-import 'package:swiminit/SPM/trial.dart';
+import 'package:swiminit/SPM/user_history.dart';
 
 class MembershipIdSearch1  extends StatefulWidget {
 
@@ -88,7 +88,7 @@ class  MembershipIdSearchState1 extends State<MembershipIdSearch1> {
         children: <Widget>[
           SizedBox(
             height: 40, //height of button
-            width: 410, //width of button equal to parent widget
+            width: 400, //width of button equal to parent widget
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 primary: Color(0xFF14839F), //background color of button

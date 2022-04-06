@@ -60,6 +60,7 @@ class Daterange2State extends State<Daterange2> {
       mode: DateTimeFieldPickerMode.date,
       autovalidateMode: AutovalidateMode.always,
       initialDate: DateTime.now(),
+      lastDate: DateTime.now(),
       onDateSelected: (DateTime value) {
         enddate=value;
         enddate=enddate.toString().split(" ")[0];
@@ -114,26 +115,29 @@ class Daterange2State extends State<Daterange2> {
                 },
               ),
               // SizedBox(height: 75,),
-          Expanded(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  _builddaterange1(),
-                  StatefulBuilder(
-                  builder: (BuildContext context, StateSetter setState) {
-                    return CheckboxListTile(
-                      checkColor: Colors.white,
-                      title: Text("End day is same as start day"),
-                      value: isChecked,
-                      onChanged: (bool? value) {
-                        // setState(() {
-                        //   isChecked = value!;
-                        // });
-                        check(value!);
-                        print(isChecked);
-                      },
-                    );
+
+              Expanded(
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      _builddaterange1(),
+                      StatefulBuilder(
+                          builder: (BuildContext context, StateSetter setState) {
+                            return CheckboxListTile(
+                              controlAffinity: ListTileControlAffinity.leading,
+                              checkColor: Colors.white,
+                              title: Text('Same as from'),
+                              //tileColor: MaterialStateProperty.resolveWith(getColor),
+                              value: isChecked,
+                              onChanged: (bool? value) {
+                                // setState(() {
+                                //   isChecked = value!;
+                                // });
+                                check(value!);
+                                print(isChecked);
+                              },
+                            );
 
                   }),
                   Visibility(
@@ -153,7 +157,7 @@ class Daterange2State extends State<Daterange2> {
         children: <Widget>[
           SizedBox(
             height: 40, //height of button
-            width: 410, //width of button equal to parent widget
+            width: 400, //width of button equal to parent widget
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 primary: Color(0xFF14839F), //background color of button
