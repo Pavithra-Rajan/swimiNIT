@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:swiminit/SPM/trial.dart';
-class MembershipIdSearch_1  extends StatefulWidget {
+
+class MembershipIdSearch1  extends StatefulWidget {
 
   final Function toggleswitch;
   final bool showMembership;
-  MembershipIdSearch_1({required this.toggleswitch,required this.showMembership});
+
+  const MembershipIdSearch1({required this.toggleswitch,required this.showMembership});
+
   @override
-  State<StatefulWidget> createState() => MembershipIdSearchState_1();
+  State<StatefulWidget> createState() => MembershipIdSearchState1();
 }
 
-class  MembershipIdSearchState_1 extends State<MembershipIdSearch_1> {
+class  MembershipIdSearchState1 extends State<MembershipIdSearch1> {
   late String rollno;
   bool isVisible=false;
   Widget _buildMembershipId() {
@@ -20,13 +23,10 @@ class  MembershipIdSearchState_1 extends State<MembershipIdSearch_1> {
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: Color(0xFF14839F), width: 1.5),
         ),
-
       ),
       onChanged:(value){
         rollno=value;
       },
-
-
     );
   }
   @override
@@ -74,9 +74,6 @@ class  MembershipIdSearchState_1 extends State<MembershipIdSearch_1> {
                       _buildMembershipId(),
                     ]
                 ),
-
-
-
               )
             ],
           ),
@@ -113,6 +110,5 @@ class  MembershipIdSearchState_1 extends State<MembershipIdSearch_1> {
         ],
       ),
     );
-
   }
 }

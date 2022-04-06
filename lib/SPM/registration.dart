@@ -1,11 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:http/http.dart' as http;
 import '../SPM/Person.dart';
-
-//import '../Admin/Person.dart';
 
 class RegistrationPage extends StatefulWidget {
 
@@ -86,7 +83,6 @@ class RegistrationPageState extends State<RegistrationPage> {
             },
             ),
           )
-
       ],
     );
   }
@@ -159,9 +155,7 @@ class RegistrationPageState extends State<RegistrationPage> {
         hintText: 'Fees',
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: Colors.teal, width: 1.5),
-
         ),
-
     ),
     );
   }
@@ -180,7 +174,6 @@ class RegistrationPageState extends State<RegistrationPage> {
 
   @override
   Widget build(BuildContext context) {
-
     if(submitted)
       {
         return Scaffold(

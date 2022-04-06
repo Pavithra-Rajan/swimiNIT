@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../SPM/Person.dart';
@@ -235,147 +234,146 @@ class UserHistoryAdminPageState extends State<UserHistoryAdminPage> {
 
   @override
   Widget build(BuildContext context) {
-    Future<List<UserHistoryTable>> ReadJsonData() async {
+    Future<List<UserHistoryTable>> readJsonData() async {
       final jsondata = await rootBundle.loadString('assets/VISIT_DATA.json');
       final list = json.decode(jsondata) as List<dynamic>;
       return list.map((e) => UserHistoryTable.fromJson(e)).toList();
     }
 
-    var i;
+    int i;
     List<Color> colors = [Color(0xFFFFFFFF), Color(0xFFD2EAF0)]; // here
-    return Container(
-        child: Scaffold(
-            body: SingleChildScrollView(
-                child: Column(
+    return Scaffold(
+        body: SingleChildScrollView(
+            child: Column(
       children: [
-        userDetails(P),
-        userReceipt(P),
-        Container(
-          margin: EdgeInsets.only(left: 20, top: 10, right: 20, bottom: 0),
-          child: SingleChildScrollView(
-            child: FutureBuilder(
-              future: ReadJsonData(),
-              builder: (context, data) {
-                if (data.hasError) {
-                  return Center(child: Text("${data.error}"));
-                } else if (data.hasData) {
-                  var items = data.data as List<UserHistoryTable>;
-                  return Table(
-                    border: TableBorder.all(
-                      color: Colors.white54,
-                    ),
-                    children: [
-                      TableRow(
-                        decoration:
-                            const BoxDecoration(color: Color(0xFF93C6D3)),
-                        children: <Widget>[
-                          Container(
-                            height: 64,
-                            child: Center(
-                              child: Text(
-                                "Date of visit",
-                                style: GoogleFonts.poppins(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
+                userDetails(P),
+                userReceipt(P),
+                Container(
+                  margin: EdgeInsets.only(left: 20, top: 10, right: 20, bottom: 0),
+                  child: SingleChildScrollView(
+                    child: FutureBuilder(
+                      future: readJsonData(),
+                      builder: (context, data) {
+                        if (data.hasError) {
+                          return Center(child: Text("${data.error}"));
+                        } else if (data.hasData) {
+                          var items = data.data as List<UserHistoryTable>;
+                          return Table(
+                            border: TableBorder.all(
+                              color: Colors.white54,
                             ),
-                          ),
-                          Container(
-                            height: 64,
-                            child: Center(
-                              child: Text(
-                                "Time of entry",
-                                style: GoogleFonts.poppins(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
-                          Container(
-                            height: 64,
-                            child: Center(
-                              child: Text(
-                                "Time of exit",
-                                textAlign: TextAlign.center,
-                                style: GoogleFonts.poppins(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      for (i = 0; i < items.length; i++)
-                        TableRow(
-                          decoration: BoxDecoration(
-                            color: colors[i % 2],
-                          ),
-                          children: <Widget>[
-                            Container(
-                              height: 64,
-                              child: Center(
-                                child: Text(
-                                  items[i].dateVisit.toString(),
-                                  textAlign: TextAlign.center,
-                                  style: GoogleFonts.poppins(
-                                    color: Colors.black,
-                                    fontSize: 14,
+                            children: [
+                              TableRow(
+                                decoration:
+                                    const BoxDecoration(color: Color(0xFF93C6D3)),
+                                children: <Widget>[
+                                  SizedBox(
+                                    height: 64,
+                                    child: Center(
+                                      child: Text(
+                                        "Date of visit",
+                                        style: GoogleFonts.poppins(
+                                          color: Colors.black,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              height: 64,
-                              child: Center(
-                                child: Text(
-                                  items[i].timeEntry.toString(),
-                                  textAlign: TextAlign.center,
-                                  style: GoogleFonts.poppins(
-                                    color: Colors.black,
-                                    fontSize: 14,
+                                  SizedBox(
+                                    height: 64,
+                                    child: Center(
+                                      child: Text(
+                                        "Time of entry",
+                                        style: GoogleFonts.poppins(
+                                          color: Colors.black,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              height: 64,
-                              child: Center(
-                                child: Text(
-                                  items[i].timeExit.toString(),
-                                  textAlign: TextAlign.center,
-                                  style: GoogleFonts.poppins(
-                                    color: Colors.black,
-                                    fontSize: 14,
+                                  SizedBox(
+                                    height: 64,
+                                    child: Center(
+                                      child: Text(
+                                        "Time of exit",
+                                        textAlign: TextAlign.center,
+                                        style: GoogleFonts.poppins(
+                                          color: Colors.black,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                ),
+                                ],
                               ),
-                            ),
-                          ],
-                        ),
-                    ],
-                  );
-                  //var items = data.data as List<ProductDataModel>;
-
-                } else {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                throw '';
-              },
+                              for (i = 0; i < items.length; i++)
+                                TableRow(
+                                  decoration: BoxDecoration(
+                                    color: colors[i % 2],
+                                  ),
+                                  children: <Widget>[
+                                    SizedBox(
+                                      height: 64,
+                                      child: Center(
+                                        child: Text(
+                                          items[i].dateVisit.toString(),
+                                          textAlign: TextAlign.center,
+                                          style: GoogleFonts.poppins(
+                                            color: Colors.black,
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 64,
+                                      child: Center(
+                                        child: Text(
+                                          items[i].timeEntry.toString(),
+                                          textAlign: TextAlign.center,
+                                          style: GoogleFonts.poppins(
+                                            color: Colors.black,
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 64,
+                                      child: Center(
+                                        child: Text(
+                                          items[i].timeExit.toString(),
+                                          textAlign: TextAlign.center,
+                                          style: GoogleFonts.poppins(
+                                            color: Colors.black,
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                            ],
+                          );
+              //var items = data.data as List<ProductDataModel>;
+                      } else {
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                    },
+                  ),
+                ),
             ),
-          ),
-        ),
-        downloadButton(),
-      ],
-    ))));
+                downloadButton(),
+            ],
+          )
+        )
+    );
   }
 }
