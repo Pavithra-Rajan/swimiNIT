@@ -181,9 +181,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                       builder: (context) => SPMNavBar()));
                             }
                           }
-                          Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                  builder: (context) => SPMNavBar()));
+                          // Navigator.of(context).pushReplacement(
+                          //     MaterialPageRoute(
+                          //         builder: (context) => SPMNavBar()));
 
                           // if (user != null) {
                           //   print("executing this");
