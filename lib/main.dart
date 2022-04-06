@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Search(),
+      home: HomePage(),
       routes: <String, WidgetBuilder>{
         '/login': (BuildContext context) => LoginScreen(),
       },
@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
 
-            return Search();
+            return LoginScreen();
 
           }
           return const Center(
