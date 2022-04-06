@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:date_field/date_field.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:swiminit/SPM/search_by_daterange_results.dart';
-import 'package:intl/intl.dart';
+
 class Daterange2 extends StatefulWidget {
   final Function toggleswitch;
   final bool showMembership;
-  Daterange2({required this.toggleswitch,required this.showMembership});
+  const Daterange2({required this.toggleswitch,required this.showMembership});
   @override
   State<StatefulWidget> createState() => Daterange2State();
 }

@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
-import 'package:swiminit/SPM/user_history.dart';
-class MembershipIdSearch_1  extends StatefulWidget {
+import 'package:swiminit/SPM/trial.dart';
+
+class MembershipIdSearch1  extends StatefulWidget {
 
   final Function toggleswitch;
   final bool showMembership;
-  MembershipIdSearch_1({required this.toggleswitch,required this.showMembership});
+
+  const MembershipIdSearch1({required this.toggleswitch,required this.showMembership});
+
   @override
-  State<StatefulWidget> createState() => MembershipIdSearchState_1();
+  State<StatefulWidget> createState() => MembershipIdSearchState1();
 }
 
-class  MembershipIdSearchState_1 extends State<MembershipIdSearch_1> {
+class  MembershipIdSearchState1 extends State<MembershipIdSearch1> {
   late String rollno;
+  bool swapColor = false;
   bool isVisible=false;
+
   Widget _buildMembershipId() {
     return TextFormField(
       decoration: InputDecoration(
@@ -20,13 +25,10 @@ class  MembershipIdSearchState_1 extends State<MembershipIdSearch_1> {
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: Color(0xFF14839F), width: 1.5),
         ),
-
       ),
       onChanged:(value){
         rollno=value;
       },
-
-
     );
   }
   @override
@@ -44,7 +46,7 @@ class  MembershipIdSearchState_1 extends State<MembershipIdSearch_1> {
                 minWidth: 140.0,
                 minHeight: 40.0,
                 fontSize: 14.0,
-                initialLabelIndex: 0,
+                initialLabelIndex: swapColor?1:0,
                 activeBgColor: const [Color(0xff0388A9)],
                 activeFgColor: Colors.white,
                 inactiveBgColor: Color(0xffD1E9EF),
@@ -55,11 +57,13 @@ class  MembershipIdSearchState_1 extends State<MembershipIdSearch_1> {
                   if(index==0 && widget.showMembership==false) {
                     setState(() {
                       widget.toggleswitch();
+                      swapColor = !swapColor;
                     });
                   }
                   if(index==1 && widget.showMembership==true) {
                     setState(() {
                       widget.toggleswitch();
+                      swapColor = !swapColor;
                     });
                   }
                 },
@@ -67,16 +71,12 @@ class  MembershipIdSearchState_1 extends State<MembershipIdSearch_1> {
               // SizedBox(height: 75,),
               Expanded(
                 child: Column(
-
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       _buildMembershipId(),
                     ]
                 ),
-
-
-
               )
             ],
           ),
@@ -104,15 +104,14 @@ class  MembershipIdSearchState_1 extends State<MembershipIdSearch_1> {
                 style: TextStyle(color: Colors.white, fontSize: 16),
               ),
               onPressed: () => {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (BuildContext context) => UserHistorySPMPage(rollno: rollno)))
+              Navigator.push(
+              context,
+              MaterialPageRoute(builder: (BuildContext context) => UserHistorySPMPage(rollno: rollno)))
               },
             ),
           )
         ],
       ),
     );
-
   }
 }

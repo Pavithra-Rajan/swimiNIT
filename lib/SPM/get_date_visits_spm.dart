@@ -1,11 +1,3 @@
-// To parse this JSON data, do
-//
-//     final getDateVisitsSpm = getDateVisitsSpmFromJson(jsonString);
-
-import 'dart:convert';
-
-
-
 class GetDateVisitsSpm {
   GetDateVisitsSpm({
     required this.visits,

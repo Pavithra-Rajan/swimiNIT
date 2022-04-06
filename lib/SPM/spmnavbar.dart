@@ -33,8 +33,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    Widget container = Container();
     String text = "Entry";
+    Widget container = Container();
+
     if (currentPage == DrawerSections.entry) {
       container = EntryPage();
       text = "Entry";
@@ -42,8 +43,7 @@ class _HomePageState extends State<HomePage> {
       container = PoolStatusPage();
       text = "Pool Status";
     } else if (currentPage == DrawerSections.search) {
-      container = Search();
-
+      container = SearchPage();
       text = "Search";
     } else if (currentPage == DrawerSections.registration) {
       container = RegistrationPage();
@@ -52,17 +52,18 @@ class _HomePageState extends State<HomePage> {
       container = EditReceiptPage();
       text = "Edit Receipt Details";
     } else if (currentPage == DrawerSections.logOut) {
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => MyApp()));
+      Future.delayed(Duration.zero, () {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => MyApp()));
+      });
     }
 
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
         backgroundColor: Color(0xFF14839F),
-
-        title: Text(text,
-
+        title: Text(
+          text,
           style: GoogleFonts.poppins(color: Colors.white),
         ),
       ),

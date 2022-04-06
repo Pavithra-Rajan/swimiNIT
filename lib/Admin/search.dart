@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import 'package:toggle_switch/toggle_switch.dart';
 import 'package:swiminit/Admin/search_membershipID.dart';
 import 'package:swiminit/Admin/search_dateRange.dart';
 
@@ -22,12 +20,11 @@ class SearchState extends State<Search> {
   Widget build(BuildContext context) {
        if(showMembership)
          {
-           return MembershipIdSearch_1(toggleswitch: toggleswitch,showMembership: showMembership);
+           return MembershipIdSearch1(toggleswitch: toggleswitch,showMembership: showMembership);
          }
        else{
          return Daterange2(toggleswitch: toggleswitch,showMembership: showMembership);
        }
-
   }
 }
 //
