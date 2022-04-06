@@ -61,6 +61,7 @@ class Daterange2State extends State<Daterange2> {
       mode: DateTimeFieldPickerMode.date,
       autovalidateMode: AutovalidateMode.always,
       initialDate: DateTime.now(),
+      lastDate: DateTime.now(),
       onDateSelected: (DateTime value) {
         enddate=value;
         enddate=enddate.toString().split(" ")[0];
@@ -133,9 +134,11 @@ class Daterange2State extends State<Daterange2> {
                       _builddaterange1(),
                       StatefulBuilder(
                           builder: (BuildContext context, StateSetter setState) {
-                            return Checkbox(
+                            return CheckboxListTile(
+                              controlAffinity: ListTileControlAffinity.leading,
                               checkColor: Colors.white,
-                              fillColor: MaterialStateProperty.resolveWith(getColor),
+                              title: Text('Same as from'),
+                              //tileColor: MaterialStateProperty.resolveWith(getColor),
                               value: isChecked,
                               onChanged: (bool? value) {
                                 // setState(() {
@@ -164,7 +167,7 @@ class Daterange2State extends State<Daterange2> {
         children: <Widget>[
           SizedBox(
             height: 40, //height of button
-            width: 410, //width of button equal to parent widget
+            width: 400, //width of button equal to parent widget
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 primary: Color(0xFF14839F), //background color of button
