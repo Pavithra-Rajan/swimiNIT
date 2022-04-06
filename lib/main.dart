@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:swiminit/Admin/adminnavbar.dart';
-import 'package:swiminit/SPM/edit_receipt_details.dart';
 import 'package:swiminit/SPM/spmnavbar.dart';
 import 'firebase_options.dart';
 
@@ -50,7 +49,7 @@ class _HomePageState extends State<HomePage> {
         future: _initializeFirebase(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            return SPMNavBar();
+            return LoginScreen();
           }
           return const Center(
             child: CircularProgressIndicator(),
@@ -157,6 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         fillColor: Color(0xFF14839F),
                         padding: const EdgeInsets.symmetric(vertical: 15.0),
                         onPressed: () async {
+                          //print("inside async");
                           User? user = await loginUsingEmailPassword(
                               email: _emailController.text,
                               password: _passwordController.text,
@@ -182,16 +182,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                       builder: (context) => SPMNavBar()));
                             }
                           }
-                          else {
-                            print("Invalid Credentials");
-
-                            //const SizedBox(height: 70.0);
-                            // Text(
-                            //   'hi',
-                            //   style: TextStyle(color: Colors.black),
-                            // );
-
-                          }
+                          // else {
+                          //   print("Invalid Credentials");
+                          //
+                          //   //const SizedBox(height: 70.0);
+                          //   // Text(
+                          //   //   'hi',
+                          //   //   style: TextStyle(color: Colors.black),
+                          //   // );
+                          //
+                          // }
 
                           // if (user != null) {
                           //   print("executing this");
