@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
-import 'package:swiminit/SPM/trial.dart';
+
+import '../SPM/user_history.dart';
 
 class MembershipIdSearch1  extends StatefulWidget {
 
