@@ -48,7 +48,6 @@ class PendingDuesPageState extends State<PendingDuesPage> {
     //print(data['swimmersWithDues']);
     //print(data['swimmersWithDues'][0]['membershipID']);
     // print(ProductDataModel.fromJson(jsonDecode(response.body)).dues);
-    return data['swimmerWithDues'];
   }
 
   @override
@@ -76,7 +75,7 @@ class PendingDuesPageState extends State<PendingDuesPage> {
                     TableRow(
                       decoration: const BoxDecoration(color: Color(0xFF93C6D3)),
                       children: <Widget>[
-                        Container(
+                        SizedBox(
                           height: 64,
                           child: Center(
                             child: Text(
@@ -90,7 +89,7 @@ class PendingDuesPageState extends State<PendingDuesPage> {
                             ),
                           ),
                         ),
-                        Container(
+                        SizedBox(
                           height: 64,
                           child: Center(
                             child: Text(
@@ -104,7 +103,7 @@ class PendingDuesPageState extends State<PendingDuesPage> {
                             ),
                           ),
                         ),
-                        Container(
+                        SizedBox(
                           height: 64,
                           child: Center(
                             child: Text(
@@ -126,7 +125,7 @@ class PendingDuesPageState extends State<PendingDuesPage> {
                           color: colors[i % 2],
                         ),
                         children: <Widget>[
-                          Container(
+                          SizedBox(
                             height: 64,
                             child: Center(
                               child: Text(
@@ -139,7 +138,7 @@ class PendingDuesPageState extends State<PendingDuesPage> {
                               ),
                             ),
                           ),
-                          Container(
+                          SizedBox(
                             height: 64,
                             child: Center(
                               child: Text(
@@ -152,7 +151,7 @@ class PendingDuesPageState extends State<PendingDuesPage> {
                               ),
                             ),
                           ),
-                          Container(
+                          SizedBox(
                             height: 64,
                             child: Center(
                               child: Text(
@@ -176,7 +175,6 @@ class PendingDuesPageState extends State<PendingDuesPage> {
                   child: CircularProgressIndicator(),
                 );
               }
-              throw '';
             },
           ),
         ),

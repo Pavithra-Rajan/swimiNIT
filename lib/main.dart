@@ -1,10 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:swiminit/Admin/pool_managers.dart';
+import 'package:swiminit/Admin/search.dart';
 import 'package:swiminit/Admin/adminnavbar.dart';
-import 'package:swiminit/SPM/entry.dart';
-import 'package:swiminit/SPM/pool_status.dart';
 import 'package:swiminit/SPM/spmnavbar.dart';
 import 'firebase_options.dart';
 
@@ -23,7 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: LoginScreen(),
       routes: <String, WidgetBuilder>{
         '/login': (BuildContext context) => LoginScreen(),
       },

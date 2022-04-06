@@ -43,7 +43,6 @@ class _HomePageState extends State<HomePage> {
       text = "Pool Status";
     } else if (currentPage == DrawerSections.search) {
       container = SearchPage();
-
       text = "Search";
     } else if (currentPage == DrawerSections.registration) {
       container = RegistrationPage();

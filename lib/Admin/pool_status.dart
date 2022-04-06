@@ -22,7 +22,7 @@ class _PoolStatusPageState extends State<PoolStatusPage>
 
   Future<ExitSwimmers>? _exitswimmers;
   List<PoolStatusSwimmer> persons = [];
-  void remove(int){
+  void remove(int a){
     setState(() {
 
       persons.clear();
@@ -120,7 +120,7 @@ class _PoolStatusPageState extends State<PoolStatusPage>
                       child: Text('Exit',style: GoogleFonts.poppins(color: Colors.white, fontSize: 14),),
                       onPressed: () async {
                         var now = DateTime.now();
-                        DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
+                        DateFormat dateFormat = DateFormat("dd-MM-yyyy HH:mm:ss");
                         String datetime = dateFormat. format(now);
                         final splitted=datetime.split(" ");
                         String endtime='${splitted[0]};${splitted[1]}';
@@ -174,7 +174,7 @@ class _PoolStatusPageState extends State<PoolStatusPage>
                     persons=[];
                     for(var items in swimmers.visits)
                     {
-                      persons.add(PoolStatusSwimmer('${items.swimmer.name}', 'lib/Resources/pic-1.png', "${items.swimmer.membershipId}", "${items.visit.dateOfVisit}", "${items.swimmer.dues}","${items.swimmer.emailId}","${items.swimmer.contact1}","${items.swimmer.contact2}")
+                      persons.add(PoolStatusSwimmer(items.swimmer.name, 'lib/Resources/pic-1.png', items.swimmer.membershipId, items.visit.dateOfVisit, items.swimmer.dues.toString(),items.swimmer.emailId,items.swimmer.contact1,items.swimmer.contact2)
                       );
 
 

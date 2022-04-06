@@ -67,7 +67,6 @@ class  MembershipIdSearchState1 extends State<MembershipIdSearch1> {
               // SizedBox(height: 75,),
               Expanded(
                 child: Column(
-
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
