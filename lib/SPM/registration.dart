@@ -83,7 +83,6 @@ class RegistrationPageState extends State<RegistrationPage> {
             },
             ),
           )
-
       ],
     );
   }
@@ -156,9 +155,7 @@ class RegistrationPageState extends State<RegistrationPage> {
         hintText: 'Fees',
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: Colors.teal, width: 1.5),
-
         ),
-
     ),
     );
   }
@@ -177,7 +174,6 @@ class RegistrationPageState extends State<RegistrationPage> {
 
   @override
   Widget build(BuildContext context) {
-
     if(submitted)
       {
         return Scaffold(
