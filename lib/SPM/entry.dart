@@ -178,7 +178,9 @@ class EntryPageState extends State<EntryPage> {
                     hintText: "Membership ID",
                     prefixIcon: Icon(Icons.person, color: Color(0xFF14839F)),
                   ),
-                ))),
+                )
+            )
+        ),
         bottomNavigationBar: Container(
           margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
           child: FractionallySizedBox(
@@ -281,7 +283,8 @@ class EntryPageState extends State<EntryPage> {
                   })
                 },
               ),
-            )),
+            )
+        ),
       );
     }
   }
