@@ -8,6 +8,7 @@ import 'package:swiminit/SPM/pool_status.dart';
 import 'package:swiminit/SPM/spmnavbar.dart';
 import 'firebase_options.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -51,7 +52,7 @@ class _HomePageState extends State<HomePage> {
         future: _initializeFirebase(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            return LoginScreen();
+            return AdminNavBar();
           }
           return const Center(
             child: CircularProgressIndicator(),
@@ -76,6 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
       required BuildContext context}) async {
     FirebaseAuth auth = FirebaseAuth.instance;
     User? user;
+
     try {
       UserCredential userCredential = await auth.signInWithEmailAndPassword(
           email: email, password: password);
@@ -139,6 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
               decoration: const InputDecoration(
                 hintText: "Password",
                 prefixIcon: Icon(Icons.lock, color: Color(0xFF14839F)),
+
               ),
             ),
             const SizedBox(
@@ -170,6 +173,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             //print(result);
                             //print(loginType.hasMatch(user.email.toString()));
                             if (result == 'admin'){
+                              print("admin logged in");
                               Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
                                       builder: (context) => AdminNavBar()));
@@ -179,6 +183,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                   MaterialPageRoute(
                                       builder: (context) => SPMNavBar()));
                             }
+                          }
+                          else {
+                            print("Invalid Credentials");
+
+                            //const SizedBox(height: 70.0);
+                            // Text(
+                            //   'hi',
+                            //   style: TextStyle(color: Colors.black),
+                            // );
+
                           }
 
                           // if (user != null) {
@@ -202,6 +216,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             fontSize: 14.0,
                           ),
                         )
+
                     )
                 )
               ],

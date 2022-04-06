@@ -15,7 +15,10 @@ class AdminAddSPM extends StatefulWidget
 
 class _AdminAddSPMState extends State<AdminAddSPM>
 {
-  Future putSPM() async{
+
+  Future putSPM(String contact1, String contact2, String name) async{
+    //print('function is getting executed');
+
     await http.post(
         Uri.parse('https://swiminit.herokuapp.com/addSPM'),
         headers: <String, String>{
@@ -23,13 +26,48 @@ class _AdminAddSPMState extends State<AdminAddSPM>
         },
         body: jsonEncode(<String, Map<String,String>>{
           "details":{
-            "contact1":"123456",
-            "contact2":"14578",
-            "name":"IT WORKSSSSSS! THANK GOD"
+            "contact1":contact1,
+            "contact2":contact2,
+            "name":name
           }
         })
     );
   }
+
+
+  Future<void> popupSPMadded() async {
+    print('pop is getting executed');
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return
+          Container(
+              margin: EdgeInsets.fromLTRB(10, 5, 10,3 ),
+              child: AlertDialog(
+                content: Stack(
+                  children: [
+                    Text('SPM has been added successfully',style: GoogleFonts.poppins(color: Color(0xFF149F88), fontSize: 30),),
+                  ],
+                ),
+                actions: <Widget>[
+                  TextButton(
+                    child: Text('Okay'),
+                    onPressed: () {
+                      Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                              builder: (context) => AdminNavBar()));
+
+                    },
+                  ),
+                ],
+              ),
+          );
+
+      },
+    );
+  }
+
   bool added = false;
   @override
   Widget build(BuildContext context) {
@@ -102,7 +140,8 @@ class _AdminAddSPMState extends State<AdminAddSPM>
                                 ),
                                 child: Text('Submit',style: GoogleFonts.poppins(color: Colors.black, fontSize: 14),),
                                 onPressed: () {
-                                  putSPM();
+                                  putSPM(_contact1.text,_contact2.text,_name.text);
+                                  popupSPMadded();
                                 },
                               )
                           )

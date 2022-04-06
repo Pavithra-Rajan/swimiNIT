@@ -5,6 +5,8 @@ import 'package:toggle_switch/toggle_switch.dart';
 import 'package:http/http.dart' as http;
 import '../SPM/Person.dart';
 
+//import '../Admin/Person.dart';
+
 class RegistrationPage extends StatefulWidget {
 
   const RegistrationPage({Key? key}) : super(key: key);
@@ -20,6 +22,7 @@ class RegistrationPageState extends State<RegistrationPage> {
   bool isVisible = false;
   List<String> roles = ['Student', 'Faculty', 'Faculty Dependant'];
   String dropDownVal = 'Student';
+
   bool swapColor = false, submitted = false;
   late Person p;
 
@@ -33,13 +36,14 @@ class RegistrationPageState extends State<RegistrationPage> {
   final TextEditingController _feesController = TextEditingController();
   final TextEditingController _moneyPaidController = TextEditingController();
 
+
   Widget _buildMembershipId() {
     return TextFormField(
       controller: _memIDController,
       decoration: InputDecoration(
         hintText: 'Membership ID',
         enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.teal, width: 1.5),
+          borderSide: BorderSide(color: Color(0xFF14839F), width: 1.5),
         ),
       ),
     );
@@ -51,7 +55,7 @@ class RegistrationPageState extends State<RegistrationPage> {
       decoration: InputDecoration(
         hintText: 'Name',
         enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.teal, width: 1.5),
+          borderSide: BorderSide(color: Color(0xFF14839F), width: 1.5),
         ),
       ),
     );
@@ -82,6 +86,7 @@ class RegistrationPageState extends State<RegistrationPage> {
             },
             ),
           )
+
       ],
     );
   }
@@ -92,7 +97,7 @@ class RegistrationPageState extends State<RegistrationPage> {
       decoration: InputDecoration(
         hintText: 'Email Id',
         enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.teal, width: 1.5),
+          borderSide: BorderSide(color: Color(0xFF14839F), width: 1.5),
         ),
       ),
     );
@@ -104,7 +109,7 @@ class RegistrationPageState extends State<RegistrationPage> {
       decoration: InputDecoration(
         hintText: 'Contact No. 1',
         enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.teal, width: 1.5),
+          borderSide: BorderSide(color: Color(0xFF14839F), width: 1.5),
         ),
       ),
     );
@@ -116,7 +121,7 @@ class RegistrationPageState extends State<RegistrationPage> {
       decoration: InputDecoration(
         hintText: 'Contact No. 2',
         enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.teal, width: 1.5),
+          borderSide: BorderSide(color: Color(0xFF14839F), width: 1.5),
         ),
       ),
     );
@@ -128,7 +133,7 @@ class RegistrationPageState extends State<RegistrationPage> {
       decoration: InputDecoration(
         hintText: 'Receipt ID',
         enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.teal, width: 1.5),
+          borderSide: BorderSide(color: Color(0xFF14839F), width: 1.5),
         ),
       ),
     );
@@ -140,21 +145,24 @@ class RegistrationPageState extends State<RegistrationPage> {
       decoration: InputDecoration(
         hintText: 'Payment Date',
         enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.teal, width: 1.5),
+          borderSide: BorderSide(color: Color(0xFF14839F), width: 1.5),
         ),
       ),
     );
   }
 
   Widget _quaterlyFees() {
+
     return TextFormField(
       controller: _feesController,
       decoration: InputDecoration(
         hintText: 'Fees',
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: Colors.teal, width: 1.5),
+
         ),
-      ),
+
+    ),
     );
   }
 
@@ -164,7 +172,7 @@ class RegistrationPageState extends State<RegistrationPage> {
       decoration: InputDecoration(
         hintText: 'Money Paid',
         enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.teal, width: 1.5),
+          borderSide: BorderSide(color: Color(0xFF14839F), width: 1.5),
         ),
       ),
     );
@@ -177,14 +185,15 @@ class RegistrationPageState extends State<RegistrationPage> {
       {
         return Scaffold(
           body: Center(
-            child: Text(
-              "Successfully registered",
-              style: GoogleFonts.poppins(
-                  color: Colors.black,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold
-              ),
-            ),
+            child: Wrap(
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: const [
+                Icon(Icons.check,
+                  color: Color(0xFF149F88),),
+                Text(' Swimmer has been successfully registered',
+                    style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF149F88), fontSize: 18)),
+              ],
+            )
           ),
           bottomNavigationBar: Container(
               margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
