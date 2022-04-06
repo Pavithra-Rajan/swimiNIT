@@ -15,7 +15,6 @@ class EditSwimmerPage extends StatefulWidget {
 enum currState { searching, editing }
 
 class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
-  
   currState state = currState.searching;
   String membershipID = "-1";
   List<String> roles = ['Student', 'Faculty', 'Faculty Dependant'];
@@ -27,45 +26,47 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
   final TextEditingController _emailIDController = TextEditingController();
   final TextEditingController _contact1Controller = TextEditingController();
   final TextEditingController _contact2Controller = TextEditingController();
+  bool _text1Controller_bool = false;
+  bool _text2Controller_bool = false;
+  bool _text3Controller_bool = false;
+  bool _text4Controller_bool = false;
 
   Future<void> popupSwimmerDetailsUpdated() async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
-        return
-          Container(
-              margin: EdgeInsets.fromLTRB(10, 5, 10,3 ),
-              child: AlertDialog(
-                content: Stack(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.fromLTRB(40, 8, 40, 50),
-                      child: Text('Swimmer details updated successfully',style: GoogleFonts.poppins(color: Color(0xFF149F88), fontSize: 15),textAlign: TextAlign.center),
-                    ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(100, 70, 100, 5),
-
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: Color(0xFF149F88), // background
-                          onPrimary: Colors.white, // foreground
-                          minimumSize: Size(100,45),
-                        ),
-                        child: Text('OK'),
-                        onPressed: () {
-                          Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                  builder: (context) => AdminNavBar()));
-                        },
-                      ),
-                    )
-                  ],
+        return Container(
+          margin: EdgeInsets.fromLTRB(10, 5, 10, 3),
+          child: AlertDialog(
+            content: Stack(
+              children: [
+                Container(
+                  margin: EdgeInsets.fromLTRB(40, 8, 40, 50),
+                  child: Text('Swimmer details updated successfully',
+                      style: GoogleFonts.poppins(
+                          color: Color(0xFF149F88), fontSize: 15),
+                      textAlign: TextAlign.center),
                 ),
-
-              ),
-          );
-
+                Container(
+                  margin: EdgeInsets.fromLTRB(100, 70, 100, 5),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xFF149F88), // background
+                      onPrimary: Colors.white, // foreground
+                      minimumSize: Size(100, 45),
+                    ),
+                    child: Text('OK'),
+                    onPressed: () {
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => AdminNavBar()));
+                    },
+                  ),
+                )
+              ],
+            ),
+          ),
+        );
       },
     );
   }
@@ -125,24 +126,24 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
     var response = await http.get(Uri.parse(
         'https://swiminit.herokuapp.com/getreceiptdetails?membershipID=$membershipID'));
     var data = json.decode(response.body);
-    if(data.containsKey("error")) {
+    if (data.containsKey("error")) {
       s.moneyPaid = "-";
       s.receiptID = "-";
       s.paymentDate = "-";
     } else {
-      var data1 = data["receipt"]; 
+      var data1 = data["receipt"];
       s.moneyPaid = data1["moneyPaid"].toString();
       s.receiptID = data1["receiptID"];
       s.paymentDate = data1["paymentDate"];
     }
-  
+
     return s;
   }
 
   Future editSwimmerDetails() async {
-
-    await http.put(Uri.parse('https://swiminit.herokuapp.com/editContactDetails'),
-    headers: <String, String>{
+    await http.put(
+      Uri.parse('https://swiminit.herokuapp.com/editContactDetails'),
+      headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode(<String, Map<String, String>>{
@@ -153,7 +154,7 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
           'emailID': _emailIDController.text,
           'name': _nameController.text
         }
-      }),   
+      }),
     );
   }
 
@@ -217,6 +218,14 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                                 ),
                                 style: GoogleFonts.poppins(),
                               ))),
+                      SizedBox(height: 5),
+                      Align(
+                        alignment: Alignment(-0.65, 1),
+                        child: Text(
+                          _text1Controller_bool? "*This field is required":"",
+                          style: GoogleFonts.poppins(color: Colors.red, fontSize: 12),
+                        ),
+                      ),
                       SizedBox(height: 20),
                       Align(
                         alignment: Alignment(-0.75, 1),
@@ -283,6 +292,14 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                                 ),
                                 style: GoogleFonts.poppins(),
                               ))),
+                      SizedBox(height: 5),
+                      Align(
+                        alignment: Alignment(-0.65, 1),
+                        child: Text(
+                          _text2Controller_bool? "*This field is required":"",
+                          style: GoogleFonts.poppins(color: Colors.red, fontSize: 12),
+                        ),
+                      ),
                       SizedBox(height: 20),
                       Align(
                         alignment: Alignment(-0.75, 1),
@@ -312,6 +329,14 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                                 ),
                                 style: GoogleFonts.poppins(),
                               ))),
+                      SizedBox(height: 5),
+                      Align(
+                        alignment: Alignment(-0.65, 1),
+                        child: Text(
+                          _text3Controller_bool? "*This field is required":"",
+                          style: GoogleFonts.poppins(color: Colors.red, fontSize: 12),
+                        ),
+                      ),
                       SizedBox(height: 20),
                       Align(
                         alignment: Alignment(-0.75, 1),
@@ -341,6 +366,14 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                                 ),
                                 style: GoogleFonts.poppins(),
                               ))),
+                      SizedBox(height: 5),
+                      Align(
+                        alignment: Alignment(-0.65, 1),
+                        child: Text(
+                          _text4Controller_bool? "*This field is required":"",
+                          style: GoogleFonts.poppins(color: Colors.red, fontSize: 12),
+                        ),
+                      ),
                       SizedBox(height: 20),
                     ],
                   );
@@ -451,9 +484,7 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                         )
                       ]);
                 } else {
-                  return Center(
-                    child: Container()
-                  );
+                  return Center(child: Container());
                 }
               }),
         ]));
@@ -528,8 +559,23 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                 ),
                 onPressed: () => {
                   setState(() {
-                    editSwimmerDetails();
-                    popupSwimmerDetailsUpdated();
+                    _text1Controller_bool = false;
+                    _text2Controller_bool = false;
+                    _text3Controller_bool = false;
+                    _text4Controller_bool = false;
+
+                    if(_nameController.text.length == 0) {
+                      _text1Controller_bool = true;
+                    } else if(_emailIDController.text.length == 0) {
+                      _text2Controller_bool = true;
+                    } else if(_contact1Controller.text.length == 0) {
+                      _text3Controller_bool = true;
+                    } else if(_contact2Controller.text.length == 0) {
+                      _text4Controller_bool = true;
+                    } else {
+                      editSwimmerDetails();
+                      popupSwimmerDetailsUpdated();
+                    } 
                   })
                 },
               ),
