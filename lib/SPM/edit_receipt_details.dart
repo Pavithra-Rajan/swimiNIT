@@ -87,7 +87,6 @@ class EditReceiptPageState extends State<EditReceiptPage>
     p.name = data["name"];
     p.rollno = data["membershipID"];
     p.dues = data["dues"].toString();
-    print(p.dues);
     p.role = data["roles"];
     p.mailID = data["emailID"];
 
