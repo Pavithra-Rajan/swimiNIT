@@ -46,20 +46,30 @@ class _AdminAddSPMState extends State<AdminAddSPM>
               child: AlertDialog(
                 content: Stack(
                   children: [
-                    Text('SPM has been added successfully',style: GoogleFonts.poppins(color: Color(0xFF149F88), fontSize: 30),),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(40, 8, 30, 50),
+                      child: Text('SPM added successfully',style: GoogleFonts.poppins(color: Color(0xFF149F88), fontSize: 16),),
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(90, 50, 90, 5),
+
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Color(0xFF149F88), // background
+                          onPrimary: Colors.white, // foreground
+                          minimumSize: Size(100,45),
+                        ),
+                        child: Text('OK'),
+                        onPressed: () {
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (context) => AdminNavBar()));
+                        },
+                      ),
+                    )
                   ],
                 ),
-                actions: <Widget>[
-                  TextButton(
-                    child: Text('Okay'),
-                    onPressed: () {
-                      Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                              builder: (context) => AdminNavBar()));
 
-                    },
-                  ),
-                ],
               ),
           );
 
