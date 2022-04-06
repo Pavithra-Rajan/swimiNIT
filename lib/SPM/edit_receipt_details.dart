@@ -83,7 +83,8 @@ class EditReceiptPageState extends State<EditReceiptPage>
     var response = await http.get(Uri.parse(
         'https://swiminit.herokuapp.com/getdetails?membershipID=$membershipID&admin=False'));
     var data = json.decode(response.body);
-
+    // print("This is data");
+    // print(data);
     p.name = data["name"];
     p.rollno = data["membershipID"];
     p.dues = data["dues"].toString();
@@ -135,6 +136,7 @@ class EditReceiptPageState extends State<EditReceiptPage>
       child: FutureBuilder(
           future: getSwimmer(),
           builder: (context, data) {
+
             if (data.hasError) {
               return Center(child: Text("${data.error}"));
             } else if (data.hasData) {
@@ -208,7 +210,8 @@ class EditReceiptPageState extends State<EditReceiptPage>
                     ),
                     SizedBox(height: 20),
                     Align(
-                      alignment: Alignment(-0.6, 1),
+                      alignment: Alignment(-0.3, 1),
+
                       child: SizedBox(
                         width: 300,
                         child: TextField(
@@ -231,14 +234,14 @@ class EditReceiptPageState extends State<EditReceiptPage>
                     ),
                     SizedBox(height: 10),
                     Align(
-                        alignment: Alignment(-0.7, 1),
+                        alignment: Alignment(-0.6, 1),
                         child: Container(
                             alignment: Alignment.centerLeft,
                             width: 250,
                             child: Stack(
                                 children: [
                                   Align(
-                                      alignment: Alignment(-0.9, 1),
+                                      alignment: Alignment(-0.9, 0),
                                     child: Text(
                                       DateFormat('dd-MM-yyyy').format(_selectedDate),
                                       style: GoogleFonts.poppins(),
@@ -246,7 +249,7 @@ class EditReceiptPageState extends State<EditReceiptPage>
                                   ),
                                   Align(
                                     alignment: Alignment(0, 0),
-                                    child: ElevatedButton(child: Icon(Icons.date_range), onPressed: _pickDateDialog),
+                                    child: RawMaterialButton(child: Icon(Icons.date_range), onPressed: _pickDateDialog),
                                   ),
                                 ]
                             )
@@ -281,7 +284,7 @@ class EditReceiptPageState extends State<EditReceiptPage>
                                   cursorColor: Color(0xFF14839F),
                                   decoration: const InputDecoration(
                                     hintText: "Money Paid",
-                                    prefixIcon: Icon(Icons.attach_money, color: Color(0xFF14839F)),
+                                    //prefixIcon: Icon(Icons.attach_money, color: Color(0xFF14839F)),
                                   ),
                                 ),
                               )
