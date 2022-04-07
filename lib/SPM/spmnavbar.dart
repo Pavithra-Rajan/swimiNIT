@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:swiminit/SPM/search.dart';
 import 'package:swiminit/SPM/edit_receipt_details.dart';
 import 'package:swiminit/SPM/entry.dart';
-import 'package:swiminit/Admin/pool_status.dart';
+import 'package:swiminit/SPM/pool_status.dart';
 import 'package:swiminit/SPM/registration.dart';
 import 'package:swiminit/SPM/spm_drawer_file.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -29,19 +29,19 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  var currentPage = DrawerSections.entry;
+  var currentPage = DrawerSections.poolStatus;
 
   @override
   Widget build(BuildContext context) {
     String text = "Entry";
     Widget container = Container();
 
-    if (currentPage == DrawerSections.entry) {
-      container = EntryPage();
-      text = "Entry";
-    } else if (currentPage == DrawerSections.poolStatus) {
+    if (currentPage == DrawerSections.poolStatus) {
       container = PoolStatusPage();
       text = "Pool Status";
+    } else if (currentPage == DrawerSections.entry) {
+      container = EntryPage();
+      text = "Entry";
     } else if (currentPage == DrawerSections.search) {
       container = SearchPage();
       text = "Search";

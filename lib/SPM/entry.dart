@@ -150,7 +150,7 @@ class EntryPageState extends State<EntryPage> {
                     Align(
                       alignment: Alignment(-0.75, 1),
                       child: Text(
-                        int.parse(p.dues) == 0 ? "No" : "Yes",
+                        int.parse(p.dues) == 0 ? "Yes" : "No",
                         style: GoogleFonts.poppins(),
                       ),
                     ),

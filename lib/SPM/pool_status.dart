@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
-
+import 'package:intl/intl.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'Person.dart';
 import 'package:expandable/expandable.dart';
-import '../SPM/Person.dart';
+import 'package:swiminit/SPM/exit_class.dart';
+import 'package:swiminit/SPM/PoolStatusSwimmer.dart';
+import 'package:swiminit/SPM/pool_status_class.dart';
+import 'package:swiminit/SPM/pool_start_service.dart';
+import 'package:swiminit/SPM/spmnavbar.dart';
+
+
+import 'package:swiminit/SPM/swimmer_exit.dart';
 
 class PoolStatusPage extends StatefulWidget {
   const PoolStatusPage({Key? key}) : super(key: key);
@@ -14,25 +20,112 @@ class PoolStatusPage extends StatefulWidget {
 
 class _PoolStatusPageState extends State<PoolStatusPage>
 {
-  List<Person> persons = [
-    Person('Varun Anilkumar', 'lib/Resources/pic-1.png', "B190621CS", "16:36", "4", "0", "R-043657839", "200", "24-01-2022", "Student","varun_b190621cs@nitc.ac.in","6285435321","9061219855"),
-    Person('Lenoah Chacko', 'lib/Resources/pic-1.png', "B190657CS", "16:44", "8", "0", "R-043657239", "400", "22-01-2022","Student","lenoah_b190657cs@nitc.ac.in","6285435321","9061219855"),
-    Person('Joseph Mani', 'lib/Resources/pic-1.png', "B190529CS", "17:05", "2", "0", "R-021657989", "200", "12-01-2022","Student","joseph_b190529cs@nitc.ac.in","6285435321","9061219855")
-  ];
 
-  Widget buildCard(Person p) {
+  Future<ExitSwimmers>? _exitswimmers;
+  List<PoolStatusSwimmer> persons = [];
+  void remove(int a){
+    setState(() {
+
+      persons.clear();
+
+    });
+  }
+
+Future confirmExit(String rno) async{
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: false, // user must tap button!
+    builder: (BuildContext context) {
+      return
+        Container(
+          margin: EdgeInsets.fromLTRB(0, 0, 0,0 ),
+          child: AlertDialog(
+            content: Stack(
+              children: [
+                Container(
+                  margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  child: Text('Confirm swimmer exit?',style: GoogleFonts.poppins(color: Color(0xFF149F88), fontSize: 16),),
+                ),
+              ],
+            ),
+            actions: <Widget>[
+              Container(
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Color(0xFF149F88), // background
+                    onPrimary: Colors.white, // foreground
+                    minimumSize: Size(100,45),
+                  ),
+                  child: Text('OK'),
+                  onPressed: () async {
+                    await proceedExit(rno).then((value) => Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                            builder: (context) => SPMNavBar())));
+                  },
+                ),
+              ),
+
+              Container(
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Color(0xFF149F88), // background
+                    onPrimary: Colors.white, // foreground
+                    minimumSize: Size(100,45),
+                  ),
+                  child: Text('Go back'),
+                  onPressed: () {
+                    Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                            builder: (context) => SPMNavBar()));
+                  },
+                ),
+              ),
+            ],
+
+          ),
+        );
+
+    },
+  );
+}
+
+Future proceedExit(String rno) async{
+  var now = DateTime.now();
+  DateFormat dateFormat = DateFormat("dd-MM-yyyy HH:mm:ss");
+  String datetime = dateFormat. format(now);
+  final splitted=datetime.split(" ");
+  String endtime='${splitted[0]};${splitted[1]}';
+  final _exitswimmers= await PoolExitServices.exitSwimmers(rno,endtime);
+
+  var i=0;
+  for(var items in persons)
+  {
+    if(items.rollno==rno)
+    {
+      break;
+    }
+    i++;
+  }
+
+  remove(i);
+}
+
+
+  Widget buildCard(PoolStatusSwimmer p) {
     return Padding(
         padding: const EdgeInsets.all(1.0),
         child: Card(
           color: Color(0xFF93C6D3),
           child: ExpandablePanel(
-
               header: Padding(
                 padding: const EdgeInsets.all(1.0),
                 child: Card(
                   color: Color(0xFF93C6D3),
                   shadowColor: Color(0xFF93C6D3),
-
                   child: Padding(
                     padding: const EdgeInsets.all(1.0),
                     child: Stack(
@@ -56,16 +149,20 @@ class _PoolStatusPageState extends State<PoolStatusPage>
                         Align(
                             alignment: Alignment(-0.35, 1),
                             child: Container(
-                              margin: EdgeInsets.fromLTRB(0, 6, 0, 5),
+                              margin: EdgeInsets.fromLTRB(40, 6, 0, 5),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
+
                                 children: <Widget>[
+
                                   Text(p.name,
+                                    //textAlign: TextAlign.center,
                                     style: GoogleFonts.poppins(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
                                   ),
-                                  Text(p.rollno,
-                                    style: GoogleFonts.poppins(color: Colors.black, fontSize: 12),
-                                  )
+                                  Text('Entered at '+p.enteredAt,
+                                    style: GoogleFonts.poppins(color: Colors.black, fontSize: 14),
+                                  ),
+
                                 ],
                               ),
                             )
@@ -77,12 +174,13 @@ class _PoolStatusPageState extends State<PoolStatusPage>
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: <Widget>[
-                                  Text('Entered at '+p.enteredAt,
-                                    style: GoogleFonts.poppins(color: Colors.black, fontSize: 14),
-                                  ),
                                   Text(p.rollno,
                                     style: GoogleFonts.poppins(color: Colors.black, fontSize: 12),
                                   )
+
+                                  // Text(p.rollno,
+                                  //   style: GoogleFonts.poppins(color: Colors.black, fontSize: 12),
+                                  // )
                                 ],
                               ),
                             )
@@ -106,7 +204,11 @@ class _PoolStatusPageState extends State<PoolStatusPage>
                         minimumSize: Size(175,35),
                       ),
                       child: Text('Exit',style: GoogleFonts.poppins(color: Colors.white, fontSize: 14),),
-                      onPressed: () {},
+                      onPressed: () async {
+
+                        confirmExit(p.rollno);
+
+                      },
                     )),
               )
           ),
@@ -117,19 +219,46 @@ class _PoolStatusPageState extends State<PoolStatusPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
-        child: Column(
-          children: <Widget>[
-            Column(
-                children: persons.map((p) {
-                  return buildCard(p);
-                }).toList()
-            )
-          ],
-        ),
+        body: SingleChildScrollView(
+          child:Padding(
+              padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
+              child:FutureBuilder(
+                future: PoolStatusServices.getSwimmers(),
 
-      ),
+                builder: (context, data){
+
+                  if(data.hasError){
+                    return Center(child: Text("${data.error}"));
+                  }
+                  else if(data.hasData){
+                    var swimmers= data.data as LiveSwimmers;
+
+
+                    persons=[];
+                    for(var items in swimmers.visits)
+                    {
+                      persons.add(PoolStatusSwimmer(items.swimmer.name, 'lib/Resources/pic-1.png', items.swimmer.membershipId, items.visit.dateOfVisit, items.swimmer.dues.toString(),items.swimmer.emailId,items.swimmer.contact1,items.swimmer.contact2)
+                      );
+
+
+                    }
+
+                    return Column(
+                      children: <Widget>[
+                        Column(
+                            children: persons.map((p) {
+                              return buildCard(p);
+                            }).toList()
+                        )
+                      ],
+                    );
+                  }
+                  return Center(child: Text("Loading"));
+                },
+              )
+          ),
+        )
+
     );
   }
 }

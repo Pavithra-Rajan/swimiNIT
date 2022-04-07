@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:swiminit/Admin/adminnavbar.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:firebase_auth/firebase_auth.dart';
 
 class AdminAddSPM extends StatefulWidget
 {
@@ -16,14 +17,28 @@ class AdminAddSPM extends StatefulWidget
 class _AdminAddSPMState extends State<AdminAddSPM>
 {
 
-  Future putSPM(String contact1, String contact2, String name) async{
+  Future putSPM(String contact1, String contact2, String name, String pass) async{
     //print('function is getting executed');
-
+    print (contact1);
+    final _auth = FirebaseAuth.instance;
+    String email;
+    String password;
+    email=contact1+'@swiminit.com';
+    password=pass;
+    try {
+      final newUser = await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      //print(newUser);
+    } catch (e) {
+      print(e);
+    }
+    ;
     await http.post(
         Uri.parse('https://swiminit.herokuapp.com/addSPM'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
+
         body: jsonEncode(<String, Map<String,String>>{
           "details":{
             "contact1":contact1,
@@ -151,7 +166,7 @@ class _AdminAddSPMState extends State<AdminAddSPM>
                           ),
                             child: Text('Submit',style: GoogleFonts.poppins(color: Colors.black, fontSize: 14),),
                             onPressed: () {
-                            putSPM(_contact1.text,_contact2.text,_name.text);
+                            putSPM(_contact1.text,_contact2.text,_name.text,_password.text);
                             popupSPMadded();
                             },
                         )

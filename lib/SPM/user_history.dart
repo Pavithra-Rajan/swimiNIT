@@ -9,9 +9,7 @@ import 'package:swiminit/SPM/ReceiptDetailsSpmClass.dart';
 import 'package:swiminit/Admin/search.dart';
 //method that assign values to respective datatype vairables
 
-
 class UserHistorySPMPage extends StatefulWidget {
-
   String rollno;
   UserHistorySPMPage({required this.rollno});
 
@@ -20,7 +18,7 @@ class UserHistorySPMPage extends StatefulWidget {
 }
 
 class UserHistorySPMPageState extends State<UserHistorySPMPage> {
-  bool admin= false;
+  bool admin = false;
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +28,14 @@ class UserHistorySPMPageState extends State<UserHistorySPMPage> {
       appBar: AppBar(
         centerTitle: false,
         backgroundColor: Color(0xFF14839F),
-        title: Text('User History',
+        title: Text(
+          'User History',
           style: GoogleFonts.poppins(color: Colors.white),
         ),
       ),
-      body:
-      SingleChildScrollView(
+      body: SingleChildScrollView(
           child: Column(
+
             children: <Widget>[
               Container(
                 margin: EdgeInsets.only(
@@ -223,128 +222,158 @@ class UserHistorySPMPageState extends State<UserHistorySPMPage> {
                   ),
                 ),
               ),
-              Container(
-                margin: EdgeInsets.only(
-                    left: 20, top: 10, right: 20, bottom: 0),
-                child: SingleChildScrollView(
-                  child: FutureBuilder(
-                    future: SwimmerVisitServices.getSwimmersVisitDetails(widget.rollno),
-                    builder: (context, data) {
-                      if (data.hasError) {
-                        return Center(child: Text("${data.error}"));
-                      }
-                      else if (data.hasData) {
-                        var items = data.data as UserVisitsSpm;
-                        return Table(
-                          border: TableBorder.all(
-                            color: Colors.white54,
-                          ),
-                          children: [
-                            TableRow(
-                              decoration: const BoxDecoration(
-                                  color: Color(0xFF93C6D3)
+
+
+          Container(
+            margin: EdgeInsets.only(left: 20, top: 10, right: 20, bottom: 0),
+            child: SingleChildScrollView(
+              child: FutureBuilder(
+                future: SwimmerVisitServices.getSwimmersVisitDetails(widget.rollno),
+                builder: (context, data) {
+                  if (data.hasError) {
+                    return Center(child: Text("${data.error}"));
+                  } else if (data.hasData) {
+                    var items = data.data as UserVisitsSpm;
+                    return Table(
+                      border: TableBorder.all(
+                        color: Colors.white54,
+                      ),
+                      children: [
+                        TableRow(
+                          decoration:
+                              const BoxDecoration(color: Color(0xFF93C6D3)),
+                          children: <Widget>[
+                            SizedBox(
+                              height: 64,
+                              child: Center(
+                                child: Text(
+                                  "Date of visit",
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
-                              children: <Widget>[
-                                SizedBox(
-                                  height: 64,
-                                  child: Center(
-                                    child: Text(
-                                      "Date of visit",
-                                      style: GoogleFonts.poppins(
-                                        color: Colors.black,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 64,
-                                  child: Center(
-                                    child: Text(
-                                      "Time of entry",
-                                      style: GoogleFonts.poppins(
-                                        color: Colors.black,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 64,
-                                  child: Center(
-                                    child: Text(
-                                      "Time of exit",
-                                      textAlign: TextAlign.center,
-                                      style: GoogleFonts.poppins(
-                                        color: Colors.black,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,),
-                                    ),
-                                  ),
-                                ),
-                              ],
                             ),
-                            for (var i = 0; i < items.visits.length; i++) TableRow(
-                              decoration: BoxDecoration(
-                                color: colors[i % 2],
+                            SizedBox(
+                              height: 64,
+                              child: Center(
+                                child: Text(
+                                  "Time of entry",
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
-                              children: <Widget>[
-                                SizedBox(
-                                  height: 64,
-                                  child: Center(
-                                    child: Text(
-                                      items.visits[i].dateOfVisit.split(";")[0],
-                                      textAlign: TextAlign.center,
-                                      style: GoogleFonts.poppins(
-                                        color: Colors.black,
-                                        fontSize: 14,),
-                                    ),
+                            ),
+                            SizedBox(
+                              height: 64,
+                              child: Center(
+                                child: Text(
+                                  "Time of exit",
+                                  textAlign: TextAlign.center,
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                SizedBox(
-                                  height: 64,
-                                  child: Center(
-                                    child: Text(
-                                      items.visits[i].dateOfVisit.split(";")[1],
-                                      textAlign: TextAlign.center,
-                                      style: GoogleFonts.poppins(
-                                        color: Colors.black,
-                                        fontSize: 14,),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 64,
-                                  child: Center(
-                                    child: Text(
-                                      items.visits[i].endTime.split(";")[1],
-                                      textAlign: TextAlign.center,
-                                      style: GoogleFonts.poppins(
-                                        color: Colors.black,
-                                        fontSize: 14,),
-                                    ),
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
                           ],
-                        );
-                        //var items = data.data as List<ProductDataModel>;
-                      }
-                      else {
-                        return Center(
-                          child: Text(" "),);
-                      }
-                    },
-                  ),
-                ),
+                        ),
+                        for (var i = 0; i < items.visits.length; i++)
+                          TableRow(
+                            decoration: BoxDecoration(
+                              color: colors[i % 2],
+                            ),
+                            children: <Widget>[
+                              SizedBox(
+                                height: 64,
+                                child: Center(
+                                  child: Text(
+                                    items.visits[i].dateOfVisit,
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.poppins(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 64,
+                                child: Center(
+                                  child: Text(
+                                    items.visits[i].dateOfVisit.split(";")[1],
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.poppins(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 64,
+                                child: Center(
+                                  child: Text(
+                                    items.visits[i].endTime.split(";")[1],
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.poppins(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                      ],
+                    );
+                    //var items = data.data as List<ProductDataModel>;
+                  } else {
+                    return Center(
+                      child: Text(" "),
+                    );
+                  }
+                },
               ),
-            ],
-          )
-      ),
-
+            ),
+          ),
+        ],
+      )),
+      bottomNavigationBar: Container(
+          margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+          child: FractionallySizedBox(
+            widthFactor: 1,
+            heightFactor: 0.07,
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xFF14839F), //background color of button
+                  //border width and color
+                  elevation: 0, //elevation of button
+                  shape: RoundedRectangleBorder(
+                      //to set border radius to button
+                      borderRadius: BorderRadius.circular(0)),
+                  //content padding inside button
+                ),
+                child: Text(
+                  'Back',
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+                onPressed: () => {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) => Search()))
+                    }),
+          )),
     );
   }
 }
