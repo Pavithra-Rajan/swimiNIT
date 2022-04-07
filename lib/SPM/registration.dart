@@ -23,7 +23,7 @@ class RegistrationPageState extends State<RegistrationPage> {
   String dropDownVal = 'Student';
 
   bool swapColor = false, submitted = false;
-  late Person p;
+  Person p = Person("name", "profileImg", "rollno", "enteredAt", 0, 0, "receiptID", "amtPaid", "datePaid", "Student", "mailID", "contact1", "contact2");
 
   final TextEditingController _memIDController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
@@ -32,7 +32,6 @@ class RegistrationPageState extends State<RegistrationPage> {
   final TextEditingController _contact2Controller = TextEditingController();
   final TextEditingController _receiptIDController = TextEditingController();
   final TextEditingController _paymentDateController = TextEditingController();
-  final TextEditingController _feesController = TextEditingController();
   final TextEditingController _moneyPaidController = TextEditingController();
   DateTime paymentDate = DateTime.now();
 
@@ -82,6 +81,7 @@ class RegistrationPageState extends State<RegistrationPage> {
             onChanged: (String? newValue) {
               setState(() {
                 dropDownVal = newValue!;
+                p.role = dropDownVal;
               });
             },
             ),
@@ -161,14 +161,8 @@ class RegistrationPageState extends State<RegistrationPage> {
 
   Widget _quaterlyFees() {
 
-    return TextFormField(
-      controller: _feesController,
-      decoration: InputDecoration(
-        hintText: 'Fees',
-        enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.teal, width: 1.5),
-        ),
-    ),
+    return Text(
+      p.role=="Student"?"Fees: 200":"Fees: 500"
     );
   }
 
