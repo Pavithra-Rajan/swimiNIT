@@ -379,7 +379,7 @@ class RegistrationPageState extends State<RegistrationPage> {
                     0,
                     0,
                     "receiptID",
-                    "amtPaid",
+                    "0",
                     "datePaid",
                     dropDownVal,
                     _mailIDController.text,
