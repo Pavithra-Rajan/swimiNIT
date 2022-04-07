@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:swiminit/SPM/spmnavbar.dart';
 import 'Person.dart';
 import 'package:intl/intl.dart';
-
+import 'package:swiminit/Admin/checkClassService.dart';
 class EditReceiptPage extends StatefulWidget {
   const EditReceiptPage({Key? key}) : super(key: key);
 
@@ -17,6 +17,7 @@ enum currState {searching, editing}
 
 class EditReceiptPageState extends State<EditReceiptPage>
 {
+  bool isWrong=false;
   currState state = currState.searching;
   Person p = Person("name", "profileImg", "rollno", "enteredAt", "noOfVisits", "dues", "receiptID", "amtPaid", "datePaid", "role", "mailID", "contact1", "contact2");
   String membershipID = "-1";
@@ -293,7 +294,10 @@ class EditReceiptPageState extends State<EditReceiptPage>
         body: Center(
           child: SizedBox(
             width: 350,
-            child: TextField(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[TextField(
               autocorrect: false,
               cursorColor: Color(0xFF14839F),
               controller: _membIDController,
@@ -301,8 +305,11 @@ class EditReceiptPageState extends State<EditReceiptPage>
               decoration: const InputDecoration(
                 hintText: "Membership ID",
                 prefixIcon: Icon(Icons.person, color: Color(0xFF14839F)),
+              ),
             ),
-          )
+              Visibility(visible:isWrong,
+                  child: Text("Swimmer does not exist")),
+            ],),
         )
       ),
         bottomNavigationBar: Container(
@@ -324,11 +331,21 @@ class EditReceiptPageState extends State<EditReceiptPage>
                   'Submit',
                   style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
-                onPressed: () => {
-                  setState(() {
-                        membershipID = _membIDController.text;
-                        state = currState.editing;
-                  })
+                onPressed: ()  async{
+                  try {
+              final _check = await CheckService.check(_membIDController.text);
+              if(_check.error=="Swimmer does not exist")
+              {
+              setState ( () {
+              isWrong = true;
+              });
+              }
+              }catch(e)
+                {setState(() {
+                  membershipID = _membIDController.text;
+                  state = currState.editing;
+                });}
+
                 },
               ),
             )
