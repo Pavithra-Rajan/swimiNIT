@@ -1,27 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:swiminit/SPM/swimmer_details_service_spm.dart';
+import 'package:swiminit/Admin/Swimmer_details_admin_class.dart';
+import 'package:swiminit/SPM/swimmer_visit_details_spm.dart';
+import 'package:swiminit/Admin/swimmer_details_admin_service.dart';
 import 'package:swiminit/SPM/swimmer_visit_details_spm.dart';
 import 'package:swiminit/SPM/receipt_details_service_spm.dart';
-import 'package:swiminit/SPM/SwimmerDetailsSpmClass.dart';
 import 'package:swiminit/SPM/UserVisitsSpmClass.dart';
 import 'package:swiminit/SPM/ReceiptDetailsSpmClass.dart';
 import 'package:swiminit/Admin/search.dart';
 //method that assign values to respective datatype vairables
 
 
-class UserHistorySPMPage extends StatefulWidget {
+class UserHistoryAdminPage extends StatefulWidget {
 
   String rollno;
-  UserHistorySPMPage({required this.rollno});
+  UserHistoryAdminPage({required this.rollno});
 
   @override
-  State<StatefulWidget> createState() => UserHistorySPMPageState();
+  State<StatefulWidget> createState() => UserHistoryAdminPageState();
 }
 
-class UserHistorySPMPageState extends State<UserHistorySPMPage> {
-  bool admin= false;
-
+class UserHistoryAdminPageState extends State<UserHistoryAdminPage> {
+  bool admin= true;
+  Widget downloadButton() {
+    return Container(
+      margin: EdgeInsets.only(left: 0, top: 20, right: 0, bottom: 20),
+      alignment: Alignment(0, 0),
+      child: FractionallySizedBox(
+          widthFactor: 0.25,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: Color(0xFF93C6D3), // background
+              onPrimary: Colors.white, // foreground
+              minimumSize: Size(175, 45),
+            ),
+            child: Text(
+              'Download',
+              style: GoogleFonts.poppins(
+                  color: Colors.black,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold),
+            ),
+            onPressed: () {},
+          )),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     print(widget.rollno);
@@ -50,25 +73,24 @@ class UserHistorySPMPageState extends State<UserHistorySPMPage> {
                         return Center(child: Text("${data.error}"));
                       }
                       else if (data.hasData) {
-                        var posts = data.data as SwimmerDetailsSpm;
+                        var posts = data.data as SwimmerDetailsAdmin;
                         return Padding(
                             padding: const EdgeInsets.all(1.0),
                             child: SizedBox(
-                              height: 108,
+                              height: 173,
                               child: Card(
                                 color: Color(0xFF93C6D3),
                                 shadowColor: Color(0xFFFFFFFF),
                                 margin: EdgeInsets.fromLTRB(20, 20, 20, 8),
                                 shape: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
-                                    borderSide: BorderSide(color: Colors.white)
-                                ),
+                                    borderSide: BorderSide(color: Colors.white)),
                                 child: Stack(
                                   children: <Widget>[
                                     Align(
                                       alignment: Alignment(-0.98, -1),
                                       child: Padding(
-                                        padding: const EdgeInsets.fromLTRB(7, 8, 1, 5),
+                                        padding: const EdgeInsets.fromLTRB(7, 8, 2, 5),
                                         child: Container(
                                             width: 55.0,
                                             height: 55.0,
@@ -76,34 +98,51 @@ class UserHistorySPMPageState extends State<UserHistorySPMPage> {
                                                 shape: BoxShape.circle,
                                                 image: DecorationImage(
                                                     fit: BoxFit.cover,
-                                                    image: AssetImage('lib/Resources/pic-1.png')
-                                                )
-                                            )),
+                                                    image: AssetImage('lib/Resources/pic-1.png')))),
                                       ),
                                     ),
                                     Align(
-                                        alignment: Alignment(-0.35, -1),
+                                        alignment: Alignment(-0.20, -1),
                                         child: Container(
                                           margin: EdgeInsets.fromLTRB(0, 10, 0, 5),
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: <Widget>[
-                                              Text(posts.name,
-                                                style: GoogleFonts.poppins(color: Colors.black,
+                                              Text(
+                                                posts.name,
+                                                style: GoogleFonts.poppins(
+                                                    color: Colors.black,
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.bold),
                                               ),
-                                              Text(posts.roles, style: GoogleFonts.poppins(
-                                                  color: Colors.black, fontSize: 13),
-                                              ),
-                                              Text(posts.membershipId,
+                                              Text(
+                                                posts.role,
                                                 style: GoogleFonts.poppins(
                                                     color: Colors.black, fontSize: 13),
-                                              )
+                                              ),
+                                              Text(
+                                                posts.membershipId,
+                                                style: GoogleFonts.poppins(
+                                                    color: Colors.black, fontSize: 13),
+                                              ),
+                                              Text(
+                                                posts.emailId,
+                                                style: GoogleFonts.poppins(
+                                                    color: Colors.black, fontSize: 13),
+                                              ),
+                                              Text(
+                                                posts.contact1,
+                                                style: GoogleFonts.poppins(
+                                                    color: Colors.black, fontSize: 13),
+                                              ),
+                                              Text(
+                                                posts.contact2,
+                                                style: GoogleFonts.poppins(
+                                                    color: Colors.black, fontSize: 13),
+                                              ),
                                             ],
                                           ),
-                                        )
-                                    ),
+                                        )),
                                     Align(
                                         alignment: Alignment(1, -1),
                                         child: Container(
@@ -111,29 +150,30 @@ class UserHistorySPMPageState extends State<UserHistorySPMPage> {
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.end,
                                             children: <Widget>[
-                                              Text("5 visits",
+                                              Text(
+                                                posts.numberOfFreeTrials.toString() + ' visits',
                                                 style: GoogleFonts.poppins(
                                                     color: Colors.black, fontSize: 13),
                                               ),
-                                              Text('Dues: Rs. ' + posts.dues.toString(),
+                                              Text(
+                                                'Dues: Rs. ' + posts.dues.toString(),
                                                 style: GoogleFonts.poppins(
                                                     color: Colors.black, fontSize: 13),
                                               )
                                             ],
                                           ),
-                                        )
-                                    )
+                                        ))
                                   ],
                                 ),
                               ),
-                            )
-                        );
+                            ));
                         // print(posts);
                         //var items = data.data as List<ProductDataModel>;
                       }
                       else {
                         return Center(
-                          child: Text(" "),);
+                            child: CircularProgressIndicator(),
+                        );
                       }
                     },
 
@@ -341,6 +381,7 @@ class UserHistorySPMPageState extends State<UserHistorySPMPage> {
                   ),
                 ),
               ),
+              downloadButton(),
             ],
           )
       ),

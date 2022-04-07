@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
-import 'package:swiminit/SPM/trial.dart';
-
+import 'package:swiminit/Admin/trial.dart';
 class MembershipIdSearch1  extends StatefulWidget {
 
   final Function toggleswitch;
@@ -103,7 +102,7 @@ class  MembershipIdSearchState1 extends State<MembershipIdSearch1> {
               onPressed: () => {
               Navigator.push(
               context,
-              MaterialPageRoute(builder: (BuildContext context) => UserHistorySPMPage(rollno: rollno)))
+              MaterialPageRoute(builder: (BuildContext context) => UserHistoryAdminPage(rollno: rollno)))
               },
             ),
           )
