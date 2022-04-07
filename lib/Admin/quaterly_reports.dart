@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:swiminit/Admin/collections.dart';
+import 'package:swiminit/Admin/quarterlyReportResults.dart';
 
 class QuarterlyReports extends StatelessWidget
 {
@@ -25,7 +27,12 @@ class QuarterlyReports extends StatelessWidget
                             alignment: Alignment.center,
                             child: Container(
                               margin: EdgeInsets.fromLTRB(0, 0, 0, 5),
-                              child: RawMaterialButton(onPressed: () {},
+                              child: RawMaterialButton(onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const quarterlyReportsPage()),
+                                );
+                              },
                                   fillColor: Color(0xFF93C6D3),
                                   splashColor: Color(0xFF93C6D3),
                                   highlightColor: Color(0xFF93C6D3),
@@ -48,7 +55,8 @@ class QuarterlyReports extends StatelessWidget
                                             style: GoogleFonts.rubik(color: Colors.black, fontSize: 18)),
                                       ),
                                     ],
-                                  )
+                                  ),
+
                               ),
                             )
                     ),
@@ -57,7 +65,11 @@ class QuarterlyReports extends StatelessWidget
                       alignment: Alignment.center,
                       child: Container(
                         margin: EdgeInsets.fromLTRB(0, 300, 0, 0),
-                        child: RawMaterialButton(onPressed: () async {},
+                        child: RawMaterialButton(onPressed: () async {Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const CollectionsReport()),
+                        );
+                          },
                             fillColor: Color(0xFF93C6D3),
                             splashColor: Color(0xFF93C6D3),
                             highlightColor: Color(0xFF93C6D3),
@@ -70,7 +82,8 @@ class QuarterlyReports extends StatelessWidget
                               children: [
                                 Image.asset("lib/Resources/collectionReport.png",
                                     width: 150,
-                                    height: 150,),
+                                    height: 150,
+                                ),
                                 Container(
                                   margin: EdgeInsets.fromLTRB(0, 15, 0,0),
                                   child: Text('Collections Report',

@@ -1,53 +1,46 @@
-import 'package:flutter/material.dart';
 import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 
-// List<ProductDataModel> postFromJson(String str) =>
-//     List<ProductDataModel>.from(json.decode(str).map((x) => ProductDataModel.fromMap(x)));
 class ProductDataModel {
+  final String paymentDate;
+  final String receiptID;
   final String membershipID;
-  final String name;
-  final int dues;
+  final int moneyPaid;
+
 
   ProductDataModel(
-    this.membershipID,
-    this.name,
-    this.dues,
-  );
+      this.membershipID, this.paymentDate, this.receiptID, this.moneyPaid,
+      );
 }
 
-class PendingDuesPage extends StatefulWidget {
-  const PendingDuesPage({Key? key}) : super(key: key);
+class CollectionsReport extends StatefulWidget {
+  const CollectionsReport({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() {
-    return PendingDuesPageState();
-  }
+  State<CollectionsReport> createState() => _CollectionsReportState();
 }
 
-class PendingDuesPageState extends State<PendingDuesPage> {
-  // Fetch content from the json file
+class _CollectionsReportState extends State<CollectionsReport> {
 
-  Future getDues() async {
+  Future getReport() async {
     var response =
-        await http.get(Uri.parse('https://swiminit.herokuapp.com/getDues'));
-    //print(ProductDataModel.fromJson(jsonDecode(response.body)));
+    await http.get(Uri.parse('https://swiminit.herokuapp.com/getCollectionsReport'));
     var data = json.decode(response.body);
     List<ProductDataModel> duesData = [];
-    //print(data['swimmersWithDues']);
 
-    for (var u in data['swimmersWithDues']) {
+    for (var u in data['collectionInQuarter']) {
+      String membershipID = u["membershipID"];
+      int moneyPaid = u["moneyPaid"];
+      String paymentDate = u["paymentDate"];
+      String receiptID = u["receiptID"];
+
       ProductDataModel duesData1 =
-          ProductDataModel(u["membershipID"], u["name"], u["dues"]);
+      ProductDataModel(membershipID, paymentDate, receiptID, moneyPaid);
       duesData.add(duesData1);
-      //print(u['membershipID']);
     }
-    //print(duesData.length);
     return duesData;
-    //print(data['swimmersWithDues']);
-    //print(data['swimmersWithDues'][0]['membershipID']);
-    // print(ProductDataModel.fromJson(jsonDecode(response.body)).dues);
   }
 
   @override
@@ -56,12 +49,21 @@ class PendingDuesPageState extends State<PendingDuesPage> {
 
     List<Color> colors = [Color(0xFFFFFFFF), Color(0xFFD2EAF0)];
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: false,
+        backgroundColor: Color(0xFF14839F),
+
+        title: Text('Results',
+
+          style: GoogleFonts.poppins(color: Colors.white),
+        ),
+      ),
 
       body: Container(
         margin: EdgeInsets.only(left: 20, top: 10, right: 20, bottom: 0),
         child: SingleChildScrollView(
           child: FutureBuilder(
-            future: getDues(),
+            future: getReport(),
             builder: (context, data) {
               if (data.hasError) {
                 return Center(child: Text("${data.error}"));
@@ -80,6 +82,20 @@ class PendingDuesPageState extends State<PendingDuesPage> {
                           height: 64,
                           child: Center(
                             child: Text(
+                              "Receipt ID",
+                              style: GoogleFonts.poppins(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 64,
+                          child: Center(
+                            child: Text(
                               "Membership ID",
                               style: GoogleFonts.poppins(
                                 color: Colors.black,
@@ -94,13 +110,13 @@ class PendingDuesPageState extends State<PendingDuesPage> {
                           height: 64,
                           child: Center(
                             child: Text(
-                              "Name",
+                              "Payment date",
+                              textAlign: TextAlign.center,
                               style: GoogleFonts.poppins(
                                 color: Colors.black,
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold,
                               ),
-                              textAlign: TextAlign.center,
                             ),
                           ),
                         ),
@@ -108,7 +124,7 @@ class PendingDuesPageState extends State<PendingDuesPage> {
                           height: 64,
                           child: Center(
                             child: Text(
-                              "Dues",
+                              "Amount Paid",
                               textAlign: TextAlign.center,
                               style: GoogleFonts.poppins(
                                 color: Colors.black,
@@ -130,7 +146,7 @@ class PendingDuesPageState extends State<PendingDuesPage> {
                             height: 64,
                             child: Center(
                               child: Text(
-                                items[i].membershipID.toString(),
+                                items[i].receiptID,
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.poppins(
                                   color: Colors.black,
@@ -143,7 +159,7 @@ class PendingDuesPageState extends State<PendingDuesPage> {
                             height: 64,
                             child: Center(
                               child: Text(
-                                items[i].name.toString(),
+                                items[i].membershipID,
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.poppins(
                                   color: Colors.black,
@@ -156,7 +172,20 @@ class PendingDuesPageState extends State<PendingDuesPage> {
                             height: 64,
                             child: Center(
                               child: Text(
-                                items[i].dues.toString(),
+                                items[i].paymentDate,
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.poppins(
+                                  color: Colors.black,
+                                  fontSize: 13,
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 64,
+                            child: Center(
+                              child: Text(
+                                "Rs. ${items[i].moneyPaid.toString()}",
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.poppins(
                                   color: Colors.black,
@@ -180,53 +209,6 @@ class PendingDuesPageState extends State<PendingDuesPage> {
           ),
         ),
       ),
-      // bottomNavigationBar: Container(
-      //   margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-      //   child: FractionallySizedBox(
-      //     widthFactor: 1,
-      //     heightFactor: 0.07,
-      //     child: ElevatedButton(
-      //       style: ElevatedButton.styleFrom(
-      //         primary: Color(0xFF14839F), //background color of button
-      //         //border width and color
-      //         elevation: 0, //elevation of button
-      //         shape: RoundedRectangleBorder(
-      //             //to set border radius to button
-      //             borderRadius: BorderRadius.circular(0)),
-      //         //content padding inside button
-      //       ),
-      //       child: Text(
-      //         'Download',
-      //         style: TextStyle(color: Colors.white, fontSize: 16),
-      //       ),
-      //       onPressed: () => {},
-      //     ),
-      //   ),
-      // ),
     );
   }
 }
-
-// bottomNavigationBar: Container(
-// margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-// child: FractionallySizedBox(
-// widthFactor: 1,
-// heightFactor: 0.07,
-// child: ElevatedButton(
-// style: ElevatedButton.styleFrom(
-// primary: Color(0xFF14839F), //background color of button
-// //border width and color
-// elevation: 0, //elevation of button
-// shape: RoundedRectangleBorder(
-// //to set border radius to button
-// borderRadius: BorderRadius.circular(0)),
-// //content padding inside button
-// ),
-// child: Text(
-// 'Add',
-// style: TextStyle(color: Colors.white, fontSize: 16),
-// ),
-// onPressed: () => {},
-// ),
-// )),
-// );
