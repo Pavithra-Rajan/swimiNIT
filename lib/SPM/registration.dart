@@ -157,15 +157,6 @@ class RegistrationPageState extends State<RegistrationPage> {
         _paymentDateController.text= DateFormat('dd-MM-yyyy').format(value);
       },
     );
-    //   TextFormField(
-    //   controller: _paymentDateController,
-    //   decoration: InputDecoration(
-    //     hintText: 'Payment Date',
-    //     enabledBorder: UnderlineInputBorder(
-    //       borderSide: BorderSide(color: Color(0xFF14839F), width: 1.5),
-    //     ),
-    //   ),
-    // );
   }
 
   Widget _quaterlyFees() {
