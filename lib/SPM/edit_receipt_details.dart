@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:swiminit/SPM/spmnavbar.dart';
-import 'Person.dart';
+import 'person.dart';
 import 'package:intl/intl.dart';
 
 class EditReceiptPage extends StatefulWidget {
@@ -56,24 +56,18 @@ class EditReceiptPageState extends State<EditReceiptPage>
     );
   }
 
-  //Method for showing the date picker
   void _pickDateDialog() {
     showDatePicker(
         context: context,
         initialDate: DateTime.now(),
-        //which date will display when user open the picker
         firstDate: DateTime(1950),
-        //what will be the previous supported year in picker
         lastDate: DateTime
-            .now()) //what will be the up to supported date in picker
+            .now())
         .then((pickedDate) {
-      //then usually do the future job
       if (pickedDate == null) {
-        //if user tap cancel then this function will stop
         return;
       }
       setState(() {
-        //for rebuilding the ui
         _selectedDate = pickedDate;
       });
     });
@@ -117,7 +111,6 @@ class EditReceiptPageState extends State<EditReceiptPage>
       child: FutureBuilder(
           future: getSwimmer(),
           builder: (context, data) {
-
             if (data.hasError) {
               return Center(child: Text("${data.error}"));
             } else if (data.hasData) {
@@ -192,7 +185,6 @@ class EditReceiptPageState extends State<EditReceiptPage>
                     SizedBox(height: 20),
                     Align(
                       alignment: Alignment(-0.3, 1),
-
                       child: SizedBox(
                         width: 300,
                         child: TextField(

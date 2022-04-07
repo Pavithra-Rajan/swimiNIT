@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
-import 'Person.dart';
+import 'person.dart';
 import 'package:expandable/expandable.dart';
-import '../SPM/Person.dart';
+import '../SPM/person.dart';
 
 class PoolStatusPage extends StatefulWidget {
   const PoolStatusPage({Key? key}) : super(key: key);
@@ -25,14 +25,17 @@ class _PoolStatusPageState extends State<PoolStatusPage>
         padding: const EdgeInsets.all(1.0),
         child: Card(
           color: Color(0xFF93C6D3),
+          shadowColor: Color(0xFF93C6D3),
+          margin: EdgeInsets.zero,
+          clipBehavior: Clip.none,
           child: ExpandablePanel(
-
               header: Padding(
                 padding: const EdgeInsets.all(1.0),
                 child: Card(
                   color: Color(0xFF93C6D3),
                   shadowColor: Color(0xFF93C6D3),
-
+                    margin: EdgeInsets.zero,
+                    clipBehavior: Clip.none,
                   child: Padding(
                     padding: const EdgeInsets.all(1.0),
                     child: Stack(
@@ -50,7 +53,8 @@ class _PoolStatusPageState extends State<PoolStatusPage>
                                         fit: BoxFit.cover,
                                         image: AssetImage(p.profileImg)
                                     )
-                                )),
+                                )
+                            ),
                           ),
                         ),
                         Align(
@@ -128,7 +132,6 @@ class _PoolStatusPageState extends State<PoolStatusPage>
             )
           ],
         ),
-
       ),
     );
   }

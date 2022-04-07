@@ -42,7 +42,6 @@ class UserHistorySPMPageState extends State<UserHistorySPMPage> {
                 margin: EdgeInsets.only(
                     left: 20, top: 10, right: 20, bottom: 0),
                 child: SingleChildScrollView(
-
                   child: FutureBuilder(
                     future: SwimmerDetailsServices.getSwimmersDetails(widget.rollno, admin),
                     builder: (context,data) {
@@ -136,17 +135,13 @@ class UserHistorySPMPageState extends State<UserHistorySPMPage> {
                           child: Text(" "),);
                       }
                     },
-
                   ),
-
                 ),
               ),
-
               Container(
                 margin: EdgeInsets.only(
                     left: 20, top: 10, right: 20, bottom: 0),
                 child: SingleChildScrollView(
-
                   child: FutureBuilder(
                     future: ReceiptDetailsServices.getSwimmersReceiptDetails(),
                     builder: (BuildContext context,data) {
@@ -155,9 +150,7 @@ class UserHistorySPMPageState extends State<UserHistorySPMPage> {
                         return Center(child: Text(""));
                       }
                       else if (data.hasData) {
-
                         var receipt = data.data as ReceiptDetailsSpm;
-
                         //var items = data.data as List<ProductDataModel>;
                         return Padding(
                             padding: const EdgeInsets.all(0),

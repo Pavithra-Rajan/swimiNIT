@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../SPM/Person.dart';
+import '../SPM/person.dart';
 import 'package:flutter/services.dart';
 
 class UserHistoryTable {
@@ -245,7 +245,7 @@ class UserHistoryAdminPageState extends State<UserHistoryAdminPage> {
     return Scaffold(
         body: SingleChildScrollView(
             child: Column(
-      children: [
+              children: [
                 userDetails(P),
                 userReceipt(P),
                 Container(

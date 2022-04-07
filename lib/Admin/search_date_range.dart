@@ -16,8 +16,6 @@ class Daterange2State extends State<Daterange2> {
   bool isChecked=false;
   var fromdate;
   var enddate;
-  TextEditingController _textEditingController1 =TextEditingController();
-  TextEditingController _textEditingController2 =TextEditingController();
 
   Widget _builddaterange1() {
     return DateTimeFormField(
@@ -38,10 +36,8 @@ class Daterange2State extends State<Daterange2> {
         onDateSelected: (DateTime value) {
         //print(value);
         fromdate = value;
-        print(fromdate);
         fromdate=fromdate.toString().split(" ")[0];
         fromdate=fromdate.split('-').reversed.join('-');
-        print(fromdate);
       },
 
     );

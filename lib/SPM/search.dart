@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:swiminit/SPM/Person.dart';
-import 'search_dateRange.dart';
-import 'search_membershipID.dart';
+import 'package:swiminit/SPM/person.dart';
+import 'search_date_range.dart';
+import 'search_membership_id.dart';
 import 'edit_receipt_details.dart';
 import 'package:http/http.dart' as http;
 

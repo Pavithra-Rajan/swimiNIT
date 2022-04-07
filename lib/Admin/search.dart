@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:swiminit/Admin/search_membershipID.dart';
-import 'package:swiminit/Admin/search_dateRange.dart';
+import 'package:swiminit/Admin/search_membership_id.dart';
+import 'package:swiminit/Admin/search_date_range.dart';
 
 class Search extends StatefulWidget {
   const Search({Key? key}) : super(key: key);

@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:http/http.dart' as http;
-import '../SPM/Person.dart';
+import '../SPM/person.dart';
 
 class RegistrationPage extends StatefulWidget {
 

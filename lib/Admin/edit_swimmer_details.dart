@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:swiminit/Admin/adminnavbar.dart';
 import 'package:http/http.dart' as http;
-import 'Swimmer.dart';
+import 'swimmer.dart';
 import 'dart:convert';
 
 class EditSwimmerPage extends StatefulWidget {
@@ -68,14 +68,10 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
     s.emailID = data["emailID"];
     s.contact1 = data["contact1"];
     s.contact2 = data["contact2"];
-
     _nameController.text = s.name;
     _emailIDController.text = s.emailID;
     _contact1Controller.text = s.contact1;
     _contact2Controller.text = s.contact2;
-
-    print(s.role.length);
-
     return s;
   }
 
