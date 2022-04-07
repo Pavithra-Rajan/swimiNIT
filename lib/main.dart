@@ -154,7 +154,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         padding: const EdgeInsets.symmetric(vertical: 15.0),
                         onPressed: () async {
                           User? user = await loginUsingEmailPassword(
-                              email: _emailController.text,
+                              email: _emailController.text + '@swiminit.com',
                               password: _passwordController.text,
                               context: context);
                           print(user);

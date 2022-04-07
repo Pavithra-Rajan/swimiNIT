@@ -46,6 +46,8 @@ class EntryPageState extends State<EntryPage> {
     p.rollno = data["membershipID"];
     p.name = data["name"];
     p.role = data["roles"];
+    p.noOfVisits = data["numberOfFreeTrials"];
+
     return p;
   }
 
@@ -217,7 +219,7 @@ class EntryPageState extends State<EntryPage> {
       if (p.dues != "0") {
         return DuesAlertBox();
       }
-      if (p.noOfVisits == "5" && p.role == "Student") {
+      if (p.noOfVisits == "0" && p.role == "Student") {
         return FreeTrialsAlertBox();
       }
       return Scaffold(
@@ -295,9 +297,7 @@ class EntryPageState extends State<EntryPage> {
                     swimmerEntry();
                     membershipID = "-2";
                   }),
-                Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => DuesAlertBox())),
+
                 },
               ),
             )

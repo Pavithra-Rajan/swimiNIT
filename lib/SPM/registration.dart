@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:date_field/date_field.dart';
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:http/http.dart' as http;
@@ -136,7 +137,34 @@ class RegistrationPageState extends State<RegistrationPage> {
   }
 
   Widget _paymentDate() {
-    return TextFormField(
+    return
+      // DateTimeFormField(
+    //
+    //   decoration: const InputDecoration(
+    //     hintStyle: TextStyle(color: Colors.black45),
+    //     errorStyle: TextStyle(color: Colors.redAccent),
+    //     enabledBorder: UnderlineInputBorder(
+    //       borderSide: BorderSide(color: Color(0xFF14839F), width: 1.5),
+    //     ),
+    //     suffixIcon: Icon(Icons.event_note),
+    //     labelText: 'Payment Date',
+    //   ),
+    //   mode: DateTimeFieldPickerMode.date,
+    //   autovalidateMode: AutovalidateMode.always,
+    //   initialDate: DateTime.now(),
+    //   lastDate: DateTime.now(),
+    //   onDateSelected: (DateTime value){
+    //     //String payDate=value as String;
+    //     String convDate=value.toString().split(" ")[0];
+    //     convDate=convDate.split('-').reversed.join('-');
+    //     print(convDate);
+    //     _paymentDateController.text=convDate;
+    //     //payDate = payDate.toString().split(" ")[0];
+    //     //_paymentDateController.text=payDate;
+    //
+    //   },
+    // );
+      TextFormField(
       controller: _paymentDateController,
       decoration: InputDecoration(
         hintText: 'Payment Date',
