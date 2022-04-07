@@ -70,7 +70,8 @@ class QuarterlyReports extends StatelessWidget
                               children: [
                                 Image.asset("lib/Resources/collectionReport.png",
                                     width: 150,
-                                    height: 150,),
+                                    height: 150,
+                                ),
                                 Container(
                                   margin: EdgeInsets.fromLTRB(0, 15, 0,0),
                                   child: Text('Collections Report',
