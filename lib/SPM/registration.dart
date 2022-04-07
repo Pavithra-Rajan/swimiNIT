@@ -337,7 +337,7 @@ class RegistrationPageState extends State<RegistrationPage> {
                     _mailIDController.text,
                     _contact1Controller.text,
                     _contact2Controller.text);
-                if(!swapColor){
+                if(swapColor){
                   p.receiptID = _receiptIDController.text;
                   p.datePaid = _paymentDateController.text;
                   p.amtPaid = _moneyPaidController.text;
@@ -367,17 +367,20 @@ class RegistrationPageState extends State<RegistrationPage> {
   {
     var jsonvalue = {};
     var details = {};
+    var receipt = {};
     jsonvalue["paid"] = swapColor.toString();
     details["contact1"] = p.contact1;
     details["contact2"] = p.contact2;
-    details["dues"] = p.role=="Student"?0:(swapColor?0:500);
     details["role"] = p.role;
     details["emailID"] = p.mailID;
-    details["fees"] = p.role=="Student"?200:500;
     details["membershipID"] = p.rollno;
     details["name"] = p.name;
-    details["numberOfFreeTrials"] = p.role=="Student"?5:0;
+    receipt["receiptID"] = p.receiptID; 
+    receipt["membershipID"] = p.rollno; 
+    receipt["moneyPaid"] = int.parse(p.amtPaid); 
+    receipt["paymentDate"] = p.datePaid;
     jsonvalue["details"] = details;
+    jsonvalue["receipt"] = receipt;
 
     await http.post(
       Uri.parse('https://swiminit.herokuapp.com/register'),
