@@ -152,7 +152,7 @@ class UserHistoryAdminPageState extends State<UserHistoryAdminPage> {
                                             crossAxisAlignment: CrossAxisAlignment.end,
                                             children: <Widget>[
                                               Text(
-                                                posts.numberOfFreeTrials.toString() + ' visits',
+                                                posts.numberOfVisits.toString() + ' visits',
                                                 style: GoogleFonts.poppins(
                                                     color: Colors.black, fontSize: 13),
                                               ),

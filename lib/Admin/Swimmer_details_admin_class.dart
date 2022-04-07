@@ -4,9 +4,11 @@
 
 import 'dart:convert';
 
-SwimmerDetailsAdmin swimmerDetailsAdminFromJson(String str) => SwimmerDetailsAdmin.fromJson(json.decode(str));
+SwimmerDetailsAdmin swimmerDetailsAdminFromJson(String str) =>
+    SwimmerDetailsAdmin.fromJson(json.decode(str));
 
-String swimmerDetailsAdminToJson(SwimmerDetailsAdmin data) => json.encode(data.toJson());
+String swimmerDetailsAdminToJson(SwimmerDetailsAdmin data) =>
+    json.encode(data.toJson());
 
 class SwimmerDetailsAdmin {
   SwimmerDetailsAdmin({
@@ -18,6 +20,7 @@ class SwimmerDetailsAdmin {
     required this.membershipId,
     required this.name,
     required this.numberOfFreeTrials,
+    required this.numberOfVisits,
     required this.role,
   });
 
@@ -29,29 +32,33 @@ class SwimmerDetailsAdmin {
   String membershipId;
   String name;
   int numberOfFreeTrials;
+  int numberOfVisits;
   String role;
 
-  factory SwimmerDetailsAdmin.fromJson(Map<String, dynamic> json) => SwimmerDetailsAdmin(
-    contact1: json["contact1"],
-    contact2: json["contact2"],
-    dues: json["dues"],
-    emailId: json["emailID"],
-    fees: json["fees"],
-    membershipId: json["membershipID"],
-    name: json["name"],
-    numberOfFreeTrials: json["numberOfFreeTrials"],
-    role: json["role"],
-  );
+  factory SwimmerDetailsAdmin.fromJson(Map<String, dynamic> json) =>
+      SwimmerDetailsAdmin(
+        contact1: json["contact1"],
+        contact2: json["contact2"],
+        dues: json["dues"],
+        emailId: json["emailID"],
+        fees: json["fees"],
+        membershipId: json["membershipID"],
+        name: json["name"],
+        numberOfFreeTrials: json["numberOfFreeTrials"],
+        numberOfVisits: json["numberOfVisits"],
+        role: json["role"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "contact1": contact1,
-    "contact2": contact2,
-    "dues": dues,
-    "emailID": emailId,
-    "fees": fees,
-    "membershipID": membershipId,
-    "name": name,
-    "numberOfFreeTrials": numberOfFreeTrials,
-    "role": role,
-  };
+        "contact1": contact1,
+        "contact2": contact2,
+        "dues": dues,
+        "emailID": emailId,
+        "fees": fees,
+        "membershipID": membershipId,
+        "name": name,
+        "numberOfFreeTrials": numberOfFreeTrials,
+        "numberOfVisits": numberOfVisits,
+        "role": role,
+      };
 }
