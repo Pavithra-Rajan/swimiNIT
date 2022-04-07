@@ -26,29 +26,29 @@ class SearchByDateRange extends StatefulWidget {
 
 class SearchByDateRangeState extends State<SearchByDateRange> {
   // Fetch content from the json file
-  Widget downloadButton() {
-    return Container(
-      margin: EdgeInsets.only(left: 0, top: 20, right: 0, bottom: 20),
-      alignment: Alignment(0, 0),
-      child: FractionallySizedBox(
-          widthFactor: 0.25,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              primary: Color(0xFF93C6D3), // background
-              onPrimary: Colors.white, // foreground
-              minimumSize: Size(175, 45),
-            ),
-            child: Text(
-              'Download',
-              style: GoogleFonts.poppins(
-                  color: Colors.black,
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold),
-            ),
-            onPressed: () {},
-          )),
-    );
-  }
+  // Widget downloadButton() {
+  //   return Container(
+  //     margin: EdgeInsets.only(left: 0, top: 20, right: 0, bottom: 20),
+  //     alignment: Alignment(0, 0),
+  //     child: FractionallySizedBox(
+  //         widthFactor: 0.25,
+  //         child: ElevatedButton(
+  //           style: ElevatedButton.styleFrom(
+  //             primary: Color(0xFF93C6D3), // background
+  //             onPrimary: Colors.white, // foreground
+  //             minimumSize: Size(175, 45),
+  //           ),
+  //           child: Text(
+  //             'Download',
+  //             style: GoogleFonts.poppins(
+  //                 color: Colors.black,
+  //                 fontSize: 12,
+  //                 fontWeight: FontWeight.bold),
+  //           ),
+  //           onPressed: () {},
+  //         )),
+  //   );
+  // }
   @override
   Widget build(BuildContext context) {
 
@@ -180,7 +180,7 @@ class SearchByDateRangeState extends State<SearchByDateRange> {
                       //throw '';
                     },
                   ),
-                  downloadButton(),
+                  SizedBox(height: 20),
                 ]
             ),
 
