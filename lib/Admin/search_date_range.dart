@@ -149,28 +149,26 @@ class Daterange2State extends State<Daterange2> {
           ),
         ),
       ),
-      bottomNavigationBar: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          SizedBox(
-            height: 40, //height of button
-            width: 400, //width of button equal to parent widget
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: Color(0xFF14839F), //background color of button
-                //border width and color
-                elevation: 0, //elevation of button
-                shape: RoundedRectangleBorder(
-                  //to set border radius to button
-                    borderRadius: BorderRadius.circular(3)),
-                //content padding inside button
-              ),
-              child: Text(
-                'Search',
-                style: TextStyle(color: Colors.white, fontSize: 16),
-              ),
-              onPressed: () {
+      bottomNavigationBar: Container(
+            margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+            child: FractionallySizedBox(
+              widthFactor: 1,
+              heightFactor: 0.08,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xFF14839F), //background color of button
+                  //border width and color
+                  elevation: 0, //elevation of button
+                  shape: RoundedRectangleBorder(
+                      //to set border radius to button
+                      borderRadius: BorderRadius.circular(0)),
+                  //content padding inside button
+                ),
+                child: Text(
+                  'Search',
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+                onPressed: () {
                 if(isChecked==false) {
                   Navigator.push(
                       context,
@@ -185,12 +183,9 @@ class Daterange2State extends State<Daterange2> {
                           SearchByDateRange(
                               fromdate: fromdate, enddate: fromdate)));
                 }
-
-              },
-            ),
-          )
-        ],
-      ),
+                },
+              ),
+            )),
     );
   }
 }

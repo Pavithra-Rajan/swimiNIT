@@ -216,9 +216,9 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                               ))),
                       SizedBox(height: 5),
                       Align(
-                        alignment: Alignment(-0.65, 1),
+                        alignment: Alignment(-0.75, 1),
                         child: Text(
-                          _text1Controller_bool? "*This field is required":"",
+                          _text1Controller_bool? "*Invalid input":"",
                           style: GoogleFonts.poppins(color: Colors.red, fontSize: 12),
                         ),
                       ),
@@ -290,9 +290,9 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                               ))),
                       SizedBox(height: 5),
                       Align(
-                        alignment: Alignment(-0.65, 1),
+                        alignment: Alignment(-0.75, 1),
                         child: Text(
-                          _text2Controller_bool? "*This field is required":"",
+                          _text2Controller_bool? "*Invalid input":"",
                           style: GoogleFonts.poppins(color: Colors.red, fontSize: 12),
                         ),
                       ),
@@ -327,9 +327,9 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                               ))),
                       SizedBox(height: 5),
                       Align(
-                        alignment: Alignment(-0.65, 1),
+                        alignment: Alignment(-0.75, 1),
                         child: Text(
-                          _text3Controller_bool? "*This field is required":"",
+                          _text3Controller_bool? "*Invalid input":"",
                           style: GoogleFonts.poppins(color: Colors.red, fontSize: 12),
                         ),
                       ),
@@ -364,9 +364,9 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                               ))),
                       SizedBox(height: 5),
                       Align(
-                        alignment: Alignment(-0.65, 1),
+                        alignment: Alignment(-0.75, 1),
                         child: Text(
-                          _text4Controller_bool? "*This field is required":"",
+                          _text4Controller_bool? "*Invalid input":"",
                           style: GoogleFonts.poppins(color: Colors.red, fontSize: 12),
                         ),
                       ),
@@ -564,9 +564,9 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                       _text1Controller_bool = true;
                     } else if(_emailIDController.text.length == 0) {
                       _text2Controller_bool = true;
-                    } else if(_contact1Controller.text.length == 0) {
+                    } else if(_contact1Controller.text.length != 10) {
                       _text3Controller_bool = true;
-                    } else if(_contact2Controller.text.length == 0) {
+                    } else if(_contact2Controller.text.length != 10) {
                       _text4Controller_bool = true;
                     } else {
                       editSwimmerDetails();
