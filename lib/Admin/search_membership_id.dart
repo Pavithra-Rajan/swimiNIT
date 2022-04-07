@@ -4,6 +4,8 @@ import 'package:toggle_switch/toggle_switch.dart';
 
 import 'package:swiminit/Admin/user_history.dart';
 
+import 'package:swiminit/Admin/checkClass.dart';
+import 'package:swiminit/Admin/checkClassService.dart';
 class MembershipIdSearch1  extends StatefulWidget {
 
   final Function toggleswitch;
@@ -17,6 +19,8 @@ class MembershipIdSearch1  extends StatefulWidget {
 
 class  MembershipIdSearchState1 extends State<MembershipIdSearch1> {
   late String rollno;
+
+  bool isWrong=false;
   bool isVisible=false;
   Widget _buildMembershipId() {
     return TextFormField(
@@ -27,7 +31,10 @@ class  MembershipIdSearchState1 extends State<MembershipIdSearch1> {
         ),
       ),
       onChanged:(value){
-        rollno=value;
+        setState(() {
+          rollno=value;
+        });
+
       },
     );
   }
@@ -113,6 +120,10 @@ class  MembershipIdSearchState1 extends State<MembershipIdSearch1> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       _buildMembershipId(),
+                       Visibility(
+                         visible: isWrong,
+                         child: Text("Swimmer does not exist"),),
+
                     ]
                 ),
               )
@@ -140,16 +151,32 @@ class  MembershipIdSearchState1 extends State<MembershipIdSearch1> {
                 'Search',
                 style: TextStyle(color: Colors.white, fontSize: 16),
               ),
-              onPressed: () => {
-                if(rollno!=Null){
+
+              onPressed: ()  async{
+                try {
+                  final _check = await CheckService.check(rollno);
+                  if(_check.error=="Swimmer does not exist")
+                  {
+                  setState ( () {
+                    isWrong = true;
+                  });
+                }
+                }catch(e)
+                { if(rollno==null)
+                  {
+                    blankInputs();
+                  }
+                  else{
                   Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (BuildContext context) => UserHistoryAdminPage(rollno: rollno)))
+                      MaterialPageRoute(builder: (BuildContext context) => UserHistoryAdminPage(rollno: rollno)));
                 }
-                else{
-                blankInputs()
-                }
-              }
+                  }
+              // else{
+              // Navigator.push(
+              // context,
+              // MaterialPageRoute(builder: (BuildContext context) => UserHistoryAdminPage(rollno: rollno)));}
+              },
 
             ),
           )

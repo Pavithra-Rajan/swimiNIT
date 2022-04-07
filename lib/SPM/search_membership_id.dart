@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:swiminit/SPM/user_history.dart';
-
+import 'package:swiminit/Admin/checkClassService.dart';
 class MembershipIdSearch1 extends StatefulWidget {
   final Function toggleswitch;
   final bool showMembership;
@@ -18,6 +18,7 @@ class MembershipIdSearchState1 extends State<MembershipIdSearch1> {
   late String rollno;
   bool swapColor = false;
   bool isVisible = false;
+  bool isWrong =false;
 
   Widget _buildMembershipId() {
     return TextFormField(
@@ -28,7 +29,10 @@ class MembershipIdSearchState1 extends State<MembershipIdSearch1> {
         ),
       ),
       onChanged: (value) {
-        rollno = value;
+        setState(() {
+          rollno = value;
+        });
+
       },
     );
   }
@@ -116,6 +120,9 @@ class MembershipIdSearchState1 extends State<MembershipIdSearch1> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       _buildMembershipId(),
+                      Visibility(
+                        visible: isWrong,
+                        child: Text("Swimmer does not exist"),),
                     ]),
               )
             ],
@@ -141,16 +148,26 @@ class MembershipIdSearchState1 extends State<MembershipIdSearch1> {
                 'Search',
                 style: TextStyle(color: Colors.white, fontSize: 16),
               ),
-              onPressed: () => {
-                if (rollno!=Null){
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              UserHistorySPMPage(rollno: rollno)))
+
+              onPressed: ()  async{
+                try{
+            final _check = await CheckService.check(rollno);
+            if(_check.error=="Swimmer does not exist")
+            {
+            setState ( () {
+            isWrong = true;
+            });
+            }
+            }catch(e)
+                { if(rollno==null)
+                {
+                  blankInputs();
                 }
                 else{
-                blankInputs()
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (BuildContext context) => UserHistorySPMPage(rollno: rollno)));
+                }
                 }
 
               },
