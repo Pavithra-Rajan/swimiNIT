@@ -20,9 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-
       home: HomePage(),
-
       routes: <String, WidgetBuilder>{
         '/login': (BuildContext context) => LoginScreen(),
       },
@@ -50,7 +48,7 @@ class _HomePageState extends State<HomePage> {
         future: _initializeFirebase(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            return LoginScreen();
+            return SPMNavBar();
           }
           return const Center(
             child: CircularProgressIndicator(),
@@ -180,7 +178,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                       builder: (context) => SPMNavBar()));
                             }
                           }
-
 
                           // if (user != null) {
                           //   print("executing this");

@@ -35,7 +35,6 @@ class UserHistorySPMPageState extends State<UserHistorySPMPage> {
       ),
       body: SingleChildScrollView(
           child: Column(
-
             children: <Widget>[
               Container(
                 margin: EdgeInsets.only(
@@ -150,6 +149,7 @@ class UserHistorySPMPageState extends State<UserHistorySPMPage> {
                       }
                       else if (data.hasData) {
                         var receipt = data.data as ReceiptDetailsSpm;
+                        print(receipt.receipt.receiptId);
                         //var items = data.data as List<ProductDataModel>;
                         return Padding(
                             padding: const EdgeInsets.all(0),
@@ -290,7 +290,7 @@ class UserHistorySPMPageState extends State<UserHistorySPMPage> {
                                 height: 64,
                                 child: Center(
                                   child: Text(
-                                    items.visits[i].dateOfVisit,
+                                    items.visits[i].dateOfVisit.split(';')[0],
                                     textAlign: TextAlign.center,
                                     style: GoogleFonts.poppins(
                                       color: Colors.black,
