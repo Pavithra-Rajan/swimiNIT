@@ -222,7 +222,7 @@ class Daterange2State extends State<Daterange2> {
                 }
                 if (isChecked == true) {
                   if (fromdate.isEmpty){
-                    blankInputs();
+                    blankInputs
                     return;
                   }
                   Navigator.push(
