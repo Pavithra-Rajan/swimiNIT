@@ -23,7 +23,7 @@ class RegistrationPageState extends State<RegistrationPage> {
   String dropDownVal = 'Student';
 
   bool swapColor = false, submitted = false;
-  Person p = Person("name", "profileImg", "rollno", "enteredAt", 0, 0, "receiptID", "amtPaid", "datePaid", "Student", "mailID", "contact1", "contact2");
+  Person p = Person("name", "profileImg", "rollno", "enteredAt", 0, 0, "receiptID", "0", "datePaid", "Student", "mailID", "contact1", "contact2");
 
   final TextEditingController _memIDController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
@@ -368,7 +368,7 @@ class RegistrationPageState extends State<RegistrationPage> {
     var jsonvalue = {};
     var details = {};
     var receipt = {};
-    jsonvalue["paid"] = swapColor.toString();
+    jsonvalue["paid"] = swapColor;
     details["contact1"] = p.contact1;
     details["contact2"] = p.contact2;
     details["role"] = p.role;
@@ -381,7 +381,7 @@ class RegistrationPageState extends State<RegistrationPage> {
     receipt["paymentDate"] = p.datePaid;
     jsonvalue["details"] = details;
     jsonvalue["receipt"] = receipt;
-
+    print(jsonvalue);
     await http.post(
       Uri.parse('https://swiminit.herokuapp.com/register'),
       headers: <String, String>{
