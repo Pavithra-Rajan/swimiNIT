@@ -159,9 +159,16 @@ class MembershipIdSearchState1 extends State<MembershipIdSearch1> {
             });
             }
             }catch(e)
-            {Navigator.push(
-            context,
-            MaterialPageRoute(builder: (BuildContext context) => UserHistorySPMPage(rollno: rollno)));}
+                { if(rollno==null)
+                {
+                  blankInputs();
+                }
+                else{
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (BuildContext context) => UserHistorySPMPage(rollno: rollno)));
+                }
+                }
 
               },
             ),

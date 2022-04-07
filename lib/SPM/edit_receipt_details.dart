@@ -367,22 +367,32 @@ class EditReceiptPageState extends State<EditReceiptPage>
                   style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
                 onPressed: ()  async{
-
                   try {
-              final _check = await CheckService.check(_membIDController.text);
-              if(_check.error=="Swimmer does not exist")
-              {
-              setState ( () {
-              isWrong = true;
-              });
-              }
-              }catch(e)
-                {setState(() {
-                  membershipID = _membIDController.text;
-                  state = currState.editing;
-                });}
+                    final _check = await CheckService.check(_membIDController.text);
+                    if(_check.error=="Swimmer does not exist")
+                    {
+                      setState ( () {
+                        isWrong = true;
+                      });
+                    }
+                  }catch(e)
+                  { if(_membIDController.text.isEmpty)
+                  {
+                    blankInputs();
+                    return;
+                  }
+                  else
+                  {
+                    setState(() {
+
+                      membershipID = _membIDController.text;
+                      state = currState.editing;
+                    });
+                  }
+                  }
 
                 },
+
               ),
             )
         ),

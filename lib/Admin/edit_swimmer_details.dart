@@ -555,11 +555,20 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                       });
                     }
                   }catch(e)
-                  {setState(() {
+                  { if(_membIDController.text.isEmpty)
+                    {
+                      blankInputs();
+                      return;
+                    }
+                    else
+                      {
+                        setState(() {
 
-                    membershipID = _membIDController.text;
-                    state = currState.editing;
-                  });}
+                          membershipID = _membIDController.text;
+                          state = currState.editing;
+                        });
+                      }
+                    }
 
                 },
               ),
