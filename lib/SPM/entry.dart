@@ -46,7 +46,7 @@ class EntryPageState extends State<EntryPage> {
     p.rollno = data["membershipID"];
     p.name = data["name"];
     p.role = data["roles"];
-    p.noOfVisits = data["numberOfFreeTrials"];
+    p.noOfVisits = data["numberOfVisits"];
 
     return p;
   }
@@ -78,7 +78,7 @@ class EntryPageState extends State<EntryPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Align(
-                      alignment: Alignment(-0.5, 1),
+                      alignment: Alignment(-0.7, 1),
                       child: Text(
                         "Membership ID",
                         style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
@@ -102,7 +102,7 @@ class EntryPageState extends State<EntryPage> {
                     ),
                     SizedBox(height: 10),
                     Align(
-                      alignment: Alignment(-0.75, 1),
+                      alignment: Alignment(-0.72, 1),
                       child: Text(
                         p.name,
                         style: GoogleFonts.poppins(),
@@ -134,7 +134,7 @@ class EntryPageState extends State<EntryPage> {
                     ),
                     SizedBox(height: 10),
                     Align(
-                      alignment: Alignment(-0.75, 1),
+                      alignment: Alignment(-0.71, 1),
                       child: Text(
                         p.mailID,
                         style: GoogleFonts.poppins(),
@@ -144,7 +144,7 @@ class EntryPageState extends State<EntryPage> {
                     Align(
                       alignment: Alignment(-0.75, 1),
                       child: Text(
-                        "Payment made",
+                        "Dues",
                         style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -152,7 +152,7 @@ class EntryPageState extends State<EntryPage> {
                     Align(
                       alignment: Alignment(-0.75, 1),
                       child: Text(
-                        p.dues == 0 ? "Yes" : "No",
+                        p.dues != 0 ? "Yes" : "No",
                         style: GoogleFonts.poppins(),
                       ),
                     ),
@@ -220,7 +220,7 @@ class EntryPageState extends State<EntryPage> {
       if (p.dues != 0) {
         return DuesAlertBox();
       }
-      if (p.noOfVisits == 0 && p.role == "Student") {
+      if (p.noOfVisits == 5 && p.role == "Student" && p.dues == 0) {
         return FreeTrialsAlertBox();
       }
       return Scaffold(
