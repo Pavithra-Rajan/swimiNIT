@@ -5,7 +5,7 @@ import 'dart:convert';
 class ReceiptDetailsServices {
 
   static Future<dynamic> getSwimmersReceiptDetails(String val) async {
-  String url='https://swiminit.herokuapp.com/getreceiptdetails?membershipID=${val}}';
+  String url='https://swiminit.herokuapp.com/getreceiptdetails?membershipID=$val';
 
     final response=await http.get(Uri.parse(url));
     if(200 == response.statusCode) {

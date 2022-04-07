@@ -2,12 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:expandable/expandable.dart';
-import 'package:swiminit/SPM/exit_class.dart';
 import 'package:swiminit/SPM/PoolStatusSwimmer.dart';
 import 'package:swiminit/SPM/pool_status_class.dart';
 import 'package:swiminit/SPM/pool_start_service.dart';
-
-
 import 'package:swiminit/SPM/swimmer_exit.dart';
 
 class PoolStatusPage extends StatefulWidget {
@@ -19,14 +16,10 @@ class PoolStatusPage extends StatefulWidget {
 
 class _PoolStatusPageState extends State<PoolStatusPage>
 {
-
-  Future<ExitSwimmers>? _exitswimmers;
   List<PoolStatusSwimmer> persons = [];
   void remove(int a){
     setState(() {
-
       persons.clear();
-
     });
   }
   Widget buildCard(PoolStatusSwimmer p) {
@@ -66,9 +59,7 @@ class _PoolStatusPageState extends State<PoolStatusPage>
                               margin: EdgeInsets.fromLTRB(40, 6, 0, 5),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-
                                 children: <Widget>[
-
                                   Text(p.name,
                                     //textAlign: TextAlign.center,
                                     style: GoogleFonts.poppins(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
@@ -76,7 +67,6 @@ class _PoolStatusPageState extends State<PoolStatusPage>
                                   Text('Entered at '+p.enteredAt,
                                     style: GoogleFonts.poppins(color: Colors.black, fontSize: 14),
                                   ),
-
                                 ],
                               ),
                             )
@@ -124,7 +114,7 @@ class _PoolStatusPageState extends State<PoolStatusPage>
                         String datetime = dateFormat. format(now);
                         final splitted=datetime.split(" ");
                         String endtime='${splitted[0]};${splitted[1]}';
-                        final _exitswimmers= await PoolExitServices.exitSwimmers(p.rollno,endtime);
+                        await PoolExitServices.exitSwimmers(p.rollno,endtime);
                         // remove(p.rollno,endtime);
                         var i=0;
                         for(var items in persons)
@@ -135,18 +125,10 @@ class _PoolStatusPageState extends State<PoolStatusPage>
                           }
                           i++;
                         }
-
-
-
                         remove(i);
-
-
-
-
-
-
                       },
-                    )),
+                    )
+                ),
               )
           ),
         )
@@ -161,25 +143,18 @@ class _PoolStatusPageState extends State<PoolStatusPage>
               padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
               child:FutureBuilder(
                 future: PoolStatusServices.getSwimmers(),
-
                 builder: (context, data){
-
                   if(data.hasError){
                     return Center(child: Text("${data.error}"));
                   }
                   else if(data.hasData){
                     var swimmers= data.data as LiveSwimmers;
-
-
                     persons=[];
                     for(var items in swimmers.visits)
                     {
                       persons.add(PoolStatusSwimmer(items.swimmer.name, 'lib/Resources/pic-1.png', items.swimmer.membershipId, items.visit.dateOfVisit, items.swimmer.dues.toString(),items.swimmer.emailId,items.swimmer.contact1,items.swimmer.contact2)
                       );
-
-
                     }
-
                     return Column(
                       children: <Widget>[
                         Column(
@@ -195,8 +170,6 @@ class _PoolStatusPageState extends State<PoolStatusPage>
               )
           ),
         )
-
     );
   }
 }
-

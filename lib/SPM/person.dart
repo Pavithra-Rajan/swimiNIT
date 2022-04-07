@@ -3,8 +3,8 @@ class Person {
   String profileImg;
   String rollno;
   String enteredAt;
-  String noOfVisits;
-  String dues;
+  int noOfVisits;
+  int dues;
   String receiptID;
   String amtPaid;
   String datePaid;

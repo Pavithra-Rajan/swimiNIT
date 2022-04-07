@@ -7,8 +7,6 @@ import 'package:swiminit/SPM/PoolStatusSwimmer.dart';
 import 'package:swiminit/SPM/pool_status_class.dart';
 import 'package:swiminit/SPM/pool_start_service.dart';
 import 'package:swiminit/SPM/spmnavbar.dart';
-
-
 import 'package:swiminit/SPM/swimmer_exit.dart';
 
 class PoolStatusPage extends StatefulWidget {
@@ -20,14 +18,11 @@ class PoolStatusPage extends StatefulWidget {
 
 class _PoolStatusPageState extends State<PoolStatusPage>
 {
-
   Future<ExitSwimmers>? _exitswimmers;
   List<PoolStatusSwimmer> persons = [];
   void remove(int a){
     setState(() {
-
       persons.clear();
-
     });
   }
 
@@ -44,14 +39,13 @@ Future confirmExit(String rno) async{
               children: [
                 Container(
                   margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                  child: Text('Confirm swimmer exit?',style: GoogleFonts.poppins(color: Color(0xFF149F88), fontSize: 16),),
+                  child: Text('Confirm swimmer exit?', style: GoogleFonts.poppins(color: Color(0xFF149F88), fontSize: 16),),
                 ),
               ],
             ),
             actions: <Widget>[
               Container(
                 margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     primary: Color(0xFF149F88), // background
@@ -66,10 +60,8 @@ Future confirmExit(String rno) async{
                   },
                 ),
               ),
-
               Container(
                 margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     primary: Color(0xFF149F88), // background
@@ -85,10 +77,8 @@ Future confirmExit(String rno) async{
                 ),
               ),
             ],
-
           ),
         );
-
     },
   );
 }
@@ -100,7 +90,6 @@ Future proceedExit(String rno) async{
   final splitted=datetime.split(" ");
   String endtime='${splitted[0]};${splitted[1]}';
   final _exitswimmers= await PoolExitServices.exitSwimmers(rno,endtime);
-
   var i=0;
   for(var items in persons)
   {
@@ -110,16 +99,17 @@ Future proceedExit(String rno) async{
     }
     i++;
   }
-
   remove(i);
 }
-
 
   Widget buildCard(PoolStatusSwimmer p) {
     return Padding(
         padding: const EdgeInsets.all(1.0),
         child: Card(
           color: Color(0xFF93C6D3),
+          shadowColor: Color(0xFF93C6D3),
+          margin: EdgeInsets.zero,
+          clipBehavior: Clip.none,
           child: ExpandablePanel(
               header: Padding(
                 padding: const EdgeInsets.all(1.0),
@@ -143,7 +133,8 @@ Future proceedExit(String rno) async{
                                         fit: BoxFit.cover,
                                         image: AssetImage(p.profileImg)
                                     )
-                                )),
+                                )
+                            ),
                           ),
                         ),
                         Align(
@@ -205,9 +196,7 @@ Future proceedExit(String rno) async{
                       ),
                       child: Text('Exit',style: GoogleFonts.poppins(color: Colors.white, fontSize: 14),),
                       onPressed: () async {
-
                         confirmExit(p.rollno);
-
                       },
                     )),
               )
@@ -224,42 +213,43 @@ Future proceedExit(String rno) async{
               padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
               child:FutureBuilder(
                 future: PoolStatusServices.getSwimmers(),
-
                 builder: (context, data){
-
                   if(data.hasError){
                     return Center(child: Text("${data.error}"));
                   }
                   else if(data.hasData){
                     var swimmers= data.data as LiveSwimmers;
-
-
                     persons=[];
                     for(var items in swimmers.visits)
                     {
                       persons.add(PoolStatusSwimmer(items.swimmer.name, 'lib/Resources/pic-1.png', items.swimmer.membershipId, items.visit.dateOfVisit, items.swimmer.dues.toString(),items.swimmer.emailId,items.swimmer.contact1,items.swimmer.contact2)
                       );
-
-
                     }
-
-                    return Column(
-                      children: <Widget>[
-                        Column(
-                            children: persons.map((p) {
-                              return buildCard(p);
-                            }).toList()
-                        )
-                      ],
-                    );
-                  }
+                    if(persons.isEmpty)
+                    {
+                        return Center(
+                          child: Text("Pool is empty"),
+                        );
+                    }
+                    else
+                    {
+                      return Column(
+                        children: <Widget>[
+                          Column(
+                              children: persons.map((p) {
+                                return buildCard(p);
+                              }
+                              ).toList()
+                          )
+                        ],
+                      );
+                    }
+                    }
                   return Center(child: Text("Loading"));
                 },
               )
           ),
         )
-
     );
   }
 }
-

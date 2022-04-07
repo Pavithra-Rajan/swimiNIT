@@ -78,7 +78,6 @@ class _CustomAlertDialogBoxState extends State<CustomAlertDialogBox> {
                       MaterialPageRoute(builder: (context) => SPMNavBar()),
                     );
                   }
-
                 ),
               ),
             ),

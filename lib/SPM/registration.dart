@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:http/http.dart' as http;
-import '../SPM/Person.dart';
+import '../SPM/person.dart';
+import 'package:intl/intl.dart';
 
 class RegistrationPage extends StatefulWidget {
 
@@ -23,7 +24,7 @@ class RegistrationPageState extends State<RegistrationPage> {
   String dropDownVal = 'Student';
 
   bool swapColor = false, submitted = false;
-  late Person p;
+  Person p = Person("name", "profileImg", "rollno", "enteredAt", 0, 0, "receiptID", "amtPaid", "datePaid", "Student", "mailID", "contact1", "contact2");
 
   final TextEditingController _memIDController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
@@ -32,8 +33,8 @@ class RegistrationPageState extends State<RegistrationPage> {
   final TextEditingController _contact2Controller = TextEditingController();
   final TextEditingController _receiptIDController = TextEditingController();
   final TextEditingController _paymentDateController = TextEditingController();
-  final TextEditingController _feesController = TextEditingController();
   final TextEditingController _moneyPaidController = TextEditingController();
+  DateTime paymentDate = DateTime.now();
 
 
   Widget _buildMembershipId() {
@@ -81,6 +82,7 @@ class RegistrationPageState extends State<RegistrationPage> {
             onChanged: (String? newValue) {
               setState(() {
                 dropDownVal = newValue!;
+                p.role = dropDownVal;
               });
             },
             ),
@@ -138,54 +140,31 @@ class RegistrationPageState extends State<RegistrationPage> {
   }
 
   Widget _paymentDate() {
-    return
-      // DateTimeFormField(
-    //
-    //   decoration: const InputDecoration(
-    //     hintStyle: TextStyle(color: Colors.black45),
-    //     errorStyle: TextStyle(color: Colors.redAccent),
-    //     enabledBorder: UnderlineInputBorder(
-    //       borderSide: BorderSide(color: Color(0xFF14839F), width: 1.5),
-    //     ),
-    //     suffixIcon: Icon(Icons.event_note),
-    //     labelText: 'Payment Date',
-    //   ),
-    //   mode: DateTimeFieldPickerMode.date,
-    //   autovalidateMode: AutovalidateMode.always,
-    //   initialDate: DateTime.now(),
-    //   lastDate: DateTime.now(),
-    //   onDateSelected: (DateTime value){
-    //     //String payDate=value as String;
-    //     String convDate=value.toString().split(" ")[0];
-    //     convDate=convDate.split('-').reversed.join('-');
-    //     print(convDate);
-    //     _paymentDateController.text=convDate;
-    //     //payDate = payDate.toString().split(" ")[0];
-    //     //_paymentDateController.text=payDate;
-    //
-    //   },
-    // );
-      TextFormField(
-      controller: _paymentDateController,
-      decoration: InputDecoration(
-        hintText: 'Payment Date',
+    return DateTimeFormField(
+      decoration: const InputDecoration(
+        hintStyle: TextStyle(color: Colors.black45),
+        errorStyle: TextStyle(color: Colors.redAccent),
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: Color(0xFF14839F), width: 1.5),
         ),
+        suffixIcon: Icon(Icons.event_note),
+        labelText: 'Payment Date',
       ),
+      mode: DateTimeFieldPickerMode.date,
+      autovalidateMode: AutovalidateMode.always,
+      initialDate: DateTime.now(),
+      lastDate: DateTime.now(),
+      onDateSelected: (DateTime value){
+        _paymentDateController.text= DateFormat('dd-MM-yyyy').format(value);
+      },
     );
   }
 
   Widget _quaterlyFees() {
 
-    return TextFormField(
-      controller: _feesController,
-      decoration: InputDecoration(
-        hintText: 'Fees',
-        enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.white, width: 1.5),
-        ),
-    ),
+
+    return Text(
+      p.role=="Student"?"Fees: 200":"Fees: 500"
     );
   }
 
@@ -397,8 +376,8 @@ class RegistrationPageState extends State<RegistrationPage> {
                     "profileImg",
                     _memIDController.text,
                     "enteredAt",
-                    "noOfVisits",
-                    "dues",
+                    0,
+                    0,
                     "receiptID",
                     "amtPaid",
                     "datePaid",
@@ -406,7 +385,7 @@ class RegistrationPageState extends State<RegistrationPage> {
                     _mailIDController.text,
                     _contact1Controller.text,
                     _contact2Controller.text);
-                if(!swapColor){
+                if(swapColor){
                   p.receiptID = _receiptIDController.text;
                   p.datePaid = _paymentDateController.text;
                   p.amtPaid = _moneyPaidController.text;
@@ -436,17 +415,20 @@ class RegistrationPageState extends State<RegistrationPage> {
   {
     var jsonvalue = {};
     var details = {};
+    var receipt = {};
     jsonvalue["paid"] = swapColor.toString();
     details["contact1"] = p.contact1;
     details["contact2"] = p.contact2;
-    details["dues"] = p.role=="Student"?0:(swapColor?0:500);
     details["role"] = p.role;
     details["emailID"] = p.mailID;
-    details["fees"] = p.role=="Student"?200:500;
     details["membershipID"] = p.rollno;
     details["name"] = p.name;
-    details["numberOfFreeTrials"] = p.role=="Student"?5:0;
+    receipt["receiptID"] = p.receiptID; 
+    receipt["membershipID"] = p.rollno; 
+    receipt["moneyPaid"] = int.parse(p.amtPaid); 
+    receipt["paymentDate"] = p.datePaid;
     jsonvalue["details"] = details;
+    jsonvalue["receipt"] = receipt;
 
     await http.post(
       Uri.parse('https://swiminit.herokuapp.com/register'),
