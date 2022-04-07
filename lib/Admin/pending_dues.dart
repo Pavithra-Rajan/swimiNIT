@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:google_fonts/google_fonts.dart';
 
+import 'package:swiminit/Admin/adminnavbar.dart';
+
 // List<ProductDataModel> postFromJson(String str) =>
 //     List<ProductDataModel>.from(json.decode(str).map((x) => ProductDataModel.fromMap(x)));
 class ProductDataModel {
@@ -195,10 +197,14 @@ class PendingDuesPageState extends State<PendingDuesPage> {
               //content padding inside button
             ),
             child: Text(
-              'Download',
+              'Back',
               style: TextStyle(color: Colors.white, fontSize: 16),
             ),
-            onPressed: () => {},
+            onPressed: () => {
+            Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+            builder: (context) => AdminNavBar()))
+            },
           ),
         ),
       ),

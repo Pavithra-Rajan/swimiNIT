@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:date_field/date_field.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:http/http.dart' as http;
 import '../SPM/Person.dart';
@@ -65,10 +66,10 @@ class RegistrationPageState extends State<RegistrationPage> {
         Align(
           alignment: Alignment(-1, 1),
           child: DropdownButton(
-            iconEnabledColor: Colors.teal,
-            iconDisabledColor: Colors.teal,
-            dropdownColor: Colors.teal,
-            focusColor: Colors.teal,
+            iconEnabledColor: Colors.white,
+            iconDisabledColor: Colors.white,
+            dropdownColor: Colors.white,
+            focusColor: Colors.white,
             icon: const Icon(Icons.keyboard_arrow_down),
             value: dropDownVal,
             items: roles.map((String items) {
@@ -182,7 +183,7 @@ class RegistrationPageState extends State<RegistrationPage> {
       decoration: InputDecoration(
         hintText: 'Fees',
         enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.teal, width: 1.5),
+          borderSide: BorderSide(color: Colors.white, width: 1.5),
         ),
     ),
     );
@@ -197,6 +198,49 @@ class RegistrationPageState extends State<RegistrationPage> {
           borderSide: BorderSide(color: Color(0xFF14839F), width: 1.5),
         ),
       ),
+    );
+  }
+
+  Future blankInputs() async{
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return
+          Container(
+            margin: EdgeInsets.fromLTRB(0, 0, 0,0 ),
+            child: AlertDialog(
+              content: Stack(
+                children: [
+                  Container(
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    child: Text('Please fill all the fields',style: GoogleFonts.poppins(color: Color(0xFF149F88), fontSize: 16),),
+                  ),
+                ],
+              ),
+              actions: <Widget>[
+
+                Container(
+                  margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xFF149F88), // background
+                      onPrimary: Colors.white, // foreground
+                      minimumSize: Size(100,45),
+                    ),
+                    child: Text('OK'),
+                    onPressed: () {
+                      Navigator.pop(context, 'OK');
+                    },
+                  ),
+                ),
+              ],
+
+            ),
+          );
+
+      },
     );
   }
 
@@ -288,7 +332,8 @@ class RegistrationPageState extends State<RegistrationPage> {
                           isVisible = false;
                           swapColor = !swapColor;
                         }
-                      });
+                      }
+                      );
                     },
                   ),
                   Visibility(
@@ -341,9 +386,11 @@ class RegistrationPageState extends State<RegistrationPage> {
                 style: TextStyle(color: Colors.white, fontSize: 16),
               ),
               onPressed: () {
+
                 if(_nameController.text.isEmpty || _memIDController.text.isEmpty || _mailIDController.text.isEmpty || _contact1Controller.text.isEmpty || _contact2Controller.text.isEmpty)
                   {
                     //show popup telling to fill details
+                    blankInputs();
                     return;
                   }
                 p = Person(_nameController.text,

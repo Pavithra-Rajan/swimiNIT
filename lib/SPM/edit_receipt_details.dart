@@ -111,6 +111,49 @@ class EditReceiptPageState extends State<EditReceiptPage>
     );
   }
 
+  Future blankInputs() async{
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return
+          Container(
+            margin: EdgeInsets.fromLTRB(0, 0, 0,0 ),
+            child: AlertDialog(
+              content: Stack(
+                children: [
+                  Container(
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    child: Text('Please fill the field',style: GoogleFonts.poppins(color: Color(0xFF149F88), fontSize: 16),),
+                  ),
+                ],
+              ),
+              actions: <Widget>[
+
+                Container(
+                  margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xFF149F88), // background
+                      onPrimary: Colors.white, // foreground
+                      minimumSize: Size(100,45),
+                    ),
+                    child: Text('OK'),
+                    onPressed: () {
+                      Navigator.pop(context, 'OK');
+                    },
+                  ),
+                ),
+              ],
+
+            ),
+          );
+
+      },
+    );
+  }
+
   Widget detailsWidget(Person p) {
     return Padding(
       padding: EdgeInsets.all(0),
@@ -326,6 +369,10 @@ class EditReceiptPageState extends State<EditReceiptPage>
                 ),
                 onPressed: () => {
                   setState(() {
+                    if(_membIDController.text.isEmpty){
+                      blankInputs();
+                      return;
+                    }
                         membershipID = _membIDController.text;
                         state = currState.editing;
                   })

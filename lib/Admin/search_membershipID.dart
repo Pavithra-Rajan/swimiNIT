@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 import 'package:swiminit/Admin/user_history.dart';
@@ -30,6 +31,45 @@ class  MembershipIdSearchState1 extends State<MembershipIdSearch1> {
       },
     );
   }
+  Widget blankInputs() {
+
+    return
+      Container(
+        margin: EdgeInsets.fromLTRB(0, 0, 0,0 ),
+        child: AlertDialog(
+          content: Stack(
+            children: [
+              Container(
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                child: Text('Please fill the field',style: GoogleFonts.poppins(color: Color(0xFF149F88), fontSize: 16),),
+              ),
+            ],
+          ),
+          actions: <Widget>[
+
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xFF149F88), // background
+                  onPrimary: Colors.white, // foreground
+                  minimumSize: Size(100,45),
+                ),
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.pop(context, 'OK');
+                },
+              ),
+            ),
+          ],
+
+        ),
+      );
+
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,10 +142,16 @@ class  MembershipIdSearchState1 extends State<MembershipIdSearch1> {
                 style: TextStyle(color: Colors.white, fontSize: 16),
               ),
               onPressed: () => {
-              Navigator.push(
-              context,
-              MaterialPageRoute(builder: (BuildContext context) => UserHistoryAdminPage(rollno: rollno)))
-              },
+                if(rollno!=Null){
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (BuildContext context) => UserHistoryAdminPage(rollno: rollno)))
+                }
+                else{
+                blankInputs()
+                }
+              }
+
             ),
           )
         ],
