@@ -6,41 +6,50 @@ import 'package:google_fonts/google_fonts.dart';
 // List<ProductDataModel> postFromJson(String str) =>
 //     List<ProductDataModel>.from(json.decode(str).map((x) => ProductDataModel.fromMap(x)));
 class ProductDataModel {
+  final String dateOfVisit;
+  final String endTime;
   final String membershipID;
-  final String name;
-  final int dues;
+
 
   ProductDataModel(
-    this.membershipID,
-    this.name,
-    this.dues,
-  );
+      this.dateOfVisit,
+      this.endTime,
+      this.membershipID,
+      );
 }
 
-class PendingDuesPage extends StatefulWidget {
-  const PendingDuesPage({Key? key}) : super(key: key);
+class quarterlyReportsPage extends StatefulWidget {
+  const quarterlyReportsPage({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return PendingDuesPageState();
+    return quarterlyReportsPageState();
   }
 }
 
-class PendingDuesPageState extends State<PendingDuesPage> {
+class quarterlyReportsPageState extends State<quarterlyReportsPage> {
   // Fetch content from the json file
 
-  Future getDues() async {
+  Future getReport() async {
     var response =
-        await http.get(Uri.parse('https://swiminit.herokuapp.com/getDues'));
+    await http.get(Uri.parse('https://swiminit.herokuapp.com/getQuarterlyVisitReport'));
     //print(ProductDataModel.fromJson(jsonDecode(response.body)));
     var data = json.decode(response.body);
     List<ProductDataModel> duesData = [];
     //print(data['swimmersWithDues']);
 
-    for (var u in data['swimmersWithDues']) {
-      ProductDataModel duesData1 =
-          ProductDataModel(u["membershipID"], u["name"], u["dues"]);
-      duesData.add(duesData1);
+    for (var u in data['visitsInQuarter']) {
+      //print(u["dateOfVisit"]);
+      var tempTime = u["endTime"].split(';');
+      //print(tempTime);
+      if (u["endTime"]!='NULL'){
+        var tempTime = u["endTime"].split(';');
+        String tempDate = u["dateOfVisit"].substring(0, u["dateOfVisit"].indexOf(';'));
+        ProductDataModel duesData1 =
+        ProductDataModel(tempDate, tempTime[1], u["membershipID"]);
+        duesData.add(duesData1);
+      }
+
       //print(u['membershipID']);
     }
     //print(duesData.length);
@@ -56,12 +65,21 @@ class PendingDuesPageState extends State<PendingDuesPage> {
 
     List<Color> colors = [Color(0xFFFFFFFF), Color(0xFFD2EAF0)];
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: false,
+        backgroundColor: Color(0xFF14839F),
+
+        title: Text('Results',
+
+          style: GoogleFonts.poppins(color: Colors.white),
+        ),
+      ),
 
       body: Container(
         margin: EdgeInsets.only(left: 20, top: 10, right: 20, bottom: 0),
         child: SingleChildScrollView(
           child: FutureBuilder(
-            future: getDues(),
+            future: getReport(),
             builder: (context, data) {
               if (data.hasError) {
                 return Center(child: Text("${data.error}"));
@@ -80,35 +98,35 @@ class PendingDuesPageState extends State<PendingDuesPage> {
                           height: 64,
                           child: Center(
                             child: Text(
+                              "Date of Visit",
+                              style: GoogleFonts.poppins(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 64,
+                          child: Center(
+                            child: Text(
+                              "End Time",
+                              style: GoogleFonts.poppins(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 64,
+                          child: Center(
+                            child: Text(
                               "Membership ID",
-                              style: GoogleFonts.poppins(
-                                color: Colors.black,
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 64,
-                          child: Center(
-                            child: Text(
-                              "Name",
-                              style: GoogleFonts.poppins(
-                                color: Colors.black,
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 64,
-                          child: Center(
-                            child: Text(
-                              "Dues",
                               textAlign: TextAlign.center,
                               style: GoogleFonts.poppins(
                                 color: Colors.black,
@@ -130,33 +148,33 @@ class PendingDuesPageState extends State<PendingDuesPage> {
                             height: 64,
                             child: Center(
                               child: Text(
+                                items[i].dateOfVisit.toString(),
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.poppins(
+                                  color: Colors.black,
+                                  fontSize: 13,
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 64,
+                            child: Center(
+                              child: Text(
+                                items[i].endTime.toString(),
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.poppins(
+                                  color: Colors.black,
+                                  fontSize: 13,
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 64,
+                            child: Center(
+                              child: Text(
                                 items[i].membershipID.toString(),
-                                textAlign: TextAlign.center,
-                                style: GoogleFonts.poppins(
-                                  color: Colors.black,
-                                  fontSize: 13,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 64,
-                            child: Center(
-                              child: Text(
-                                items[i].name.toString(),
-                                textAlign: TextAlign.center,
-                                style: GoogleFonts.poppins(
-                                  color: Colors.black,
-                                  fontSize: 13,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 64,
-                            child: Center(
-                              child: Text(
-                                items[i].dues.toString(),
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.poppins(
                                   color: Colors.black,
@@ -191,7 +209,7 @@ class PendingDuesPageState extends State<PendingDuesPage> {
               //border width and color
               elevation: 0, //elevation of button
               shape: RoundedRectangleBorder(
-                  //to set border radius to button
+                //to set border radius to button
                   borderRadius: BorderRadius.circular(0)),
               //content padding inside button
             ),
