@@ -18,7 +18,7 @@ enum currState {searching, editing}
 class EditReceiptPageState extends State<EditReceiptPage>
 {
   currState state = currState.searching;
-  Person p = Person("name", "profileImg", "rollno", "enteredAt", "noOfVisits", "dues", "receiptID", "amtPaid", "datePaid", "role", "mailID", "contact1", "contact2");
+  Person p = Person("name", "profileImg", "rollno", "enteredAt", 0, 0, "receiptID", "amtPaid", "datePaid", "role", "mailID", "contact1", "contact2");
   String membershipID = "-1";
   final TextEditingController _recieptController = TextEditingController();
   final TextEditingController _moneyPaidController = TextEditingController();
@@ -81,7 +81,7 @@ class EditReceiptPageState extends State<EditReceiptPage>
     // print(data);
     p.name = data["name"];
     p.rollno = data["membershipID"];
-    p.dues = data["dues"].toString();
+    p.dues = data["dues"];
     p.role = data["roles"];
     p.mailID = data["emailID"];
 

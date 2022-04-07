@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:swiminit/Admin/pool_managers.dart';
+import 'package:swiminit/Admin/search.dart';
 import 'package:swiminit/Admin/pending_dues.dart';
 import 'package:swiminit/Admin/edit_swimmer_details.dart';
 import 'package:swiminit/Admin/user_history.dart';
@@ -46,7 +47,7 @@ class _AdminPageState extends State<AdminPage> {
       container = PendingDuesPage();
       text = "Pending Dues";
     } else if (currentPage == DrawerSections.search) {
-      container = UserHistoryAdminPage(); //Search by membership ID and date
+      container = Search(); //Search by membership ID and date
       text = "Search";
     } else if (currentPage == DrawerSections.editSwimmerDetails) {
       container = EditSwimmerPage();

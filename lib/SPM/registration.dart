@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'package:date_field/date_field.dart';
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:http/http.dart' as http;
 import '../SPM/person.dart';
+import 'package:intl/intl.dart';
 
 class RegistrationPage extends StatefulWidget {
 
@@ -32,6 +34,7 @@ class RegistrationPageState extends State<RegistrationPage> {
   final TextEditingController _paymentDateController = TextEditingController();
   final TextEditingController _feesController = TextEditingController();
   final TextEditingController _moneyPaidController = TextEditingController();
+  DateTime paymentDate = DateTime.now();
 
 
   Widget _buildMembershipId() {
@@ -136,15 +139,33 @@ class RegistrationPageState extends State<RegistrationPage> {
   }
 
   Widget _paymentDate() {
-    return TextFormField(
-      controller: _paymentDateController,
-      decoration: InputDecoration(
-        hintText: 'Payment Date',
+    return DateTimeFormField(
+      decoration: const InputDecoration(
+        hintStyle: TextStyle(color: Colors.black45),
+        errorStyle: TextStyle(color: Colors.redAccent),
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: Color(0xFF14839F), width: 1.5),
         ),
+        suffixIcon: Icon(Icons.event_note),
+        labelText: 'Payment Date',
       ),
+      mode: DateTimeFieldPickerMode.date,
+      autovalidateMode: AutovalidateMode.always,
+      initialDate: DateTime.now(),
+      lastDate: DateTime.now(),
+      onDateSelected: (DateTime value){
+        _paymentDateController.text= DateFormat('dd-MM-yyyy').format(value);
+      },
     );
+    //   TextFormField(
+    //   controller: _paymentDateController,
+    //   decoration: InputDecoration(
+    //     hintText: 'Payment Date',
+    //     enabledBorder: UnderlineInputBorder(
+    //       borderSide: BorderSide(color: Color(0xFF14839F), width: 1.5),
+    //     ),
+    //   ),
+    // );
   }
 
   Widget _quaterlyFees() {
@@ -322,8 +343,8 @@ class RegistrationPageState extends State<RegistrationPage> {
                     "profileImg",
                     _memIDController.text,
                     "enteredAt",
-                    "noOfVisits",
-                    "dues",
+                    0,
+                    0,
                     "receiptID",
                     "amtPaid",
                     "datePaid",

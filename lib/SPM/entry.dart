@@ -27,8 +27,8 @@ class EntryPageState extends State<EntryPage> {
       "lib/Resources/pic-1.png",
       "rollno",
       "enteredAt",
-      "noOfVisits",
-      "1",
+      0,
+      0,
       "receiptID",
       "amtPaid",
       "datePaid",
@@ -41,11 +41,13 @@ class EntryPageState extends State<EntryPage> {
     var response = await http.get(Uri.parse(
         'https://swiminit.herokuapp.com/getdetails?membershipID=$membershipID&admin=False'));
     var data = json.decode(response.body);
-    p.dues = data["dues"].toString();
+    p.dues = data["dues"];
     p.mailID = data["emailID"];
     p.rollno = data["membershipID"];
     p.name = data["name"];
     p.role = data["roles"];
+    p.noOfVisits = data["numberOfFreeTrials"];
+
     return p;
   }
 
@@ -150,7 +152,7 @@ class EntryPageState extends State<EntryPage> {
                     Align(
                       alignment: Alignment(-0.75, 1),
                       child: Text(
-                        int.parse(p.dues) == 0 ? "No" : "Yes",
+                        p.dues == 0 ? "Yes" : "No",
                         style: GoogleFonts.poppins(),
                       ),
                     ),
@@ -160,7 +162,8 @@ class EntryPageState extends State<EntryPage> {
                 child: CircularProgressIndicator(),
               );
             }
-          }),
+          }
+          ),
     );
   }
 
@@ -214,27 +217,24 @@ class EntryPageState extends State<EntryPage> {
         resizeToAvoidBottomInset: false,
       );
     } else if (membershipID == "-2") {
-      if (p.dues != "0") {
+      if (p.dues != 0) {
         return DuesAlertBox();
       }
-      if (p.noOfVisits == "5" && p.role == "Student") {
+      if (p.noOfVisits == 0 && p.role == "Student") {
         return FreeTrialsAlertBox();
       }
       return Scaffold(
         body: Center(
-          //child: Image.asset("lib/Resources/entry_recorded.png"),
           child: Wrap(
             crossAxisAlignment: WrapCrossAlignment.center,
             children: const [
               Icon(Icons.check,
               color: Color(0xFF149F88),),
               Text(' Swimmer\'s entry has been recorded',
-                style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF149F88), fontSize: 18)),
+                style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF149F88), fontSize: 18)
+              ),
             ],
           )
-          // child: Text("Swimmers entry has been recorded",
-          //   style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF149F88), fontSize: 18),),
-
         ),
         bottomNavigationBar: Container(
             margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -295,9 +295,6 @@ class EntryPageState extends State<EntryPage> {
                     swimmerEntry();
                     membershipID = "-2";
                   }),
-                Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => DuesAlertBox())),
                 },
               ),
             )
