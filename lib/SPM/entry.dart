@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'Person.dart';
+import 'person.dart';
 import 'package:http/http.dart' as http;
 import 'package:swiminit/SPM/entryAlerts/DuesAlertBox.dart';
 import 'package:swiminit/SPM/entryAlerts/FreeTrialsAlertBox.dart';
@@ -27,8 +27,8 @@ class EntryPageState extends State<EntryPage> {
       "lib/Resources/pic-1.png",
       "rollno",
       "enteredAt",
-      "noOfVisits",
-      "1",
+      0,
+      0,
       "receiptID",
       "amtPaid",
       "datePaid",
@@ -41,11 +41,13 @@ class EntryPageState extends State<EntryPage> {
     var response = await http.get(Uri.parse(
         'https://swiminit.herokuapp.com/getdetails?membershipID=$membershipID&admin=False'));
     var data = json.decode(response.body);
-    p.dues = data["dues"].toString();
+    p.dues = data["dues"];
     p.mailID = data["emailID"];
     p.rollno = data["membershipID"];
     p.name = data["name"];
     p.role = data["roles"];
+    p.noOfVisits = data["numberOfVisits"];
+
     return p;
   }
 
@@ -76,7 +78,7 @@ class EntryPageState extends State<EntryPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Align(
-                      alignment: Alignment(-0.5, 1),
+                      alignment: Alignment(-0.7, 1),
                       child: Text(
                         "Membership ID",
                         style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
@@ -100,7 +102,7 @@ class EntryPageState extends State<EntryPage> {
                     ),
                     SizedBox(height: 10),
                     Align(
-                      alignment: Alignment(-0.75, 1),
+                      alignment: Alignment(-0.72, 1),
                       child: Text(
                         p.name,
                         style: GoogleFonts.poppins(),
@@ -132,7 +134,7 @@ class EntryPageState extends State<EntryPage> {
                     ),
                     SizedBox(height: 10),
                     Align(
-                      alignment: Alignment(-0.75, 1),
+                      alignment: Alignment(-0.71, 1),
                       child: Text(
                         p.mailID,
                         style: GoogleFonts.poppins(),
@@ -142,7 +144,7 @@ class EntryPageState extends State<EntryPage> {
                     Align(
                       alignment: Alignment(-0.75, 1),
                       child: Text(
-                        "Payment made",
+                        "Dues",
                         style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -150,7 +152,7 @@ class EntryPageState extends State<EntryPage> {
                     Align(
                       alignment: Alignment(-0.75, 1),
                       child: Text(
-                        int.parse(p.dues) == 0 ? "Yes" : "No",
+                        p.dues != 0 ? "Yes" : "No",
                         style: GoogleFonts.poppins(),
                       ),
                     ),
@@ -160,7 +162,51 @@ class EntryPageState extends State<EntryPage> {
                 child: CircularProgressIndicator(),
               );
             }
-          }),
+          }
+          ),
+    );
+  }
+
+  Future blankInputs() async{
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return
+          Container(
+            margin: EdgeInsets.fromLTRB(0, 0, 0,0 ),
+            child: AlertDialog(
+              content: Stack(
+                children: [
+                  Container(
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    child: Text('Please fill the field',style: GoogleFonts.poppins(color: Color(0xFF149F88), fontSize: 16),),
+                  ),
+                ],
+              ),
+              actions: <Widget>[
+
+                Container(
+                  margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xFF149F88), // background
+                      onPrimary: Colors.white, // foreground
+                      minimumSize: Size(100,45),
+                    ),
+                    child: Text('OK'),
+                    onPressed: () {
+                      Navigator.pop(context, 'OK');
+                    },
+                  ),
+                ),
+              ],
+
+            ),
+          );
+
+      },
     );
   }
 
@@ -208,6 +254,7 @@ class EntryPageState extends State<EntryPage> {
                 'Search',
                 style: TextStyle(color: Colors.white, fontSize: 16),
               ),
+
               onPressed: ()  async{
                 try {
                   final _check = await CheckService.check(_membIDController.text);
@@ -230,27 +277,24 @@ class EntryPageState extends State<EntryPage> {
         resizeToAvoidBottomInset: false,
       );
     } else if (membershipID == "-2") {
-      if (p.dues != "0") {
+      if (p.dues != 0) {
         return DuesAlertBox();
       }
-      if (p.noOfVisits == "5" && p.role == "Student") {
+      if (p.noOfVisits == 5 && p.role == "Student" && p.dues == 0) {
         return FreeTrialsAlertBox();
       }
       return Scaffold(
         body: Center(
-          //child: Image.asset("lib/Resources/entry_recorded.png"),
           child: Wrap(
             crossAxisAlignment: WrapCrossAlignment.center,
             children: const [
               Icon(Icons.check,
               color: Color(0xFF149F88),),
               Text(' Swimmer\'s entry has been recorded',
-                style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF149F88), fontSize: 18)),
+                style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF149F88), fontSize: 18)
+              ),
             ],
           )
-          // child: Text("Swimmers entry has been recorded",
-          //   style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF149F88), fontSize: 18),),
-
         ),
         bottomNavigationBar: Container(
             margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -311,9 +355,6 @@ class EntryPageState extends State<EntryPage> {
                     swimmerEntry();
                     membershipID = "-2";
                   }),
-                Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => DuesAlertBox())),
                 },
               ),
             )

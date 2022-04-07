@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:swiminit/SPM/spmnavbar.dart';
-import 'Person.dart';
+import 'person.dart';
 import 'package:intl/intl.dart';
 import 'package:swiminit/Admin/checkClassService.dart';
 class EditReceiptPage extends StatefulWidget {
@@ -19,7 +19,7 @@ class EditReceiptPageState extends State<EditReceiptPage>
 {
   bool isWrong=false;
   currState state = currState.searching;
-  Person p = Person("name", "profileImg", "rollno", "enteredAt", "noOfVisits", "dues", "receiptID", "amtPaid", "datePaid", "role", "mailID", "contact1", "contact2");
+  Person p = Person("name", "profileImg", "rollno", "enteredAt", 0, 0, "receiptID", "amtPaid", "datePaid", "role", "mailID", "contact1", "contact2");
   String membershipID = "-1";
   final TextEditingController _recieptController = TextEditingController();
   final TextEditingController _moneyPaidController = TextEditingController();
@@ -57,24 +57,18 @@ class EditReceiptPageState extends State<EditReceiptPage>
     );
   }
 
-  //Method for showing the date picker
   void _pickDateDialog() {
     showDatePicker(
         context: context,
         initialDate: DateTime.now(),
-        //which date will display when user open the picker
         firstDate: DateTime(1950),
-        //what will be the previous supported year in picker
         lastDate: DateTime
-            .now()) //what will be the up to supported date in picker
+            .now())
         .then((pickedDate) {
-      //then usually do the future job
       if (pickedDate == null) {
-        //if user tap cancel then this function will stop
         return;
       }
       setState(() {
-        //for rebuilding the ui
         _selectedDate = pickedDate;
       });
     });
@@ -88,7 +82,7 @@ class EditReceiptPageState extends State<EditReceiptPage>
     // print(data);
     p.name = data["name"];
     p.rollno = data["membershipID"];
-    p.dues = data["dues"].toString();
+    p.dues = data["dues"];
     p.role = data["roles"];
     p.mailID = data["emailID"];
 
@@ -112,13 +106,55 @@ class EditReceiptPageState extends State<EditReceiptPage>
     );
   }
 
+  Future blankInputs() async{
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return
+          Container(
+            margin: EdgeInsets.fromLTRB(0, 0, 0,0 ),
+            child: AlertDialog(
+              content: Stack(
+                children: [
+                  Container(
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    child: Text('Please fill the field',style: GoogleFonts.poppins(color: Color(0xFF149F88), fontSize: 16),),
+                  ),
+                ],
+              ),
+              actions: <Widget>[
+
+                Container(
+                  margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xFF149F88), // background
+                      onPrimary: Colors.white, // foreground
+                      minimumSize: Size(100,45),
+                    ),
+                    child: Text('OK'),
+                    onPressed: () {
+                      Navigator.pop(context, 'OK');
+                    },
+                  ),
+                ),
+              ],
+
+            ),
+          );
+
+      },
+    );
+  }
+
   Widget detailsWidget(Person p) {
     return Padding(
       padding: EdgeInsets.all(0),
       child: FutureBuilder(
           future: getSwimmer(),
           builder: (context, data) {
-
             if (data.hasError) {
               return Center(child: Text("${data.error}"));
             } else if (data.hasData) {
@@ -193,7 +229,6 @@ class EditReceiptPageState extends State<EditReceiptPage>
                     SizedBox(height: 20),
                     Align(
                       alignment: Alignment(-0.3, 1),
-
                       child: SizedBox(
                         width: 300,
                         child: TextField(
@@ -332,6 +367,7 @@ class EditReceiptPageState extends State<EditReceiptPage>
                   style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
                 onPressed: ()  async{
+
                   try {
               final _check = await CheckService.check(_membIDController.text);
               if(_check.error=="Swimmer does not exist")

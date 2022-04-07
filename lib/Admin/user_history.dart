@@ -3,11 +3,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:swiminit/Admin/Swimmer_details_admin_class.dart';
 import 'package:swiminit/SPM/swimmer_visit_details_spm.dart';
 import 'package:swiminit/Admin/swimmer_details_admin_service.dart';
-import 'package:swiminit/SPM/swimmer_visit_details_spm.dart';
 import 'package:swiminit/SPM/receipt_details_service_spm.dart';
 import 'package:swiminit/SPM/UserVisitsSpmClass.dart';
 import 'package:swiminit/SPM/ReceiptDetailsSpmClass.dart';
-import 'package:swiminit/Admin/search.dart';
 //method that assign values to respective datatype vairables
 
 
@@ -22,32 +20,31 @@ class UserHistoryAdminPage extends StatefulWidget {
 
 class UserHistoryAdminPageState extends State<UserHistoryAdminPage> {
   bool admin= true;
-  Widget downloadButton() {
-    return Container(
-      margin: EdgeInsets.only(left: 0, top: 20, right: 0, bottom: 20),
-      alignment: Alignment(0, 0),
-      child: FractionallySizedBox(
-          widthFactor: 0.25,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              primary: Color(0xFF93C6D3), // background
-              onPrimary: Colors.white, // foreground
-              minimumSize: Size(175, 45),
-            ),
-            child: Text(
-              'Download',
-              style: GoogleFonts.poppins(
-                  color: Colors.black,
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold),
-            ),
-            onPressed: () {},
-          )),
-    );
-  }
+  // Widget downloadButton() {
+  //   return Container(
+  //     margin: EdgeInsets.only(left: 0, top: 20, right: 0, bottom: 20),
+  //     alignment: Alignment(0, 0),
+  //     child: FractionallySizedBox(
+  //         widthFactor: 0.25,
+  //         child: ElevatedButton(
+  //           style: ElevatedButton.styleFrom(
+  //             primary: Color(0xFF93C6D3), // background
+  //             onPrimary: Colors.white, // foreground
+  //             minimumSize: Size(175, 45),
+  //           ),
+  //           child: Text(
+  //             'Download',
+  //             style: GoogleFonts.poppins(
+  //                 color: Colors.black,
+  //                 fontSize: 12,
+  //                 fontWeight: FontWeight.bold),
+  //           ),
+  //           onPressed: () {},
+  //         )),
+  //   );
+  // }
   @override
   Widget build(BuildContext context) {
-    print(widget.rollno);
     List<Color> colors = [Color(0xFFFFFFFF), Color(0xFFD2EAF0)];
     return Scaffold(
       appBar: AppBar(
@@ -63,7 +60,7 @@ class UserHistoryAdminPageState extends State<UserHistoryAdminPage> {
             children: <Widget>[
               Container(
                 margin: EdgeInsets.only(
-                    left: 20, top: 10, right: 20, bottom: 0),
+                    left: 10, top: 10, right: 10, bottom: 0),
                 child: SingleChildScrollView(
 
                   child: FutureBuilder(
@@ -98,7 +95,10 @@ class UserHistoryAdminPageState extends State<UserHistoryAdminPage> {
                                                 shape: BoxShape.circle,
                                                 image: DecorationImage(
                                                     fit: BoxFit.cover,
-                                                    image: AssetImage('lib/Resources/pic-1.png')))),
+                                                    image: AssetImage('lib/Resources/pic-1.png')
+                                                )
+                                            )
+                                        ),
                                       ),
                                     ),
                                     Align(
@@ -128,7 +128,7 @@ class UserHistoryAdminPageState extends State<UserHistoryAdminPage> {
                                               Text(
                                                 posts.emailId,
                                                 style: GoogleFonts.poppins(
-                                                    color: Colors.black, fontSize: 13),
+                                                    color: Colors.black, fontSize: 11),
                                               ),
                                               Text(
                                                 posts.contact1,
@@ -142,7 +142,8 @@ class UserHistoryAdminPageState extends State<UserHistoryAdminPage> {
                                               ),
                                             ],
                                           ),
-                                        )),
+                                        )
+                                    ),
                                     Align(
                                         alignment: Alignment(1, -1),
                                         child: Container(
@@ -162,13 +163,13 @@ class UserHistoryAdminPageState extends State<UserHistoryAdminPage> {
                                               )
                                             ],
                                           ),
-                                        ))
+                                        )
+                                    )
                                   ],
                                 ),
                               ),
-                            ));
-                        // print(posts);
-                        //var items = data.data as List<ProductDataModel>;
+                            )
+                        );
                       }
                       else {
                         return Center(
@@ -176,29 +177,21 @@ class UserHistoryAdminPageState extends State<UserHistoryAdminPage> {
                         );
                       }
                     },
-
                   ),
-
                 ),
               ),
-
               Container(
                 margin: EdgeInsets.only(
                     left: 20, top: 10, right: 20, bottom: 0),
                 child: SingleChildScrollView(
-
                   child: FutureBuilder(
                     future: ReceiptDetailsServices.getSwimmersReceiptDetails(widget.rollno),
                     builder: (BuildContext context,data) {
                       if (data.hasError) {
-                        print("hello");
                         return Center(child: Text(""));
                       }
                       else if (data.hasData) {
-
                         var receipt = data.data as ReceiptDetailsSpm;
-
-                        //var items = data.data as List<ProductDataModel>;
                         return Padding(
                             padding: const EdgeInsets.all(0),
                             child: SizedBox(
@@ -257,7 +250,8 @@ class UserHistoryAdminPageState extends State<UserHistoryAdminPage> {
                       }
                       else {
                         return Center(
-                          child: Text(" "),);
+                          child: Text(" "),
+                        );
                       }
                     },
                   ),
@@ -381,11 +375,10 @@ class UserHistoryAdminPageState extends State<UserHistoryAdminPage> {
                   ),
                 ),
               ),
-              downloadButton(),
+              SizedBox(height: 20),
             ],
           )
       ),
-
     );
   }
 }

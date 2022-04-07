@@ -8,13 +8,11 @@ class FreeTrialsAlertBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-
         child: CustomAlertDialogBox(
           title: "Warning",
           description:
           "As 5 free trials have been exhausted, dues will be incurred",
         ),
-
       ),
     );
   }

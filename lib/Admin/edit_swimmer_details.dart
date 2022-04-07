@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:swiminit/Admin/adminnavbar.dart';
 import 'package:http/http.dart' as http;
-import 'Swimmer.dart';
+import 'swimmer.dart';
 import 'dart:convert';
 import 'package:swiminit/Admin/checkClassService.dart';
 class EditSwimmerPage extends StatefulWidget {
@@ -72,35 +72,49 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
     );
   }
 
-  // Future<void> popupSwimmerDetailsUpdated() async {
-  //   return showDialog<void>(
-  //     context: context,
-  //     barrierDismissible: false, // user must tap button!
-  //     builder: (BuildContext context) {
-  //       return
-  //         Container(
-  //           margin: EdgeInsets.fromLTRB(10, 5, 10,3 ),
-  //           child: AlertDialog(
-  //             content: Stack(
-  //               children: [
-  //                 Text('Swimmer details updated successfully.',style: GoogleFonts.poppins(color: Color(0xFF149F88), fontSize: 15),),
-  //               ],
-  //             ),
-  //             actions: <Widget>[
-  //               TextButton(
-  //                 child: Text('OK'),
-  //                 onPressed: () {
-  //                   Navigator.of(context).pushReplacement(
-  //                       MaterialPageRoute(
-  //                           builder: (context) => AdminNavBar()));
-  //                 },
-  //               ),
-  //             ],
-  //           ),
-  //         );
-  //     },
-  //   );
-  // }
+
+  Future blankInputs() async{
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return
+          Container(
+            margin: EdgeInsets.fromLTRB(0, 0, 0,0 ),
+            child: AlertDialog(
+              content: Stack(
+                children: [
+                  Container(
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    child: Text('Please fill the field',style: GoogleFonts.poppins(color: Color(0xFF149F88), fontSize: 16),),
+                  ),
+                ],
+              ),
+              actions: <Widget>[
+
+                Container(
+                  margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xFF149F88), // background
+                      onPrimary: Colors.white, // foreground
+                      minimumSize: Size(100,45),
+                    ),
+                    child: Text('OK'),
+                    onPressed: () {
+                      Navigator.pop(context, 'OK');
+                    },
+                  ),
+                ),
+              ],
+
+            ),
+          );
+
+      },
+    );
+  }
 
   Future getSwimmer() async {
     var response = await http.get(Uri.parse(
@@ -112,14 +126,10 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
     s.emailID = data["emailID"];
     s.contact1 = data["contact1"];
     s.contact2 = data["contact2"];
-
     _nameController.text = s.name;
     _emailIDController.text = s.emailID;
     _contact1Controller.text = s.contact1;
     _contact2Controller.text = s.contact2;
-
-    print(s.role.length);
-
     return s;
   }
 
@@ -221,9 +231,9 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                               ))),
                       SizedBox(height: 5),
                       Align(
-                        alignment: Alignment(-0.65, 1),
+                        alignment: Alignment(-0.75, 1),
                         child: Text(
-                          _text1Controller_bool? "*This field is required":"",
+                          _text1Controller_bool? "*Invalid input":"",
                           style: GoogleFonts.poppins(color: Colors.red, fontSize: 12),
                         ),
                       ),
@@ -295,9 +305,9 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                               ))),
                       SizedBox(height: 5),
                       Align(
-                        alignment: Alignment(-0.65, 1),
+                        alignment: Alignment(-0.75, 1),
                         child: Text(
-                          _text2Controller_bool? "*This field is required":"",
+                          _text2Controller_bool? "*Invalid input":"",
                           style: GoogleFonts.poppins(color: Colors.red, fontSize: 12),
                         ),
                       ),
@@ -332,9 +342,9 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                               ))),
                       SizedBox(height: 5),
                       Align(
-                        alignment: Alignment(-0.65, 1),
+                        alignment: Alignment(-0.75, 1),
                         child: Text(
-                          _text3Controller_bool? "*This field is required":"",
+                          _text3Controller_bool? "*Invalid input":"",
                           style: GoogleFonts.poppins(color: Colors.red, fontSize: 12),
                         ),
                       ),
@@ -369,9 +379,9 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                               ))),
                       SizedBox(height: 5),
                       Align(
-                        alignment: Alignment(-0.65, 1),
+                        alignment: Alignment(-0.75, 1),
                         child: Text(
-                          _text4Controller_bool? "*This field is required":"",
+                          _text4Controller_bool? "*Invalid input":"",
                           style: GoogleFonts.poppins(color: Colors.red, fontSize: 12),
                         ),
                       ),
@@ -534,6 +544,7 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                   'Submit',
                   style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
+
                 onPressed: ()  async{
                   try {
                     final _check = await CheckService.check(_membIDController.text);
@@ -545,6 +556,7 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                     }
                   }catch(e)
                   {setState(() {
+
                     membershipID = _membIDController.text;
                     state = currState.editing;
                   });}
@@ -586,9 +598,9 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                       _text1Controller_bool = true;
                     } else if(_emailIDController.text.length == 0) {
                       _text2Controller_bool = true;
-                    } else if(_contact1Controller.text.length == 0) {
+                    } else if(_contact1Controller.text.length != 10) {
                       _text3Controller_bool = true;
-                    } else if(_contact2Controller.text.length == 0) {
+                    } else if(_contact2Controller.text.length != 10) {
                       _text4Controller_bool = true;
                     } else {
                       editSwimmerDetails();

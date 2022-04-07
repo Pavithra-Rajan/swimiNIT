@@ -49,12 +49,7 @@ class _ViewPoolManagers extends State<ViewPoolManagers> {
 
   Future delSPM(String cont1) async{
     String contact1 = cont1;
-    var response =
     await http.delete(Uri.parse('https://swiminit.herokuapp.com/deleteSPM?contact1=$contact1'));
-    //print(ProductDataModel.fromJson(jsonDecode(response.body)));
-    var data = json.decode(response.body);
-    List<ProductDataModel> duesData = [];
-
      return;
   }
 
