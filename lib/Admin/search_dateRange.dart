@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:date_field/date_field.dart';
 import 'package:toggle_switch/toggle_switch.dart';
-import 'package:swiminit/SPM/search_by_daterange_results.dart';
+import 'package:swiminit/Admin/search_by_daterange_results.dart';
 
 class Daterange2 extends StatefulWidget {
   final Function toggleswitch;
@@ -14,10 +14,9 @@ class Daterange2 extends StatefulWidget {
 class Daterange2State extends State<Daterange2> {
   bool isVisible = false;
   bool isChecked=false;
+  bool swapColor = false;
   var fromdate;
   var enddate;
-  TextEditingController _textEditingController1 =TextEditingController();
-  TextEditingController _textEditingController2 =TextEditingController();
 
   Widget _builddaterange1() {
     return DateTimeFormField(
@@ -35,7 +34,7 @@ class Daterange2State extends State<Daterange2> {
       autovalidateMode: AutovalidateMode.always,
       lastDate: DateTime.now(),
 
-        onDateSelected: (DateTime value) {
+      onDateSelected: (DateTime value) {
         //print(value);
         fromdate = value;
         print(fromdate);
@@ -61,6 +60,7 @@ class Daterange2State extends State<Daterange2> {
       mode: DateTimeFieldPickerMode.date,
       autovalidateMode: AutovalidateMode.always,
       initialDate: DateTime.now(),
+      lastDate: DateTime.now(),
       onDateSelected: (DateTime value) {
         enddate=value;
         enddate=enddate.toString().split(" ")[0];
@@ -73,24 +73,12 @@ class Daterange2State extends State<Daterange2> {
   @override
   Widget build(BuildContext context) {
 
-  Color getColor(Set<MaterialState> states) {
-    const Set<MaterialState> interactiveStates = <MaterialState>{
-      MaterialState.pressed,
-      MaterialState.hovered,
-      MaterialState.focused,
-    };
-    if (states.any(interactiveStates.contains)) {
-      return Colors.cyan.shade900;
+    void check(bool value)
+    {
+      setState(() {
+        isChecked=value;
+      });
     }
-    return Colors.cyan.shade900;
-  }
-  void check(bool value)
-  {
-    setState(() {
-
-      isChecked=value;
-    });
-  }
     return Scaffold(
       body: Container(
         margin: EdgeInsets.only(left: 35, top: 40, right: 35, bottom: 0),
@@ -104,7 +92,7 @@ class Daterange2State extends State<Daterange2> {
                 minWidth: 140.0,
                 minHeight: 40.0,
                 fontSize: 14.0,
-                initialLabelIndex: 0,
+                initialLabelIndex: swapColor?0:1,
                 activeBgColor: const [Color(0xff0388A9)],
                 activeFgColor: Colors.white,
                 inactiveBgColor: Color(0xffD1E9EF),
@@ -115,45 +103,50 @@ class Daterange2State extends State<Daterange2> {
                   if(index==0 && widget.showMembership==false) {
                     setState(() {
                       widget.toggleswitch();
+                      swapColor = !swapColor;
                     });
                   }
                   if(index==1 && widget.showMembership==true) {
                     setState(() {
                       widget.toggleswitch();
+                      swapColor = !swapColor;
                     });
                   }
                 },
               ),
               // SizedBox(height: 75,),
-          Expanded(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  _builddaterange1(),
-                  StatefulBuilder(
-                  builder: (BuildContext context, StateSetter setState) {
-                    return Checkbox(
-                      checkColor: Colors.white,
-                      fillColor: MaterialStateProperty.resolveWith(getColor),
-                      value: isChecked,
-                      onChanged: (bool? value) {
-                        // setState(() {
-                        //   isChecked = value!;
-                        // });
-                        check(value!);
-                        print(isChecked);
-                      },
-                    );
 
-                  }),
-                  Visibility(
-                  child:_builddaterange2(),
-                  visible: !isChecked,
-                  ),
+              Expanded(
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      _builddaterange1(),
+                      StatefulBuilder(
+                          builder: (BuildContext context, StateSetter setState) {
+                            return CheckboxListTile(
+                              controlAffinity: ListTileControlAffinity.leading,
+                              checkColor: Colors.white,
+                              title: Text('Same as from'),
+                              //tileColor: MaterialStateProperty.resolveWith(getColor),
+                              value: isChecked,
+                              onChanged: (bool? value) {
+                                // setState(() {
+                                //   isChecked = value!;
+                                // });
+                                check(value!);
+                                print(isChecked);
+                              },
+                            );
 
-                ]),
-          ),
+                          }),
+                      Visibility(
+                        child:_builddaterange2(),
+                        visible: !isChecked,
+                      ),
+                    ]
+                ),
+              ),
             ],
           ),
         ),
@@ -164,7 +157,7 @@ class Daterange2State extends State<Daterange2> {
         children: <Widget>[
           SizedBox(
             height: 40, //height of button
-            width: 410, //width of button equal to parent widget
+            width: 400, //width of button equal to parent widget
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 primary: Color(0xFF14839F), //background color of button
