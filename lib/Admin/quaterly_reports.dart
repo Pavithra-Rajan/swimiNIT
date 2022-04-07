@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:swiminit/Admin/pending_dues.dart';
+import 'package:swiminit/Admin/collections.dart';
 import 'package:swiminit/Admin/quarterlyReportResults.dart';
 
 class QuarterlyReports extends StatelessWidget
@@ -65,7 +65,11 @@ class QuarterlyReports extends StatelessWidget
                       alignment: Alignment.center,
                       child: Container(
                         margin: EdgeInsets.fromLTRB(0, 300, 0, 0),
-                        child: RawMaterialButton(onPressed: () async {},
+                        child: RawMaterialButton(onPressed: () async {Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const CollectionsReport()),
+                        );
+                          },
                             fillColor: Color(0xFF93C6D3),
                             splashColor: Color(0xFF93C6D3),
                             highlightColor: Color(0xFF93C6D3),
