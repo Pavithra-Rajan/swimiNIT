@@ -85,7 +85,6 @@ class EditReceiptPageState extends State<EditReceiptPage>
     p.dues = data["dues"];
     p.role = data["roles"];
     p.mailID = data["emailID"];
-
     return p;
   }
 
@@ -124,10 +123,8 @@ class EditReceiptPageState extends State<EditReceiptPage>
                 ],
               ),
               actions: <Widget>[
-
                 Container(
                   margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       primary: Color(0xFF149F88), // background
@@ -141,10 +138,8 @@ class EditReceiptPageState extends State<EditReceiptPage>
                   ),
                 ),
               ],
-
             ),
           );
-
       },
     );
   }

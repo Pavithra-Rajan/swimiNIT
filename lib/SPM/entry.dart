@@ -5,7 +5,7 @@ import 'person.dart';
 import 'package:http/http.dart' as http;
 import 'package:swiminit/SPM/entryAlerts/DuesAlertBox.dart';
 import 'package:swiminit/SPM/entryAlerts/FreeTrialsAlertBox.dart';
-import 'package:intl/intl.dart'; // for date format
+import 'package:intl/intl.dart';
 import 'package:swiminit/Admin/checkClassService.dart';
 
 class EntryPage extends StatefulWidget {
@@ -30,7 +30,7 @@ class EntryPageState extends State<EntryPage> {
       0,
       0,
       "receiptID",
-      "amtPaid",
+      "0",
       "datePaid",
       "Student",
       "mailID",
@@ -163,7 +163,7 @@ class EntryPageState extends State<EntryPage> {
               );
             }
           }
-          ),
+      ),
     );
   }
 
@@ -180,15 +180,19 @@ class EntryPageState extends State<EntryPage> {
                 children: [
                   Container(
                     margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    child: Text('Please fill the field',style: GoogleFonts.poppins(color: Color(0xFF149F88), fontSize: 16),),
+                    child: Text(
+                      'Please fill the field',
+                      style: GoogleFonts.poppins(
+                          color: Color(0xFF149F88),
+                          fontSize: 16
+                      ),
+                    ),
                   ),
                 ],
               ),
               actions: <Widget>[
-
                 Container(
                   margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       primary: Color(0xFF149F88), // background
@@ -218,19 +222,21 @@ class EntryPageState extends State<EntryPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[TextField(
-                  autocorrect: false,
-                  cursorColor: Color(0xFF14839F),
-                  controller: _membIDController,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: const InputDecoration(
-                    hintText: "Membership ID",
-                    prefixIcon: Icon(Icons.person, color: Color(0xFF14839F)),
-                  ),
+                  children: <Widget>[
+                    TextField(
+                      autocorrect: false,
+                      cursorColor: Color(0xFF14839F),
+                      controller: _membIDController,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: const InputDecoration(
+                        hintText: "Membership ID",
+                        prefixIcon: Icon(Icons.person, color: Color(0xFF14839F)),
+                      ),
+                    ),
+                    Visibility(visible:isWrong,
+                      child: Text("Swimmer does not exist")),
+                  ],
                 ),
-                Visibility(visible:isWrong,
-                    child: Text("Swimmer does not exist")),
-                ],),
             )
         ),
         bottomNavigationBar: Container(
@@ -263,11 +269,13 @@ class EntryPageState extends State<EntryPage> {
                     });
                   }
                 }catch(e)
-                {setState(() {
-                  membershipID = _membIDController.text;
-                  _membIDController.clear();
-                });}
-
+                {
+                  setState(() {
+                    membershipID = _membIDController.text;
+                    _membIDController.clear();
+                    }
+                  );
+                }
               },
             ),
           ),
