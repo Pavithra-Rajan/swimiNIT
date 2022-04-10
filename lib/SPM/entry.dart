@@ -202,10 +202,8 @@ class EntryPageState extends State<EntryPage> {
                   ),
                 ),
               ],
-
             ),
           );
-
       },
     );
   }
