@@ -161,8 +161,6 @@ class RegistrationPageState extends State<RegistrationPage> {
   }
 
   Widget _quaterlyFees() {
-
-
     return Text(
       p.role=="Student"?"Fees: 200":"Fees: 500"
     );
@@ -177,49 +175,6 @@ class RegistrationPageState extends State<RegistrationPage> {
           borderSide: BorderSide(color: Color(0xFF14839F), width: 1.5),
         ),
       ),
-    );
-  }
-
-  Future blankInputs() async{
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return
-          Container(
-            margin: EdgeInsets.fromLTRB(0, 0, 0,0 ),
-            child: AlertDialog(
-              content: Stack(
-                children: [
-                  Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    child: Text('Please fill all the fields',style: GoogleFonts.poppins(color: Color(0xFF149F88), fontSize: 16),),
-                  ),
-                ],
-              ),
-              actions: <Widget>[
-
-                Container(
-                  margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Color(0xFF149F88), // background
-                      onPrimary: Colors.white, // foreground
-                      minimumSize: Size(100,45),
-                    ),
-                    child: Text('OK'),
-                    onPressed: () {
-                      Navigator.pop(context, 'OK');
-                    },
-                  ),
-                ),
-              ],
-
-            ),
-          );
-
-      },
     );
   }
 
@@ -273,7 +228,6 @@ class RegistrationPageState extends State<RegistrationPage> {
         body: SingleChildScrollView(
           child: Container(
             margin: EdgeInsets.only(left: 35, top: 10, right: 35, bottom: 0),
-            child: Form(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -344,7 +298,6 @@ class RegistrationPageState extends State<RegistrationPage> {
               ),
             ),
           ),
-        ),
         bottomNavigationBar: Container(
           margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
           child: FractionallySizedBox(
@@ -365,7 +318,6 @@ class RegistrationPageState extends State<RegistrationPage> {
                 style: TextStyle(color: Colors.white, fontSize: 16),
               ),
               onPressed: () {
-
                 if(_nameController.text.isEmpty || _memIDController.text.isEmpty || _mailIDController.text.isEmpty || _contact1Controller.text.isEmpty || _contact2Controller.text.isEmpty)
                   {
                     //show popup telling to fill details
@@ -411,6 +363,83 @@ class RegistrationPageState extends State<RegistrationPage> {
     }
   }
 
+  Future blankInputs() async{
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return
+          Container(
+            margin: EdgeInsets.fromLTRB(0, 0, 0,0 ),
+            child: AlertDialog(
+              content: Stack(
+                children: [
+                  Container(
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    child: Text('Please fill all the fields',style: GoogleFonts.poppins(color: Color(0xFF149F88), fontSize: 16),),
+                  ),
+                ],
+              ),
+              actions: <Widget>[
+                Container(
+                  margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xFF149F88), // background
+                      onPrimary: Colors.white, // foreground
+                      minimumSize: Size(100,45),
+                    ),
+                    child: Text('OK'),
+                    onPressed: () {
+                      Navigator.pop(context, 'OK');
+                    },
+                  ),
+                ),
+              ],
+            ),
+          );
+      },
+    );
+  }
+
+  Future repeatID() async{
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return Container(
+            margin: EdgeInsets.fromLTRB(0, 0, 0,0 ),
+            child: AlertDialog(
+              content: Stack(
+                children: [
+                  Container(
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    child: Text('Swimmer is already registered', style: GoogleFonts.poppins(color: Color(0xFF149F88), fontSize: 16),),
+                  ),
+                ],
+              ),
+              actions: <Widget>[
+                Container(
+                  margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xFF149F88), // background
+                      onPrimary: Colors.white, // foreground
+                      minimumSize: Size(100,45),
+                    ),
+                    child: Text('OK'),
+                    onPressed: () {
+                      Navigator.pop(context, 'OK');
+                    },
+                  ),
+                ),
+              ],
+            ),
+          );
+      },
+    );
+  }
+
   Future swimmerRegistration() async
   {
     var jsonvalue = {};
@@ -429,13 +458,17 @@ class RegistrationPageState extends State<RegistrationPage> {
     receipt["paymentDate"] = p.datePaid;
     jsonvalue["details"] = details;
     jsonvalue["receipt"] = receipt;
-    print(jsonvalue);
-    await http.post(
+    final response = await http.post(
       Uri.parse('https://swiminit.herokuapp.com/register'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: json.encode(jsonvalue)
     );
+
+    if(response.statusCode != 200)
+    {
+      repeatID();
+    }
   }
 }

@@ -11,12 +11,13 @@ class AdminAddSPM extends StatefulWidget
 
   @override
   State<AdminAddSPM> createState() => _AdminAddSPMState();
+
+  static final GlobalKey<FormState> _addScreenFormKey = GlobalKey<FormState>();
 }
 
 
 class _AdminAddSPMState extends State<AdminAddSPM>
 {
-
   Future putSPM(String contact1, String contact2, String name, String pass) async{
     //print('function is getting executed');
     print (contact1);
@@ -32,7 +33,7 @@ class _AdminAddSPMState extends State<AdminAddSPM>
     } catch (e) {
       print(e);
     }
-    ;
+
     await http.post(
         Uri.parse('https://swiminit.herokuapp.com/addSPM'),
         headers: <String, String>{
@@ -48,7 +49,6 @@ class _AdminAddSPMState extends State<AdminAddSPM>
         })
     );
   }
-
 
   Future<void> popupSPMadded() async {
     return showDialog<void>(
@@ -84,50 +84,49 @@ class _AdminAddSPMState extends State<AdminAddSPM>
                     )
                   ],
                 ),
-
               ),
           );
-
       },
     );
   }
 
+  final TextEditingController _name = TextEditingController();
+  final TextEditingController _contact1 = TextEditingController();
+  final TextEditingController _contact2 = TextEditingController();
+  final TextEditingController _password = TextEditingController();
+
   bool added = false;
   @override
   Widget build(BuildContext context) {
-    TextEditingController _name = TextEditingController();
-    TextEditingController _contact1 = TextEditingController();
-    TextEditingController _contact2 = TextEditingController();
-    TextEditingController _password = TextEditingController();
-    Widget adding()
 
+    Widget adding()
     {
       if(!added)
       {
         return ListView(
           children: [
-                  Column(
-                  children: [
+            Column(
+                children: [
                   const SizedBox(height: 40.0),
-                    TextField(
-                      controller: _name,
-                      keyboardType: TextInputType.name,
-                      decoration: const InputDecoration(
-                        hintText: "Name",
-                        prefixIcon: Icon(Icons.person,color:Color(0xFF14839F)),
-                        iconColor: Color(0xFF14839F),
-                        ),
-                      ),
-                    const SizedBox(height: 26.0,),
-                    TextField(
-                      controller: _contact1,
-                      obscureText: false,
-                      keyboardType: TextInputType.phone,
-                        decoration: const InputDecoration(
-                        hintText: "Contact 1",
-                        prefixIcon: Icon(Icons.local_phone,color:Color(0xFF14839F)),
-                      ),
+                  TextField(
+                    controller: _name,
+                    keyboardType: TextInputType.name,
+                    decoration: const InputDecoration(
+                      hintText: "Name",
+                      prefixIcon: Icon(Icons.person,color:Color(0xFF14839F)),
+                      iconColor: Color(0xFF14839F),
                     ),
+                  ),
+                  const SizedBox(height: 26.0,),
+                  TextField(
+                    controller: _contact1,
+                    obscureText: false,
+                    keyboardType: TextInputType.phone,
+                    decoration: const InputDecoration(
+                      hintText: "Contact 1",
+                      prefixIcon: Icon(Icons.local_phone,color:Color(0xFF14839F)),
+                    ),
+                  ),
                   const SizedBox(height: 26.0,
                   ),
                   TextField(
@@ -137,8 +136,8 @@ class _AdminAddSPMState extends State<AdminAddSPM>
                     decoration: const InputDecoration(
                       hintText: "Contact 2",
                       prefixIcon: Icon(Icons.phone_android,color:Color(0xFF14839F)),
-                      ),
                     ),
+                  ),
                   const SizedBox(height: 26.0,
                   ),
                   TextField(
@@ -148,36 +147,36 @@ class _AdminAddSPMState extends State<AdminAddSPM>
                     decoration: const InputDecoration(
                       hintText: "Password",
                       prefixIcon: Icon(Icons.lock,color:Color(0xFF14839F)),
-                      ),
                     ),
+                  ),
                   Container(
                       margin: EdgeInsets.fromLTRB(0, 45, 0, 5),
                       child: Stack(
-                      children: [
-                      Align(
-                          alignment: Alignment(0, 0),
-                          child: FractionallySizedBox(
-                          widthFactor: 0.25,
-                          child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                          primary: Color(0xFF93C6D3), // background
-                          onPrimary: Colors.white, // foreground
-                          minimumSize: Size(175,45),
-                          ),
-                            child: Text('Submit',style: GoogleFonts.poppins(color: Colors.black, fontSize: 14),),
-                            onPressed: () {
-                            putSPM(_contact1.text,_contact2.text,_name.text,_password.text);
-                            popupSPMadded();
-                            },
-                        )
-                      )
-                    )
-                  ],
+                        children: [
+                          Align(
+                            alignment: Alignment(0, 0),
+                            child: FractionallySizedBox(
+                              widthFactor: 0.25,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  primary: Color(0xFF93C6D3), // background
+                                  onPrimary: Colors.white, // foreground
+                                  minimumSize: Size(175,45),
+                               ),
+                                child: Text('Submit',style: GoogleFonts.poppins(color: Colors.black, fontSize: 14),),
+                                onPressed: () {
+                                  putSPM(_contact1.text,_contact2.text,_name.text,_password.text);
+                                  popupSPMadded();
+                                },
+                              )
+                            )
+                          )
+                        ],
                       )
                   )
               ]
-                  )
-          ],
+            )
+          ]
         );
       }
       else
@@ -191,16 +190,13 @@ class _AdminAddSPMState extends State<AdminAddSPM>
       }
     }
 
-
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Add Pool Manager'),
         backgroundColor: Color(0xFF14839F),
       ),
-
       body: adding(),
-
       bottomNavigationBar: Container(
             margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
             child: FractionallySizedBox(
@@ -223,12 +219,13 @@ class _AdminAddSPMState extends State<AdminAddSPM>
                 onPressed: () => {
                   Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
-                          builder: (context) => AdminNavBar())),
-
+                          builder: (context) => AdminNavBar()
+                      )
+                  ),
                 },
               ),
-            )),
-
+            )
+      ),
     );
   }
 }
