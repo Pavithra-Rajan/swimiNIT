@@ -5,7 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:swiminit/Admin/adminnavbar.dart';
 import 'package:swiminit/SPM/spmnavbar.dart';
 import 'firebase_options.dart';
-
+import 'package:swiminit/Admin/adminaddspm.dart';
+import 'package:swiminit/Admin/edit_swimmer_details.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(

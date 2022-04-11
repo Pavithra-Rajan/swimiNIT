@@ -49,7 +49,48 @@ class _AdminAddSPMState extends State<AdminAddSPM>
         })
     );
   }
+  Future blankInputs() async{
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return
+          Container(
+            margin: EdgeInsets.fromLTRB(0, 0, 0,0 ),
+            child: AlertDialog(
+              content: Stack(
+                children: [
+                  Container(
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    child: Text('Please fill the required fields',style: GoogleFonts.poppins(color: Color(0xFF149F88), fontSize: 16),),
+                  ),
+                ],
+              ),
+              actions: <Widget>[
 
+                Container(
+                  margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xFF149F88), // background
+                      onPrimary: Colors.white, // foreground
+                      minimumSize: Size(100,45),
+                    ),
+                    child: Text('OK'),
+                    onPressed: () {
+                      Navigator.pop(context, 'OK');
+                    },
+                  ),
+                ),
+              ],
+
+            ),
+          );
+
+      },
+    );
+  }
   Future<void> popupSPMadded() async {
     return showDialog<void>(
       context: context,
@@ -120,6 +161,7 @@ class _AdminAddSPMState extends State<AdminAddSPM>
                   const SizedBox(height: 26.0,),
                   TextField(
                     controller: _contact1,
+
                     obscureText: false,
                     keyboardType: TextInputType.phone,
                     decoration: const InputDecoration(
@@ -165,6 +207,11 @@ class _AdminAddSPMState extends State<AdminAddSPM>
                                ),
                                 child: Text('Submit',style: GoogleFonts.poppins(color: Colors.black, fontSize: 14),),
                                 onPressed: () {
+                                  if(_name.text.isEmpty || _contact1.text.isEmpty || _contact2.text.isEmpty || _password.text.isEmpty)
+                                  {
+                                    blankInputs();
+                                    return;
+                                  }
                                   putSPM(_contact1.text,_contact2.text,_name.text,_password.text);
                                   popupSPMadded();
                                 },
