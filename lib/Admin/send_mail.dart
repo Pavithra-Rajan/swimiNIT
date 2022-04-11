@@ -5,15 +5,18 @@ class SendMailPage extends StatelessWidget {
   const SendMailPage({Key? key}) : super(key: key);
 
   void _contact() async {
-
-    const url = 'mailto:pavithra.rajan01@gmail.com';
-
+    final Uri params = Uri(
+      scheme: 'mailto',
+      path: 'pavithra.rajan01@gmail.com',
+    );
+    String  url = params.toString();
     if (await canLaunch(url)) {
       await launch(url);
     } else {
-      throw 'Could not launch $url';
+      print( 'Could not launch $url');
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
