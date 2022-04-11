@@ -7,12 +7,14 @@ import 'package:google_fonts/google_fonts.dart';
 //     List<ProductDataModel>.from(json.decode(str).map((x) => ProductDataModel.fromMap(x)));
 class ProductDataModel {
   final String dateOfVisit;
+  final String startTime;
   final String endTime;
   final String membershipID;
 
 
   ProductDataModel(
       this.dateOfVisit,
+      this.startTime,
       this.endTime,
       this.membershipID,
       );
@@ -45,8 +47,9 @@ class quarterlyReportsPageState extends State<quarterlyReportsPage> {
       if (u["endTime"]!='NULL'){
         var tempTime = u["endTime"].split(';');
         String tempDate = u["dateOfVisit"].substring(0, u["dateOfVisit"].indexOf(';'));
+        String startTime = u["dateOfVisit"].split(";")[1];
         ProductDataModel duesData1 =
-        ProductDataModel(tempDate, tempTime[1], u["membershipID"]);
+        ProductDataModel(tempDate,startTime, tempTime[1], u["membershipID"]);
         duesData.add(duesData1);
       }
 
@@ -112,6 +115,20 @@ class quarterlyReportsPageState extends State<quarterlyReportsPage> {
                           height: 64,
                           child: Center(
                             child: Text(
+                              "Start Time",
+                              style: GoogleFonts.poppins(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 64,
+                          child: Center(
+                            child: Text(
                               "End Time",
                               style: GoogleFonts.poppins(
                                 color: Colors.black,
@@ -149,6 +166,19 @@ class quarterlyReportsPageState extends State<quarterlyReportsPage> {
                             child: Center(
                               child: Text(
                                 items[i].dateOfVisit.toString(),
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.poppins(
+                                  color: Colors.black,
+                                  fontSize: 13,
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 64,
+                            child: Center(
+                              child: Text(
+                                items[i].startTime.toString(),
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.poppins(
                                   color: Colors.black,

@@ -150,7 +150,7 @@ Future proceedExit(String rno) async{
                                     //textAlign: TextAlign.center,
                                     style: GoogleFonts.poppins(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
                                   ),
-                                  Text('Entered at '+p.enteredAt,
+                                  Text('Entered at '+p.enteredAt.split(";")[1],
                                     style: GoogleFonts.poppins(color: Colors.black, fontSize: 14),
                                   ),
 
