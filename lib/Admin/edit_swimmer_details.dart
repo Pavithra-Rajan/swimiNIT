@@ -42,14 +42,14 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
           margin: EdgeInsets.fromLTRB(10, 5, 10, 3),
           child: AlertDialog(
             content: SizedBox(
-              height: 200,
+              height: 150,
               child: Column(
 
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    margin: EdgeInsets.fromLTRB(20, 8, 20, 50),
+                    margin: EdgeInsets.fromLTRB(20, 8, 20, 10),
                     child: Text('Swimmer details updated successfully',
                         style: GoogleFonts.poppins(
                             color: Color(0xFF149F88), fontSize: 15),
@@ -58,7 +58,7 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                   Container(
                     margin: EdgeInsets.fromLTRB(50, 20, 50, 5),
                     child: SizedBox(
-                      width: 200,
+                      width: 100,
                       child:ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           primary: Color(0xFF149F88), // background
