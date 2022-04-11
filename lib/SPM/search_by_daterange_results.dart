@@ -64,7 +64,12 @@ class SearchByDateRangeState extends State<SearchByDateRange> {
                 }
                 else if(data.hasData){
                   var items = data.data as GetDateVisitsSpm;
-
+                  if(items.visits.isEmpty)
+                  {
+                    return Center(
+                      child: Text("No Swimmer has used the pool in this date range"),
+                    );
+                  }
                   return Table(
 
                     border:TableBorder.all(
@@ -137,7 +142,7 @@ class SearchByDateRangeState extends State<SearchByDateRange> {
                           height: 64,
                           child: Center(
                             child: Text(
-                              items.visits[i].dateOfVisit.split(";")[1],
+                              '${items.visits[i].dateOfVisit.split(";")[1]}-${items.visits[i].endTime.split(";")[1]}',
                               textAlign: TextAlign.center,
                             ),
                           ),
