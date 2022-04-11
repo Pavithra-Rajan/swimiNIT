@@ -6,7 +6,7 @@ import 'package:swiminit/Admin/adminnavbar.dart';
 import 'package:swiminit/SPM/spmnavbar.dart';
 import 'firebase_options.dart';
 import 'package:swiminit/Admin/adminaddspm.dart';
-
+import 'package:swiminit/Admin/edit_swimmer_details.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
         future: _initializeFirebase(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            return AdminAddSPM();
+            return LoginScreen();
           }
           return const Center(
             child: CircularProgressIndicator(),

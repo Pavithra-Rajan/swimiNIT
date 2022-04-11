@@ -161,6 +161,7 @@ class _AdminAddSPMState extends State<AdminAddSPM>
                   const SizedBox(height: 26.0,),
                   TextField(
                     controller: _contact1,
+
                     obscureText: false,
                     keyboardType: TextInputType.phone,
                     decoration: const InputDecoration(
