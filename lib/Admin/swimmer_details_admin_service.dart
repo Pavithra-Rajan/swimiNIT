@@ -11,7 +11,6 @@ class SwimmerDetailsServices {
     if(200 == response.statusCode) {
       return SwimmerDetailsAdmin.fromJson(jsonDecode(response.body));
     }
-
     throw'';
   }
 }

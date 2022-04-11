@@ -3,13 +3,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:swiminit/Admin/Swimmer_details_admin_class.dart';
 import 'package:swiminit/SPM/swimmer_visit_details_spm.dart';
 import 'package:swiminit/Admin/swimmer_details_admin_service.dart';
-import 'package:swiminit/SPM/swimmer_visit_details_spm.dart';
 import 'package:swiminit/SPM/receipt_details_service_spm.dart';
 import 'package:swiminit/SPM/UserVisitsSpmClass.dart';
 import 'package:swiminit/SPM/ReceiptDetailsSpmClass.dart';
-import 'package:swiminit/Admin/search.dart';
 //method that assign values to respective datatype vairables
-
 
 class UserHistoryAdminPage extends StatefulWidget {
 
@@ -293,7 +290,8 @@ class UserHistoryAdminPageState extends State<UserHistoryAdminPage> {
                                       style: GoogleFonts.poppins(
                                         color: Colors.black,
                                         fontSize: 14,
-                                        fontWeight: FontWeight.bold,),
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                       textAlign: TextAlign.center,
                                     ),
                                   ),
@@ -385,7 +383,6 @@ class UserHistoryAdminPageState extends State<UserHistoryAdminPage> {
             ],
           )
       ),
-
     );
   }
 }

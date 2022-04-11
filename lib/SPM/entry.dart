@@ -47,7 +47,6 @@ class EntryPageState extends State<EntryPage> {
     p.name = data["name"];
     p.role = data["roles"];
     p.noOfVisits = data["numberOfVisits"];
-
     return p;
   }
 
@@ -59,7 +58,7 @@ class EntryPageState extends State<EntryPage> {
       },
       body: jsonEncode(<String, String>{
         'membershipID': p.rollno,
-        'dateOfVisit': DateFormat('dd-MM-yyyy;hh:mm:ss').format(DateTime.now())
+        'dateOfVisit': DateFormat('dd-MM-yyyy;HH:mm:ss').format(DateTime.now())
       }),
     );
   }

@@ -72,7 +72,6 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
     );
   }
 
-
   Future blankInputs() async{
     return showDialog<void>(
       context: context,
@@ -91,10 +90,8 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                 ],
               ),
               actions: <Widget>[
-
                 Container(
                   margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       primary: Color(0xFF149F88), // background
@@ -108,10 +105,8 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                   ),
                 ),
               ],
-
             ),
           );
-
       },
     );
   }
@@ -147,7 +142,6 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
       s.receiptID = data1["receiptID"];
       s.paymentDate = data1["paymentDate"];
     }
-
     return s;
   }
 
