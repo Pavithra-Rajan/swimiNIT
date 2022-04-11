@@ -122,7 +122,12 @@ class  MembershipIdSearchState1 extends State<MembershipIdSearch1> {
                       _buildMembershipId(),
                        Visibility(
                          visible: isWrong,
-                         child: Text("Swimmer does not exist"),),
+                         child: Text("Swimmer does not exist",
+                           style: TextStyle(
+                             color: Colors.red,
+                           ),
+                         ),
+                       ),
 
                     ]
                 ),

@@ -348,7 +348,11 @@ class EditReceiptPageState extends State<EditReceiptPage>
               ),
             ),
               Visibility(visible:isWrong,
-                  child: Text("Swimmer does not exist")),
+                child: Text("Swimmer does not exist",
+                  style: TextStyle(
+                    color: Colors.red,
+                  ),
+                ),),
             ],),
         )
       ),

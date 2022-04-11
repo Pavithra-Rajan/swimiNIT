@@ -534,7 +534,14 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                 ),
               ),
               Visibility(
-                  visible: isWrong, child: Text("Swimmer does not exist")),
+                visible: isWrong,
+                child: Text(
+                  "Swimmer does not exist",
+                  style: TextStyle(
+                    color: Colors.red,
+                  ),
+                ),
+              ),
             ],
           ),
         )),
