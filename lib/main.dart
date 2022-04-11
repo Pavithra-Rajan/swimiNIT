@@ -73,6 +73,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
   Future<User?> loginUsingEmailPassword(
       {required String email,
       required String password,
@@ -188,8 +192,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController _emailController = TextEditingController();
-    TextEditingController _passwordController = TextEditingController();
     return Scaffold(
       body: Container(
         padding: EdgeInsets.all(0.0),
@@ -316,6 +318,7 @@ class WaveClipper extends CustomClipper<Path> {
   @override
   bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
     // TODO: implement shouldReclip
-    throw UnimplementedError();
+    //throw UnimplementedError();
+    return false;
   }
 }

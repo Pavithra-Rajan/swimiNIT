@@ -1,4 +1,3 @@
-import 'package:android_intent/android_intent.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:swiminit/Admin/pool_managers.dart';
@@ -62,8 +61,10 @@ class _AdminPageState extends State<AdminPage> {
       text = "Reports";
     } else if (currentPage == DrawerSections.logOut) {
       Future.delayed(Duration.zero, () async {
-        await _signOut().then((value) => Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => LoginScreen())));
+        _signOut();
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => LoginScreen())
+        );
       });
     }
 

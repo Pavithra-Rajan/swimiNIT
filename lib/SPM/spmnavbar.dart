@@ -42,7 +42,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     String text = "Entry";
     Widget container = Container();
-
     if (currentPage == DrawerSections.poolStatus) {
       container = PoolStatusPage();
       text = "Pool Status";
@@ -60,8 +59,13 @@ class _HomePageState extends State<HomePage> {
       text = "Edit Receipt Details";
     } else if (currentPage == DrawerSections.logOut) {
       Future.delayed(Duration.zero, () async {
-        await _signOut().then((value) => Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => LoginScreen())));
+        await _signOut();
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(
+                  builder: (context) => LoginScreen(),
+                  settings: RouteSettings(name: "/login")
+              )
+        );
       });
     }
 
