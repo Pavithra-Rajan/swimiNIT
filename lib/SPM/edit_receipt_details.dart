@@ -32,27 +32,37 @@ class EditReceiptPageState extends State<EditReceiptPage>
       context: context,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
-        return
-          Container(
-            margin: EdgeInsets.fromLTRB(10, 5, 10,3 ),
-            child: AlertDialog(
-              content: Stack(
-                children: [
-                  Text('Receipt details uploaded successfully',style: GoogleFonts.poppins(color: Color(0xFF149F88), fontSize: 30),),
-                ],
-              ),
-              actions: <Widget>[
-                TextButton(
-                  child: Text('Okay'),
-                  onPressed: () {
-                    Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                            builder: (context) => SPMNavBar()));
-                  },
+        return Container(
+          margin: EdgeInsets.fromLTRB(10, 5, 10, 3),
+          child: AlertDialog(
+            content: Stack(
+              children: [
+                Container(
+                  margin: EdgeInsets.fromLTRB(40, 8, 40, 50),
+                  child: Text('Receipt details uploaded successfully',
+                      style: GoogleFonts.poppins(
+                          color: Color(0xFF149F88), fontSize: 15),
+                      textAlign: TextAlign.center),
                 ),
+                Container(
+                  margin: EdgeInsets.fromLTRB(100, 70, 100, 5),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xFF149F88), // background
+                      onPrimary: Colors.white, // foreground
+                      minimumSize: Size(100, 45),
+                    ),
+                    child: Text('OK'),
+                    onPressed: () {
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => SPMNavBar()));
+                    },
+                  ),
+                )
               ],
             ),
-          );
+          ),
+        );
       },
     );
   }
