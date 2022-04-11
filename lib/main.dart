@@ -54,9 +54,7 @@ class _HomePageState extends State<HomePage> {
         future: _initializeFirebase(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-
             return LoginScreen();
-
           }
           return const Center(
             child: CircularProgressIndicator(),
@@ -79,7 +77,6 @@ class _LoginScreenState extends State<LoginScreen> {
       {required String email,
       required String password,
       required BuildContext context}) async {
-    // ignore: unnecessary_null_comparison
     if (email == "@swiminit.com" || password.isEmpty) {
       emptyInputs();
       return null;
@@ -89,7 +86,6 @@ class _LoginScreenState extends State<LoginScreen> {
     try {
       UserCredential userCredential = await auth.signInWithEmailAndPassword(
           email: email, password: password);
-      //print("Userlogged in: " + userCredential.user?.uid);
       user = userCredential.user;
       if (user != null) {
         print("User logged in: ");
@@ -194,7 +190,6 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     TextEditingController _emailController = TextEditingController();
     TextEditingController _passwordController = TextEditingController();
-    //print(_emailController);
     return Scaffold(
       body: Container(
         padding: EdgeInsets.all(0.0),
@@ -207,7 +202,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Container(
                       color: Color(0xFF14839F),
                       height: 180,
-                    ))),
+                    )
+                )
+            ),
             Text("Login",
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -254,37 +251,24 @@ class _LoginScreenState extends State<LoginScreen> {
                               email: _emailController.text + '@swiminit.com',
                               password: _passwordController.text,
                               context: context);
-                          print(user);
-
-                          print(user?.email);
                           if (user != null) {
-                            //final loginType = RegExp(r'/.+?(?=@)/');
                             String emailID = user.email.toString();
                             String result =
                                 emailID.substring(0, emailID.indexOf('@'));
-                            //print(result);
-                            //print(loginType.hasMatch(user.email.toString()));
                             if (result == 'admin') {
-                              print("admin logged in");
                               Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
-                                      builder: (context) => AdminNavBar()));
+                                      builder: (context) => AdminNavBar()
+                                  )
+                              );
                             } else {
                               Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
-                                      builder: (context) => SPMNavBar()));
+                                      builder: (context) => SPMNavBar()
+                                  )
+                              );
                             }
                           }
-
-                          // if (user != null) {
-                          //   print("executing this");
-                          //
-                          //   Navigator.of(context).pushReplacement(
-                          //       MaterialPageRoute(
-                          //           builder: (context) => AdminNavBar()));
-                          // }
-                          //Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          //   builder: (context) => AdminNavBar()));
                         },
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
@@ -295,7 +279,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             color: Colors.white,
                             fontSize: 14.0,
                           ),
-                        )))
+                        )
+                    )
+                )
               ],
             )
           ],

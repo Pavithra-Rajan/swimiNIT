@@ -33,6 +33,7 @@ class AdminPage extends StatefulWidget {
 class _AdminPageState extends State<AdminPage> {
   var currentPage = DrawerSections.poolManagers;
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
   _signOut() async {
     await _firebaseAuth.signOut();
   }
@@ -60,12 +61,12 @@ class _AdminPageState extends State<AdminPage> {
       container = QuarterlyReports();
       text = "Reports";
     } else if (currentPage == DrawerSections.logOut) {
-      Future.delayed(Duration.zero, () {
-      _signOut();
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));
+      Future.delayed(Duration.zero, () async {
+        await _signOut().then((value) => Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => LoginScreen())));
       });
     }
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
@@ -169,13 +170,7 @@ enum DrawerSections {
 void _contact() async {
   String url = 'mailto:pavithra.rajan01@gmail.com';
   if (await canLaunch(url)) {
-    AndroidIntent intent = AndroidIntent(
-      action: 'android.intent.action.MAIN',
-      category: 'android.intent.category.APP_EMAIL',
-    );
-    intent.launch().catchError((e) {
       launch(url);
-    });
   } else {
     throw 'Could not launch $url';
   }
