@@ -228,7 +228,6 @@ class RegistrationPageState extends State<RegistrationPage> {
         body: SingleChildScrollView(
           child: Container(
             margin: EdgeInsets.only(left: 35, top: 10, right: 35, bottom: 0),
-            child: Form(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -299,7 +298,6 @@ class RegistrationPageState extends State<RegistrationPage> {
               ),
             ),
           ),
-        ),
         bottomNavigationBar: Container(
           margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
           child: FractionallySizedBox(
@@ -460,7 +458,6 @@ class RegistrationPageState extends State<RegistrationPage> {
     receipt["paymentDate"] = p.datePaid;
     jsonvalue["details"] = details;
     jsonvalue["receipt"] = receipt;
-    print(jsonvalue);
     final response = await http.post(
       Uri.parse('https://swiminit.herokuapp.com/register'),
       headers: <String, String>{
