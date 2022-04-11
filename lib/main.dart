@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:swiminit/Admin/adminnavbar.dart';
-import 'package:swiminit/Admin/search.dart';
+import 'package:swiminit/Admin/quarterlyReportResults.dart';
 import 'package:swiminit/SPM/spmnavbar.dart';
 import 'package:swiminit/SPM/pool_status.dart';
 import 'firebase_options.dart';
@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
         future: _initializeFirebase(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            return Search();
+            return quarterlyReportsPage();
           }
           return const Center(
             child: CircularProgressIndicator(),
