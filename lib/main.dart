@@ -10,6 +10,7 @@ import 'firebase_options.dart';
 import 'package:swiminit/Admin/search_by_daterange_results.dart';
 import 'package:swiminit/Admin/adminaddspm.dart';
 import 'package:swiminit/Admin/edit_swimmer_details.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -53,7 +54,9 @@ class _HomePageState extends State<HomePage> {
         future: _initializeFirebase(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            return quarterlyReportsPage();
+
+            return LoginScreen();
+
           }
           return const Center(
             child: CircularProgressIndicator(),
@@ -72,23 +75,20 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
   Future<User?> loginUsingEmailPassword(
       {required String email,
       required String password,
       required BuildContext context}) async {
     // ignore: unnecessary_null_comparison
-    if(email == "@swiminit.com" || password.isEmpty)
-    {
-        emptyInputs();
-        return null;
+    if (email == "@swiminit.com" || password.isEmpty) {
+      emptyInputs();
+      return null;
     }
     FirebaseAuth auth = FirebaseAuth.instance;
     User? user;
     try {
       UserCredential userCredential = await auth.signInWithEmailAndPassword(
-          email: email, password: password
-      );
+          email: email, password: password);
       //print("Userlogged in: " + userCredential.user?.uid);
       user = userCredential.user;
       if (user != null) {
@@ -106,82 +106,86 @@ class _LoginScreenState extends State<LoginScreen> {
     return user;
   }
 
-  Future wrongInputs() async
-  {
+  Future wrongInputs() async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
-        return
-          Container(
-            margin: EdgeInsets.fromLTRB(0, 0, 0,0 ),
-            child: AlertDialog(
-              content: Stack(
-                children: [
-                  Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    child: Text('Invalid credentials',style: GoogleFonts.poppins(color: Color(0xFF14839F), fontSize: 16),),
-                  ),
-                ],
-              ),
-              actions: <Widget>[
+        return Container(
+          margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+          child: AlertDialog(
+            content: Stack(
+              children: [
                 Container(
                   margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Color(0xFF14839F), // background
-                      onPrimary: Colors.white, // foreground
-                      minimumSize: Size(100,45),
-                    ),
-                    child: Text('OK'),
-                    onPressed: () {
-                      Navigator.pop(context, 'OK');
-                    },
+                  child: Text(
+                    'Invalid credentials',
+                    style: GoogleFonts.poppins(
+                        color: Color(0xFF14839F), fontSize: 16),
                   ),
                 ),
               ],
             ),
-          );
+            actions: <Widget>[
+              Container(
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Color(0xFF14839F), // background
+                    onPrimary: Colors.white, // foreground
+                    minimumSize: Size(100, 45),
+                  ),
+                  child: Text('OK'),
+                  onPressed: () {
+                    Navigator.pop(context, 'OK');
+                  },
+                ),
+              ),
+            ],
+          ),
+        );
       },
     );
   }
 
-  Future emptyInputs() async
-  {
+  Future emptyInputs() async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
-        return
-          Container(
-            margin: EdgeInsets.fromLTRB(0, 0, 0,0 ),
-            child: AlertDialog(
-              content: Stack(
-                children: [
-                  Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    child: Text('Enter all the fields',style: GoogleFonts.poppins(color: Color(0xFF14839F), fontSize: 16),),
-                  ),
-                ],
-              ),
-              actions: <Widget>[
+        return Container(
+          margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+          child: AlertDialog(
+            content: Stack(
+              children: [
                 Container(
                   margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Color(0xFF14839F), // background
-                      onPrimary: Colors.white, // foreground
-                      minimumSize: Size(100,45),
-                    ),
-                    child: Text('OK'),
-                    onPressed: () {
-                      Navigator.pop(context, 'OK');
-                    },
+                  child: Text(
+                    'Enter all the fields',
+                    style: GoogleFonts.poppins(
+                        color: Color(0xFF14839F), fontSize: 16),
                   ),
                 ),
               ],
             ),
-          );
+            actions: <Widget>[
+              Container(
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Color(0xFF14839F), // background
+                    onPrimary: Colors.white, // foreground
+                    minimumSize: Size(100, 45),
+                  ),
+                  child: Text('OK'),
+                  onPressed: () {
+                    Navigator.pop(context, 'OK');
+                  },
+                ),
+              ),
+            ],
+          ),
+        );
       },
     );
   }
@@ -249,8 +253,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           User? user = await loginUsingEmailPassword(
                               email: _emailController.text + '@swiminit.com',
                               password: _passwordController.text,
-                              context: context
-                          );
+                              context: context);
                           print(user);
 
                           print(user?.email);
@@ -292,9 +295,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             color: Colors.white,
                             fontSize: 14.0,
                           ),
-                        )
-                    )
-                )
+                        )))
               ],
             )
           ],
