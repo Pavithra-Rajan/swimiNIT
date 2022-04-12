@@ -4,7 +4,6 @@ import 'package:swiminit/Admin/pool_managers.dart';
 import 'package:swiminit/Admin/search.dart';
 import 'package:swiminit/Admin/pending_dues.dart';
 import 'package:swiminit/Admin/edit_swimmer_details.dart';
-import 'package:swiminit/Admin/user_history.dart';
 import 'package:swiminit/Admin/admin_drawer_file.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:swiminit/Admin/quaterly_reports.dart';
@@ -33,6 +32,7 @@ class AdminPage extends StatefulWidget {
 class _AdminPageState extends State<AdminPage> {
   var currentPage = DrawerSections.poolManagers;
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
   _signOut() async {
     await _firebaseAuth.signOut();
   }
@@ -55,18 +55,19 @@ class _AdminPageState extends State<AdminPage> {
     } else if (currentPage == DrawerSections.sendMail) {
       _contact();
       container = ViewPoolManagers();
-
       text = "Pool Managers";
     } else if (currentPage == DrawerSections.reports) {
       container = QuarterlyReports();
       text = "Reports";
     } else if (currentPage == DrawerSections.logOut) {
-      Future.delayed(Duration.zero, () {
-      _signOut();
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));
+      Future.delayed(Duration.zero, () async {
+        _signOut();
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => LoginScreen())
+        );
       });
     }
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
@@ -168,10 +169,9 @@ enum DrawerSections {
 }
 
 void _contact() async {
-  const url = 'mailto:pavithra.rajan01@gmail.com';
-
+  String url = 'mailto:pavithra.rajan01@gmail.com';
   if (await canLaunch(url)) {
-    await launch(url);
+      launch(url);
   } else {
     throw 'Could not launch $url';
   }

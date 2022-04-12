@@ -28,10 +28,10 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
   final TextEditingController _emailIDController = TextEditingController();
   final TextEditingController _contact1Controller = TextEditingController();
   final TextEditingController _contact2Controller = TextEditingController();
-  bool _text1Controller_bool = false;
-  bool _text2Controller_bool = false;
-  bool _text3Controller_bool = false;
-  bool _text4Controller_bool = false;
+  bool _text1ControllerBool = false;
+  bool _text2ControllerBool = false;
+  bool _text3ControllerBool = false;
+  bool _text4ControllerBool = false;
 
   Future<void> popupSwimmerDetailsUpdated() async {
     return showDialog<void>(
@@ -81,7 +81,7 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
     );
   }
 
-  Future blankInputs() async {
+  Future blankInputs() async{
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
@@ -154,7 +154,6 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
       s.receiptID = data1["receiptID"];
       s.paymentDate = data1["paymentDate"];
     }
-
     return s;
   }
 
@@ -240,7 +239,7 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                       Align(
                         alignment: Alignment(-0.75, 1),
                         child: Text(
-                          _text1Controller_bool ? "*Invalid input" : "",
+                          _text1ControllerBool ? "*Invalid input" : "",
                           style: GoogleFonts.poppins(
                               color: Colors.red, fontSize: 12),
                         ),
@@ -315,7 +314,7 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                       Align(
                         alignment: Alignment(-0.75, 1),
                         child: Text(
-                          _text2Controller_bool ? "*Invalid input" : "",
+                          _text2ControllerBool ? "*Invalid input" : "",
                           style: GoogleFonts.poppins(
                               color: Colors.red, fontSize: 12),
                         ),
@@ -353,7 +352,7 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                       Align(
                         alignment: Alignment(-0.75, 1),
                         child: Text(
-                          _text3Controller_bool ? "*Invalid input" : "",
+                          _text3ControllerBool ? "*Invalid input" : "",
                           style: GoogleFonts.poppins(
                               color: Colors.red, fontSize: 12),
                         ),
@@ -391,7 +390,7 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                       Align(
                         alignment: Alignment(-0.75, 1),
                         child: Text(
-                          _text4Controller_bool ? "*Invalid input" : "",
+                          _text4ControllerBool ? "*Invalid input" : "",
                           style: GoogleFonts.poppins(
                               color: Colors.red, fontSize: 12),
                         ),
@@ -612,19 +611,19 @@ class _EditSwimmerDetailsState extends State<EditSwimmerPage> {
                 ),
                 onPressed: () => {
                   setState(() {
-                    _text1Controller_bool = false;
-                    _text2Controller_bool = false;
-                    _text3Controller_bool = false;
-                    _text4Controller_bool = false;
+                    _text1ControllerBool = false;
+                    _text2ControllerBool = false;
+                    _text3ControllerBool = false;
+                    _text4ControllerBool = false;
 
-                    if (_nameController.text.length == 0) {
-                      _text1Controller_bool = true;
-                    } else if (_emailIDController.text.length == 0) {
-                      _text2Controller_bool = true;
+                    if (_nameController.text.isEmpty) {
+                      _text1ControllerBool = true;
+                    } else if (_emailIDController.text.isEmpty) {
+                      _text2ControllerBool = true;
                     } else if (_contact1Controller.text.length != 10) {
-                      _text3Controller_bool = true;
+                      _text3ControllerBool = true;
                     } else if (_contact2Controller.text.length != 10) {
-                      _text4Controller_bool = true;
+                      _text4ControllerBool = true;
                     } else {
                       editSwimmerDetails();
                       popupSwimmerDetailsUpdated();

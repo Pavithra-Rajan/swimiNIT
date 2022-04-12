@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:swiminit/SPM/search.dart';
 import 'package:swiminit/SPM/edit_receipt_details.dart';
@@ -31,11 +32,16 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   var currentPage = DrawerSections.poolStatus;
 
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
+  _signOut() async {
+    await _firebaseAuth.signOut();
+  }
+
   @override
   Widget build(BuildContext context) {
     String text = "Entry";
     Widget container = Container();
-
     if (currentPage == DrawerSections.poolStatus) {
       container = PoolStatusPage();
       text = "Pool Status";
@@ -52,9 +58,14 @@ class _HomePageState extends State<HomePage> {
       container = EditReceiptPage();
       text = "Edit Receipt Details";
     } else if (currentPage == DrawerSections.logOut) {
-      Future.delayed(Duration.zero, () {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => MyApp()));
+      Future.delayed(Duration.zero, () async {
+        await _signOut();
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(
+                  builder: (context) => LoginScreen(),
+                  settings: RouteSettings(name: "/login")
+              )
+        );
       });
     }
 
