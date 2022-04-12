@@ -342,7 +342,7 @@ class RegistrationPageState extends State<RegistrationPage> {
                   p.datePaid = _paymentDateController.text;
                   p.amtPaid = _moneyPaidController.text;
                 }
-                swimmerRegistration();
+                submitted = !(swimmerRegistration() as bool);
                 _nameController.clear();
                 _memIDController.clear();
                 _mailIDController.clear();
@@ -352,7 +352,7 @@ class RegistrationPageState extends State<RegistrationPage> {
                 _paymentDateController.clear();
                 _moneyPaidController.clear();
                 setState(() {
-                  submitted = true;
+                  submitted = !submitted;
                 });
               },
             ),
@@ -440,7 +440,7 @@ class RegistrationPageState extends State<RegistrationPage> {
     );
   }
 
-  Future swimmerRegistration() async
+  Future<bool> swimmerRegistration() async
   {
     var jsonvalue = {};
     var details = {};
@@ -469,6 +469,8 @@ class RegistrationPageState extends State<RegistrationPage> {
     if(response.statusCode != 200)
     {
       repeatID();
+      return false;
     }
+    return true;
   }
 }
