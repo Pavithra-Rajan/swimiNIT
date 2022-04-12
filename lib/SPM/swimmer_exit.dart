@@ -1,6 +1,5 @@
 import 'package:http/http.dart' as http;
 import 'package:swiminit/SPM/exit_class.dart';
-// import 'package:swiminit/Admin/pool_status_class.dart';
 
 import 'dart:convert';
 class PoolExitServices {
@@ -18,7 +17,6 @@ class PoolExitServices {
 
       if(200==response.statusCode)
         {
-
           return ExitSwimmers.fromJson(jsonDecode(response.body));
         }
 

@@ -47,6 +47,63 @@ class _ViewPoolManagers extends State<ViewPoolManagers> {
     return duesData;
   }
 
+  Future confirmExit(String rno) async{
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return
+          Container(
+            margin: EdgeInsets.fromLTRB(0, 0, 0,0 ),
+            child: AlertDialog(
+              content: Stack(
+                children: [
+                  Container(
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    child: Text('Are you sure?', style: GoogleFonts.poppins(color: Color(0xFF149F88), fontSize: 16),),
+                  ),
+                ],
+              ),
+              actions: <Widget>[
+                Container(
+                  margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xFF149F88), // background
+                      onPrimary: Colors.white, // foreground
+                      minimumSize: Size(100,45),
+                    ),
+                    child: Text('OK'),
+                    onPressed: () async {
+                      await delSPM(rno).then((value) => Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                              builder: (context) => AdminNavBar())));
+                    },
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xFF149F88), // background
+                      onPrimary: Colors.white, // foreground
+                      minimumSize: Size(100,45),
+                    ),
+                    child: Text('Go back'),
+                    onPressed: () {
+                      Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                              builder: (context) => AdminNavBar()));
+                    },
+                  ),
+                ),
+              ],
+            ),
+          );
+      },
+    );
+  }
+
   Future delSPM(String cont1) async{
     String contact1 = cont1;
     await http.delete(Uri.parse('https://swiminit.herokuapp.com/deleteSPM?contact1=$contact1'));
@@ -82,7 +139,10 @@ class _ViewPoolManagers extends State<ViewPoolManagers> {
                         child: CircularProgressIndicator(),
                       );
                     }
-                  }))),
+                  }
+                  )
+          )
+      ),
       bottomNavigationBar: Container(
           margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
           child: FractionallySizedBox(
@@ -173,10 +233,11 @@ class _ViewPoolManagers extends State<ViewPoolManagers> {
                     width: MediaQuery.of(context).size.width * 0.5,
                     child: RawMaterialButton(
                       onPressed: () async{
-                        await delSPM(managers.contact1).then((value) => getSPM());
-                        Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                                builder: (context) => AdminNavBar()));
+                        await confirmExit(managers.contact1).then((value) => getSPM());
+                        // await delSPM(managers.contact1).then((value) => getSPM());
+                        // Navigator.of(context).pushReplacement(
+                        //     MaterialPageRoute(
+                        //         builder: (context) => AdminNavBar()));
                         },
                       child: Text(
                         "Delete",

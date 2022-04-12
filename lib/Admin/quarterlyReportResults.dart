@@ -71,9 +71,7 @@ class quarterlyReportsPageState extends State<quarterlyReportsPage> {
       appBar: AppBar(
         centerTitle: false,
         backgroundColor: Color(0xFF14839F),
-
         title: Text('Results',
-
           style: GoogleFonts.poppins(color: Colors.white),
         ),
       ),
@@ -217,8 +215,6 @@ class quarterlyReportsPageState extends State<quarterlyReportsPage> {
                       ),
                   ],
                 );
-                //var items = data.data as List<ProductDataModel>;
-
               } else {
                 return Center(
                   child: CircularProgressIndicator(),
@@ -228,53 +224,6 @@ class quarterlyReportsPageState extends State<quarterlyReportsPage> {
           ),
         ),
       ),
-      bottomNavigationBar: Container(
-        margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-        child: FractionallySizedBox(
-          widthFactor: 1,
-          heightFactor: 0.07,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              primary: Color(0xFF14839F), //background color of button
-              //border width and color
-              elevation: 0, //elevation of button
-              shape: RoundedRectangleBorder(
-                //to set border radius to button
-                  borderRadius: BorderRadius.circular(0)),
-              //content padding inside button
-            ),
-            child: Text(
-              'Download',
-              style: TextStyle(color: Colors.white, fontSize: 16),
-            ),
-            onPressed: () => {},
-          ),
-        ),
-      ),
     );
   }
 }
-
-// bottomNavigationBar: Container(
-// margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-// child: FractionallySizedBox(
-// widthFactor: 1,
-// heightFactor: 0.07,
-// child: ElevatedButton(
-// style: ElevatedButton.styleFrom(
-// primary: Color(0xFF14839F), //background color of button
-// //border width and color
-// elevation: 0, //elevation of button
-// shape: RoundedRectangleBorder(
-// //to set border radius to button
-// borderRadius: BorderRadius.circular(0)),
-// //content padding inside button
-// ),
-// child: Text(
-// 'Add',
-// style: TextStyle(color: Colors.white, fontSize: 16),
-// ),
-// onPressed: () => {},
-// ),
-// )),
-// );

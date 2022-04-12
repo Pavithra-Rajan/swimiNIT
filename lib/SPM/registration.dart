@@ -317,7 +317,7 @@ class RegistrationPageState extends State<RegistrationPage> {
                 'Submit',
                 style: TextStyle(color: Colors.white, fontSize: 16),
               ),
-              onPressed: () {
+              onPressed: () async {
                 if(_nameController.text.isEmpty || _memIDController.text.isEmpty || _mailIDController.text.isEmpty || _contact1Controller.text.isEmpty || _contact2Controller.text.isEmpty)
                   {
                     //show popup telling to fill details
@@ -348,7 +348,7 @@ class RegistrationPageState extends State<RegistrationPage> {
                   p.datePaid = _paymentDateController.text;
                   p.amtPaid = _moneyPaidController.text;
                 }
-                submitted = !(swimmerRegistration() as bool);
+                submitted = await swimmerRegistration();
                 _nameController.clear();
                 _memIDController.clear();
                 _mailIDController.clear();
@@ -358,7 +358,7 @@ class RegistrationPageState extends State<RegistrationPage> {
                 _paymentDateController.clear();
                 _moneyPaidController.clear();
                 setState(() {
-                  submitted = !submitted;
+                  submitted = submitted;
                 });
               },
             ),

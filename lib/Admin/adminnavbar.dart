@@ -38,8 +38,10 @@ class _AdminPageState extends State<AdminPage> {
   }
   @override
   Widget build(BuildContext context) {
+
     Widget container = Container();
     String text = "Pool Managers";
+
     if (currentPage == DrawerSections.poolManagers) {
       container = ViewPoolManagers();
       text = "Pool Managers";
@@ -56,6 +58,9 @@ class _AdminPageState extends State<AdminPage> {
       _contact();
       container = ViewPoolManagers();
       text = "Pool Managers";
+      setState(() {
+        currentPage = DrawerSections.poolManagers;
+      });
     } else if (currentPage == DrawerSections.reports) {
       container = QuarterlyReports();
       text = "Reports";
@@ -169,7 +174,7 @@ enum DrawerSections {
 }
 
 void _contact() async {
-  String url = 'mailto:pavithra.rajan01@gmail.com';
+  String url = 'mailto:students@nitc.ac.in';
   if (await canLaunch(url)) {
       launch(url);
   } else {

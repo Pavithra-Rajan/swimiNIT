@@ -143,9 +143,7 @@ Future proceedExit(String rno) async{
                               margin: EdgeInsets.fromLTRB(40, 6, 0, 5),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-
                                 children: <Widget>[
-
                                   Text(p.name,
                                     //textAlign: TextAlign.center,
                                     style: GoogleFonts.poppins(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
@@ -153,7 +151,6 @@ Future proceedExit(String rno) async{
                                   Text('Entered at '+p.enteredAt.split(";")[1],
                                     style: GoogleFonts.poppins(color: Colors.black, fontSize: 14),
                                   ),
-
                                 ],
                               ),
                             )
@@ -168,10 +165,6 @@ Future proceedExit(String rno) async{
                                   Text(p.rollno,
                                     style: GoogleFonts.poppins(color: Colors.black, fontSize: 12),
                                   )
-
-                                  // Text(p.rollno,
-                                  //   style: GoogleFonts.poppins(color: Colors.black, fontSize: 12),
-                                  // )
                                 ],
                               ),
                             )
