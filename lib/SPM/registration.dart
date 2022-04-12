@@ -324,6 +324,12 @@ class RegistrationPageState extends State<RegistrationPage> {
                     blankInputs();
                     return;
                   }
+                if(isVisible==true &&(_receiptIDController.text.isEmpty || _moneyPaidController.text.isEmpty || _paymentDateController.text.isEmpty))
+                {
+                  //show popup telling to fill details
+                  blankInputs();
+                  return;
+                }
                 p = Person(_nameController.text,
                     "profileImg",
                     _memIDController.text,
