@@ -2,10 +2,14 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:swiminit/SPM/receipt_valid_service.dart';
 import 'package:swiminit/SPM/spmnavbar.dart';
 import 'person.dart';
 import 'package:intl/intl.dart';
 import 'package:swiminit/Admin/checkClassService.dart';
+import 'package:swiminit/SPM/receiptIDerrorService.dart';
+import 'package:swiminit/SPM/receiptIDerror.dart';
+import 'package:swiminit/SPM/receipt_valid_class.dart';
 class EditReceiptPage extends StatefulWidget {
   const EditReceiptPage({Key? key}) : super(key: key);
 
@@ -21,7 +25,7 @@ class EditReceiptPageState extends State<EditReceiptPage>
   currState state = currState.searching;
   Person p = Person("name", "profileImg", "rollno", "enteredAt", 0, 0, "receiptID", "amtPaid", "datePaid", "role", "mailID", "contact1", "contact2");
   String membershipID = "-1";
-  final TextEditingController _recieptController = TextEditingController();
+  var  _recieptController = TextEditingController();
   final TextEditingController _moneyPaidController = TextEditingController();
   final TextEditingController _membIDController = TextEditingController();
 
@@ -95,6 +99,7 @@ class EditReceiptPageState extends State<EditReceiptPage>
     p.dues = data["dues"];
     p.role = data["roles"];
     p.mailID = data["emailID"];
+
     return p;
   }
 
@@ -106,6 +111,8 @@ class EditReceiptPageState extends State<EditReceiptPage>
     details["paymentDate"] = DateFormat('dd-MM-yyyy').format(_selectedDate);
     details["receiptID"] = _recieptController.text;
     jsonvalue["details"] = details;
+    print(details["moneyPaid"]);
+
     await http.put(
       Uri.parse('https://swiminit.herokuapp.com/editReceiptDetails'),
       headers: <String, String>{
@@ -157,171 +164,309 @@ class EditReceiptPageState extends State<EditReceiptPage>
   Widget detailsWidget(Person p) {
     return Padding(
       padding: EdgeInsets.all(0),
-      child: FutureBuilder(
-          future: getSwimmer(),
-          builder: (context, data) {
-            if (data.hasError) {
-              return Center(child: Text("${data.error}"));
-            } else if (data.hasData) {
-              return Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 20,),
-                    Align(
-                      alignment: Alignment(-0.75, 1),
-                      child: Text(
-                        "Membership ID",
-                        style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    Align(
-                      alignment: Alignment(-0.75, 1),
-                      child: Text(
-                        p.rollno,
-                        style: GoogleFonts.poppins(),
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    Align(
-                      alignment: Alignment(-0.75, 1),
-                      child: Text(
-                        "Name",
-                        style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    Align(
-                      alignment: Alignment(-0.75, 1),
-                      child: Text(
-                        p.name,
-                        style: GoogleFonts.poppins(),
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    Align(
-                      alignment: Alignment(-0.75, 1),
-                      child: Text(
-                        "Role",
-                        style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    Align(
-                      alignment: Alignment(-0.75, 1),
-                      child: Text(
-                        p.role,
-                        style: GoogleFonts.poppins(),
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    Align(
-                      alignment: Alignment(-0.75, 1),
-                      child: Text(
-                        "Email ID",
-                        style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    Align(
-                      alignment: Alignment(-0.75, 1),
-                      child: Text(
-                        p.mailID,
-                        style: GoogleFonts.poppins(),
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    Align(
-                      alignment: Alignment(-0.3, 1),
-                      child: SizedBox(
-                        width: 300,
-                        child: TextField(
-                          autocorrect: false,
-                          cursorColor: Color(0xFF14839F),
-                          controller: _recieptController,
-                          decoration: const InputDecoration(
-                              hintText: "Receipt ID",
+      child:Column(
+        children: <Widget>[
+          FutureBuilder(
+              future: getSwimmer(),
+              builder: (context, data) {
+                if (data.hasError) {
+                  return Center(child: Text("${data.error}"));
+                } else if (data.hasData) {
+                  return Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 20,),
+                        Align(
+                          alignment: Alignment(-0.75, 1),
+                          child: Text(
+                            "Membership ID",
+                            style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
                           ),
                         ),
-                      )
-                    ),
-                    SizedBox(height: 20),
-                    Align(
-                      alignment: Alignment(-0.75, 1),
-                      child: Text(
-                        "Date Of Payment",
-                        style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    Align(
-                        alignment: Alignment(-0.6, 1),
-                        child: Container(
-                            alignment: Alignment.centerLeft,
-                            width: 250,
-                            child: Stack(
-                                children: [
-                                  Align(
-                                      alignment: Alignment(-0.9, 0),
-                                    child: Text(
-                                      DateFormat('dd-MM-yyyy').format(_selectedDate),
-                                      style: GoogleFonts.poppins(),
-                                    )
-                                  ),
-                                  Align(
-                                    alignment: Alignment(0, 0),
-                                    child: RawMaterialButton(child: Icon(Icons.event_note), onPressed: _pickDateDialog),
-                                  ),
-                                ]
-                            )
-                        )
-                    ),
-                    SizedBox(height: 20),
-                    Align(
-                      alignment: Alignment(-0.75, 1),
-                      child: Text(
-                        "Quarterly fees",
-                        style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    SizedBox(height: 10,),
-                    Align(
-                      child: Stack(
-                        children: [
-                          Align(
-                            alignment: Alignment(-0.75, 0),
-                            child: Text(
-                              p.role=="Student"?"200":"500",
-                              style: GoogleFonts.poppins(),
-                            ),
+                        SizedBox(height: 10),
+                        Align(
+                          alignment: Alignment(-0.75, 1),
+                          child: Text(
+                            p.rollno,
+                            style: GoogleFonts.poppins(),
                           ),
-                            Align(
-                              alignment: Alignment(0.6, 0),
-                              child: SizedBox(
-                                width: 200,
-                                child: TextField(
-                                  controller: _moneyPaidController,
-                                  autocorrect: false,
-                                  cursorColor: Color(0xFF14839F),
-                                  decoration: const InputDecoration(
-                                    hintText: "Money Paid",
-                                    //prefixIcon: Icon(Icons.attach_money, color: Color(0xFF14839F)),
-                                  ),
-                                ),
+                        ),
+                        SizedBox(height: 20),
+                        Align(
+                          alignment: Alignment(-0.75, 1),
+                          child: Text(
+                            "Name",
+                            style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        Align(
+                          alignment: Alignment(-0.75, 1),
+                          child: Text(
+                            p.name,
+                            style: GoogleFonts.poppins(),
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        Align(
+                          alignment: Alignment(-0.75, 1),
+                          child: Text(
+                            "Role",
+                            style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        Align(
+                          alignment: Alignment(-0.75, 1),
+                          child: Text(
+                            p.role,
+                            style: GoogleFonts.poppins(),
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        Align(
+                          alignment: Alignment(-0.75, 1),
+                          child: Text(
+                            "Email ID",
+                            style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        Align(
+                          alignment: Alignment(-0.75, 1),
+                          child: Text(
+                            p.mailID,
+                            style: GoogleFonts.poppins(),
+                          ),
+                        ),
+                        SizedBox(height: 20),
+
+
+                      ]
+                  );
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              }),
+          FutureBuilder(
+            future: ReceiptIDerrorServices.receiptIDservices(membershipID),
+            builder:(context,data)
+            {
+              if(data.hasError)
+                {
+                  return Text("");
+                }
+              else if(data.hasData)
+                {
+                  var swimmers= data.data as ReceipIDreport;
+
+                  return Column(
+                    children: <Widget>[
+                      Align(
+                          alignment: Alignment(-0.3, 1),
+                          child: SizedBox(
+                            width: 300,
+                            child: TextField(
+                              autocorrect: false,
+                              cursorColor: Color(0xFF14839F),
+                              controller: _recieptController,
+                              decoration: const InputDecoration(
+                                hintText: "Receipt ID",
+                              ),
+                            ),
+                          )
+                      ),
+                      SizedBox(height: 20,),
+                      Align(
+                        alignment: Alignment(-0.75, 1),
+                        child: Text(
+                          "Date Of Payment",
+                          style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      Align(
+                          alignment: Alignment(-0.6, 1),
+                          child: Container(
+                              alignment: Alignment.centerLeft,
+                              width: 250,
+                              child: Stack(
+                                  children: [
+                                    Align(
+                                        alignment: Alignment(-0.9, 0),
+                                        child: Text(
+                                          DateFormat('dd-MM-yyyy').format(_selectedDate),
+                                          style: GoogleFonts.poppins(),
+                                        )
+                                    ),
+                                    Align(
+                                      alignment: Alignment(0, 0),
+                                      child: RawMaterialButton(child: Icon(Icons.event_note), onPressed: _pickDateDialog),
+                                    ),
+                                  ]
                               )
                           )
-                        ],
                       ),
-                    ),
-                  ]
-              );
-            } else {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
+                      SizedBox(height: 20),
+                      Align(
+                        alignment: Alignment(-0.75, 1),
+                        child: Text(
+                          "Quarterly fees",
+                          style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      SizedBox(height: 10,),
+                      Align(
+                        child: Stack(
+                          children: [
+                            Align(
+                              alignment: Alignment(-0.75, 0),
+                              child: Text(
+                                p.role=="Student"?"200":"500",
+                                style: GoogleFonts.poppins(),
+                              ),
+                            ),
+                            Align(
+                                alignment: Alignment(0.6, 0),
+                                child: SizedBox(
+                                  width: 200,
+                                  child: TextField(
+                                    controller: _moneyPaidController,
+                                    autocorrect: false,
+                                    cursorColor: Color(0xFF14839F),
+                                    decoration: const InputDecoration(
+                                      hintText: "Money Paid",
+                                      //prefixIcon: Icon(Icons.attach_money, color: Color(0xFF14839F)),
+                                    ),
+                                  ),
+                                )
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  );
+                }
+              else
+                {
+                  return Center(child: Text("Loading"));
+                }
             }
-          }),
+            ,
+          ),
+          FutureBuilder(
+              future:ReceiptIDvalidServices.receiptIDservices(membershipID),
+              builder:(context,data)
+          {
+              if(data.hasError)
+                {
+                  return Text("");
+                }
+              else if(data.hasData)
+                {
+
+                  var swimmers= data.data as ReceipIDreportValid ;
+                  _recieptController.text=swimmers.receipt.receiptId;
+                  return Column(
+                    children: <Widget>[
+                      SizedBox(height: 20),
+                      Align(
+                        alignment: Alignment(-0.75, 1),
+                        child: Text(
+                          "Receipt ID",
+                          style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      Align(
+                        alignment: Alignment(-0.75, 1),
+                        child: Text(
+                          swimmers.receipt.receiptId,
+                          style: GoogleFonts.poppins(),
+                        ),
+                      ),
+                      SizedBox(height: 20,),
+                      Align(
+                        alignment: Alignment(-0.75, 1),
+                        child: Text(
+                          "Date Of Payment",
+                          style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      Align(
+                          alignment: Alignment(-0.6, 1),
+                          child: Container(
+                              alignment: Alignment.centerLeft,
+                              width: 250,
+                              child: Stack(
+                                  children: [
+                                    Align(
+                                        alignment: Alignment(-0.9, 0),
+                                        child: Text(
+                                          DateFormat('dd-MM-yyyy').format(_selectedDate),
+                                          style: GoogleFonts.poppins(),
+                                        )
+                                    ),
+                                    Align(
+                                      alignment: Alignment(0, 0),
+                                      child: RawMaterialButton(child: Icon(Icons.event_note), onPressed: _pickDateDialog),
+                                    ),
+                                  ]
+                              )
+                          )
+                      ),
+                      SizedBox(height: 20),
+                      Align(
+                        alignment: Alignment(-0.75, 1),
+                        child: Text(
+                          "Quarterly fees",
+                          style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      SizedBox(height: 10,),
+                      Align(
+                        child: Stack(
+                          children: [
+                            Align(
+                              alignment: Alignment(-0.75, 0),
+                              child: Text(
+                                p.role=="Student"?"200":"500",
+                                style: GoogleFonts.poppins(),
+                              ),
+                            ),
+                            Align(
+                                alignment: Alignment(0.6, 0),
+                                child: SizedBox(
+                                  width: 200,
+                                  child: TextField(
+                                    controller: _moneyPaidController,
+                                    autocorrect: false,
+                                    cursorColor: Color(0xFF14839F),
+                                    decoration: const InputDecoration(
+                                      hintText: "Money Paid",
+                                      //prefixIcon: Icon(Icons.attach_money, color: Color(0xFF14839F)),
+                                    ),
+                                  ),
+                                )
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  );
+                }
+              else
+                {
+                  return Text("");
+                }
+          })
+        ],
+      ),
+
     );
   }
 

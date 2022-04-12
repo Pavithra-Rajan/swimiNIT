@@ -10,6 +10,7 @@ import 'firebase_options.dart';
 import 'package:swiminit/Admin/search_by_daterange_results.dart';
 import 'package:swiminit/Admin/adminaddspm.dart';
 import 'package:swiminit/Admin/edit_swimmer_details.dart';
+import 'package:swiminit/SPM/edit_receipt_details.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
