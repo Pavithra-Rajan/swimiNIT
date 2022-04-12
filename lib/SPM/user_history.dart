@@ -108,7 +108,7 @@ class UserHistorySPMPageState extends State<UserHistorySPMPage> {
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.end,
                                             children: <Widget>[
-                                              Text("5 visits",
+                                              Text( '${posts.numberOfVisits.toString()} visits' ,
                                                 style: GoogleFonts.poppins(
                                                     color: Colors.black, fontSize: 13),
                                               ),

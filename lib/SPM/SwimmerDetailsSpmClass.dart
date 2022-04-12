@@ -2,19 +2,16 @@
 //
 //     final swimmerDetailsSpm = swimmerDetailsSpmFromJson(jsonString);
 
-import 'dart:convert';
 
-// SwimmerDetailsSpm swimmerDetailsSpmFromJson(String str) => SwimmerDetailsSpm.fromJson(json.decode(str));
-//
-// String swimmerDetailsSpmToJson(SwimmerDetailsSpm data) => json.encode(data.toJson());
 
 class SwimmerDetailsSpm {
   SwimmerDetailsSpm({
     required this.dues,
-    required  this.emailId,
-    required  this.fees,
+    required this.emailId,
+    required this.fees,
     required this.membershipId,
-    required  this.name,
+    required this.name,
+    required this.numberOfVisits,
     required this.roles,
   });
 
@@ -23,6 +20,7 @@ class SwimmerDetailsSpm {
   int fees;
   String membershipId;
   String name;
+  int numberOfVisits;
   String roles;
 
   factory SwimmerDetailsSpm.fromJson(Map<String, dynamic> json) => SwimmerDetailsSpm(
@@ -31,8 +29,17 @@ class SwimmerDetailsSpm {
     fees: json["fees"],
     membershipId: json["membershipID"],
     name: json["name"],
+    numberOfVisits: json["numberOfVisits"],
     roles: json["roles"],
   );
 
-
+  Map<String, dynamic> toJson() => {
+    "dues": dues,
+    "emailID": emailId,
+    "fees": fees,
+    "membershipID": membershipId,
+    "name": name,
+    "numberOfVisits": numberOfVisits,
+    "roles": roles,
+  };
 }
