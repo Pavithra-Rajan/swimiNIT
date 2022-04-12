@@ -60,7 +60,6 @@ class QuarterlyReports extends StatelessWidget
                               ),
                             )
                     ),
-
                     Align(
                       alignment: Alignment.center,
                       child: Container(

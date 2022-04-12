@@ -9,7 +9,6 @@ class ProductDataModel {
   final String membershipID;
   final int moneyPaid;
 
-
   ProductDataModel(
       this.membershipID, this.paymentDate, this.receiptID, this.moneyPaid,
       );
@@ -29,13 +28,11 @@ class _CollectionsReportState extends State<CollectionsReport> {
     await http.get(Uri.parse('https://swiminit.herokuapp.com/getCollectionsReport'));
     var data = json.decode(response.body);
     List<ProductDataModel> duesData = [];
-
     for (var u in data['collectionInQuarter']) {
       String membershipID = u["membershipID"];
       int moneyPaid = u["moneyPaid"];
       String paymentDate = u["paymentDate"];
       String receiptID = u["receiptID"];
-
       ProductDataModel duesData1 =
       ProductDataModel(membershipID, paymentDate, receiptID, moneyPaid);
       duesData.add(duesData1);
@@ -45,16 +42,15 @@ class _CollectionsReportState extends State<CollectionsReport> {
 
   @override
   Widget build(BuildContext context) {
-    int i;
 
+    int i;
     List<Color> colors = [Color(0xFFFFFFFF), Color(0xFFD2EAF0)];
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
         backgroundColor: Color(0xFF14839F),
-
         title: Text('Results',
-
           style: GoogleFonts.poppins(color: Colors.white),
         ),
       ),
@@ -198,8 +194,6 @@ class _CollectionsReportState extends State<CollectionsReport> {
                       ),
                   ],
                 );
-                //var items = data.data as List<ProductDataModel>;
-
               } else {
                 return Center(
                   child: CircularProgressIndicator(),
